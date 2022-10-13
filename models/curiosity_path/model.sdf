@@ -2,7 +2,7 @@
 <sdf version='1.9'>
   <model name="curiosity_path">
       <static>1</static>
-      <link name='link'>
+      <link name="link">
         <inertial>
           <mass>0.25</mass>
           <inertia>
@@ -14,10 +14,10 @@
             <izz>0.00015</izz>
           </inertia>
         </inertial>
-        <collision name='collision'>
+        <collision name="collision">
           <geometry>
             <mesh>
-              <uri>package://simulation/models/curiosity_path/meshes/curiosity_path.stl</uri>
+              <uri>/home/spaceros-user/demos_ws/src/simulation/models/curiosity_path/meshes/curiosity_path.stl</uri>
               <scale>1 1 1</scale>
             </mesh>
           </geometry>
@@ -38,10 +38,10 @@
             </contact>
           </surface>
         </collision>
-        <visual name='visual'>
+        <visual name="visual">
           <geometry>
             <mesh>
-              <uri>package://simulation/models/curiosity_path/meshes/mars_path_simple1.dae</uri>
+              <uri>/home/spaceros-user/demos_ws/src/simulation/models/curiosity_path/meshes/mars_path_simple1.dae</uri>
               <scale>1 1 1</scale>
             </mesh>
           </geometry>
