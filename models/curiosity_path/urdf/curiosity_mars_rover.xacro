@@ -2,21 +2,21 @@
 <robot name="curiosity_mars_rover" xmlns:xacro="http://wiki.ros.org/xacro">
 
     <!-- Inertia matrices -->
-	<xacro:include filename="$(find simulation)/curiosity_path/urdf/macros.xacro" />
+	<xacro:include filename="$(find simulation)/models/curiosity_path/urdf/macros.xacro" />
 	<!-- Robot constants and properties -->
-	<xacro:include filename="$(find simulation)/curiosity_path/urdf/curiosity_mars_rover_properties.xacro" />
+	<xacro:include filename="$(find simulation)/models/curiosity_path/urdf/curiosity_mars_rover_properties.xacro" />
 	<!-- Gazebo aspects of the robot -->
-	<xacro:include filename="$(find simulation)/curiosity_path/urdf/curiosity_mars_rover.gazebo" />
+	<xacro:include filename="$(find simulation)/models/curiosity_path/urdf/curiosity_mars_rover.gazebo" />
 	<!-- Chasis -->
-	<xacro:include filename="$(find simulation)/curiosity_path/urdf/chassis.xacro" />
+	<xacro:include filename="$(find simulation)/models/curiosity_path/urdf/chassis.xacro" />
 	<!-- Wheel Groups -->
-	<xacro:include filename="$(find simulation)/curiosity_path/urdf/wheel.xacro" />
-	<xacro:include filename="$(find simulation)/curiosity_path/urdf/left_wheel_group.xacro" />
-	<xacro:include filename="$(find simulation)/curiosity_path/urdf/right_wheel_group.xacro" />
+	<xacro:include filename="$(find simulation)/models/curiosity_path/urdf/wheel.xacro" />
+	<xacro:include filename="$(find simulation)/models/curiosity_path/urdf/left_wheel_group.xacro" />
+	<xacro:include filename="$(find simulation)/models/curiosity_path/urdf/right_wheel_group.xacro" />
 	<!-- Arm -->
-	<xacro:include filename="$(find simulation)/curiosity_path/urdf/arm.xacro" />
+	<xacro:include filename="$(find simulation)/models/curiosity_path/urdf/arm.xacro" />
 	<!-- Sensor Mast -->
-	<xacro:include filename="$(find simulation)/curiosity_path/urdf/sensor_mast.xacro" />
+	<xacro:include filename="$(find simulation)/models/curiosity_path/urdf/sensor_mast.xacro" />
 
 	<xacro:chassis_body/>
 	<xacro:left_wheel_tree/>
