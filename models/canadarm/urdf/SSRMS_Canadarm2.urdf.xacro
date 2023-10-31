@@ -9,12 +9,12 @@ The link CoM locations (with respect to link frame) are set to zero as the inert
  -->
 <robot name="SSRMS_Canadarm2" xmlns:xacro="http://wiki.ros.org/xacro">
 
-  <xacro:arg name="xyz" default="0.0 0.0 2.0" />
-  <xacro:arg name="rpy" default="0.0 0.0 0.0" />
+  <xacro:arg name="xyz" default="0.5 0.0 1.5" />
+  <xacro:arg name="rpy" default="3.1416 0.0 0.0" />
 
   <!-- Gazebo - ROS2 Control macro -->
   <xacro:include filename="$(find simulation)/models/canadarm/urdf/SSRMS_Canadarm2.gazebo.xacro" />
-  <xacro:ssrms_canadarm2_gazebo/>
+  <xacro:ssrms_canadarm2_gazebo command_interface="position" />
   
   <link name="world" />
   
