@@ -268,6 +268,32 @@
         <origin xyz="0.13642 -0.218683 0.222314" rpy="0 0 ${-PI/2}"/>
     </joint>
 
+  	<link name="lidar_link">
+        <!-- Inertial for gazebo to take it into account, Put 1gr weight -->
+        <inertial>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <mass value="0.001" />
+            <inertia ixx="9.1875e-09" ixy="0.0" ixz="0.0" iyy="9.1875e-09" iyz="0.0" izz="1.378125e-08"/>
+        </inertial>
+		<visual>
+            <origin rpy="0.0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <cylinder radius="0.05" length="0.02"/>
+            </geometry>
+            <material name="black"/>
+        </visual>
+	</link>
+
+    <gazebo reference="lidar_link">
+        <material>Gazebo/Black</material>
+    </gazebo>
+
+    <joint name="lidar_joint" type="fixed">
+        <parent link="mast_cameras"/>
+        <child link="lidar_link"/>
+        <origin xyz="0 0 0.325" rpy="0 0 ${-PI/2}"/>
+    </joint>
+
   </xacro:macro>
 
 </robot>
