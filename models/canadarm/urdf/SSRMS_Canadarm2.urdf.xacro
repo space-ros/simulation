@@ -75,7 +75,6 @@ The link CoM locations (with respect to link frame) are set to zero as the inert
     <collision>
       <origin rpy="0 -1.5708 0" xyz="0.25082 0 -0.175"/>
       <geometry>
-        <!--<mesh filename="$(find simulation)/models/canadarm/meshes/joint_combine_link3.stl" scale="1.0 1.0 1.0" />-->
         <mesh filename="$(find simulation)/models/canadarm/meshes/joint_v3_0.stl" scale="1.0 1.0 1.0" />        
       </geometry>
     </collision>
@@ -107,7 +106,6 @@ The link CoM locations (with respect to link frame) are set to zero as the inert
     <collision>
       <origin rpy="0 0 0" xyz="0.175 0 -0.25082"/>
       <geometry>
-        <!--<mesh filename="$(find simulation)/models/canadarm/meshes/joint_combine_link3.stl" scale="1.0 1.0 1.0" />-->
         <mesh filename="$(find simulation)/models/canadarm/meshes/joint_v3_0.stl" scale="1.0 1.0 1.0" />        
       </geometry>
     </collision>
@@ -140,7 +138,6 @@ The link CoM locations (with respect to link frame) are set to zero as the inert
     <collision>
       <origin rpy="0 -1.5708 0" xyz="0.25082 0 -0.175"/>
       <geometry>
-        <!--<mesh filename="$(find simulation)/models/canadarm/meshes/joint_combine_link3.stl" scale="1.0 1.0 1.0" />-->
         <mesh filename="$(find simulation)/models/canadarm/meshes/joint_v3_0.stl" scale="1.0 1.0 1.0" />
       </geometry>
     </collision>
@@ -154,7 +151,6 @@ The link CoM locations (with respect to link frame) are set to zero as the inert
     <collision>
       <origin rpy="-1.5708 0 -1.5708" xyz="0.25082 0 -0.175"/>
       <geometry>
-        <!--<mesh filename="$(find simulation)/models/canadarm/meshes/long_link_v2_1_curr.stl" scale="1.0 1.0 1.0" />-->
         <mesh filename="$(find simulation)/models/canadarm/meshes/long_link_1_v3_0.stl" scale="1.0 1.0 1.0" />
       </geometry>
     </collision>
@@ -168,7 +164,6 @@ The link CoM locations (with respect to link frame) are set to zero as the inert
     <collision>
       <origin rpy="0 1.5708 0" xyz="7.36082 0 -0.175"/>
       <geometry>
-        <!--<mesh filename="$(find simulation)/models/canadarm/meshes/joint_combine_link3.stl" scale="1.0 1.0 1.0" />-->
         <mesh filename="$(find simulation)/models/canadarm/meshes/joint_v3_0.stl" scale="1.0 1.0 1.0" />
       </geometry>
     </collision>
@@ -223,7 +218,6 @@ The link CoM locations (with respect to link frame) are set to zero as the inert
     <collision>
       <origin rpy="1.57 -3.14 1.57" xyz="-7.36082 0 -0.175"/>
       <geometry>
-        <!--<mesh filename="$(find simulation)/models/canadarm/meshes/long_link_2.stl" scale="1.0 1.0 1.0" />-->
         <mesh filename="$(find simulation)/models/canadarm/meshes/long_link_2_v3_0.stl" scale="1.0 1.0 1.0" />
       </geometry>
     </collision>
@@ -237,7 +231,6 @@ The link CoM locations (with respect to link frame) are set to zero as the inert
     <collision>
       <origin rpy="0 -1.57 0" xyz="-7.36082 0 -0.175"/>
       <geometry>
-        <!--<mesh filename="$(find simulation)/models/canadarm/meshes/joint_combine_link3.stl" scale="1.0 1.0 1.0" />-->
         <mesh filename="$(find simulation)/models/canadarm/meshes/joint_v3_0.stl" scale="1.0 1.0 1.0" />
       </geometry>
     </collision>
@@ -271,7 +264,6 @@ The link CoM locations (with respect to link frame) are set to zero as the inert
     <collision>
       <origin rpy="0 -3.14 0" xyz="0 0 0"/>
       <geometry>
-        <!--<mesh filename="$(find simulation)/models/canadarm/meshes/joint_combine_link3.stl" scale="1.0 1.0 1.0" />-->
         <mesh filename="$(find simulation)/models/canadarm/meshes/joint_v3_0.stl" scale="1.0 1.0 1.0" />
       </geometry>
     </collision>
@@ -304,7 +296,6 @@ The link CoM locations (with respect to link frame) are set to zero as the inert
     <collision>
       <origin rpy="0 -1.5708 0" xyz="0 0 0"/>
       <geometry>
-        <!--<mesh filename="$(find simulation)/models/canadarm/meshes/joint_combine_link3.stl" scale="1.0 1.0 1.0" />-->
         <mesh filename="$(find simulation)/models/canadarm/meshes/joint_v3_0.stl" scale="1.0 1.0 1.0" />        
       </geometry>
     </collision>
