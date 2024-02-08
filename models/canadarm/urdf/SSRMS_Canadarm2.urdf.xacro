@@ -204,7 +204,6 @@ The link CoM locations (with respect to link frame) are set to zero as the inert
     <collision>
       <origin rpy="0 1.5708 0" xyz="-0.25082 0 -0.175"/>
       <geometry>
-        <!--<mesh filename="$(find simulation)/models/canadarm/meshes/link_joint.stl" scale="1.0 1.0 1.0" />-->
         <mesh filename="$(find simulation)/models/canadarm/meshes/link_joint_v2_1.stl" scale="1.0 1.0 1.0" />
       </geometry>
     </collision>
