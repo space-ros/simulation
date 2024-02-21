@@ -35,13 +35,13 @@ The link CoM locations (with respect to link frame) are set to zero as the inert
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="$(find simulation)/models/canadarm/meshes/ee.dae" scale="1.0 1.0 1.0" />
+        <mesh filename="package://simulation/models/canadarm/meshes/ee.dae" scale="1.0 1.0 1.0" />
       </geometry>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="$(find simulation)/models/canadarm/meshes/ee.stl" scale="1.0 1.0 1.0" />
+        <mesh filename="package://simulation/models/canadarm/meshes/ee.stl" scale="1.0 1.0 1.0" />
       </geometry>
     </collision>
   </link>
@@ -69,13 +69,13 @@ The link CoM locations (with respect to link frame) are set to zero as the inert
     <visual>
       <origin rpy="0 -1.5708 0" xyz="0.25082 0 -0.175"/>
       <geometry>
-        <mesh filename="$(find simulation)/models/canadarm/meshes/joint_v3_0.dae" scale="1.0 1.0 1.0" />
+        <mesh filename="package://simulation/models/canadarm/meshes/joint_v3_0.dae" scale="1.0 1.0 1.0" />
       </geometry>
     </visual>
     <collision>
       <origin rpy="0 -1.5708 0" xyz="0.25082 0 -0.175"/>
       <geometry>
-        <mesh filename="$(find simulation)/models/canadarm/meshes/joint_v3_0.stl" scale="1.0 1.0 1.0" />        
+        <mesh filename="package://simulation/models/canadarm/meshes/joint_v3_0.stl" scale="1.0 1.0 1.0" />        
       </geometry>
     </collision>
   </link>
@@ -100,13 +100,13 @@ The link CoM locations (with respect to link frame) are set to zero as the inert
     <visual>
       <origin rpy="0 0 0" xyz="0.175 0 -0.25082"/>
       <geometry>
-        <mesh filename="$(find simulation)/models/canadarm/meshes/joint_v3_0.dae" scale="1.0 1.0 1.0" />
+        <mesh filename="package://simulation/models/canadarm/meshes/joint_v3_0.dae" scale="1.0 1.0 1.0" />
       </geometry>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="0.175 0 -0.25082"/>
       <geometry>
-        <mesh filename="$(find simulation)/models/canadarm/meshes/joint_v3_0.stl" scale="1.0 1.0 1.0" />        
+        <mesh filename="package://simulation/models/canadarm/meshes/joint_v3_0.stl" scale="1.0 1.0 1.0" />        
       </geometry>
     </collision>
   </link>
@@ -132,39 +132,39 @@ The link CoM locations (with respect to link frame) are set to zero as the inert
     <visual>
       <origin rpy="0 -1.5708 0" xyz="0.25082 0 -0.175"/>
       <geometry>
-        <mesh filename="$(find simulation)/models/canadarm/meshes/joint_v3_0.dae" scale="1.0 1.0 1.0" />
+        <mesh filename="package://simulation/models/canadarm/meshes/joint_v3_0.dae" scale="1.0 1.0 1.0" />
       </geometry>
     </visual>
     <collision>
       <origin rpy="0 -1.5708 0" xyz="0.25082 0 -0.175"/>
       <geometry>
-        <mesh filename="$(find simulation)/models/canadarm/meshes/joint_v3_0.stl" scale="1.0 1.0 1.0" />
+        <mesh filename="package://simulation/models/canadarm/meshes/joint_v3_0.stl" scale="1.0 1.0 1.0" />
       </geometry>
     </collision>
 
     <visual>
       <origin rpy="-1.5708 0 -1.5708" xyz="0.25082 0 -0.175"/>
       <geometry>
-        <mesh filename="$(find simulation)/models/canadarm/meshes/long_link_1_v3_0.dae" scale="1.0 1.0 1.0" />
+        <mesh filename="package://simulation/models/canadarm/meshes/long_link_1_v3_0.dae" scale="1.0 1.0 1.0" />
       </geometry>
     </visual>
     <collision>
       <origin rpy="-1.5708 0 -1.5708" xyz="0.25082 0 -0.175"/>
       <geometry>
-        <mesh filename="$(find simulation)/models/canadarm/meshes/long_link_1_v3_0.stl" scale="1.0 1.0 1.0" />
+        <mesh filename="package://simulation/models/canadarm/meshes/long_link_1_v3_0.stl" scale="1.0 1.0 1.0" />
       </geometry>
     </collision>
 
     <visual>
       <origin rpy="0 1.5708 0" xyz="7.36082 0 -0.175"/>
       <geometry>
-        <mesh filename="$(find simulation)/models/canadarm/meshes/joint_v3_0.dae" scale="1.0 1.0 1.0" />
+        <mesh filename="package://simulation/models/canadarm/meshes/joint_v3_0.dae" scale="1.0 1.0 1.0" />
       </geometry>
     </visual>
     <collision>
       <origin rpy="0 1.5708 0" xyz="7.36082 0 -0.175"/>
       <geometry>
-        <mesh filename="$(find simulation)/models/canadarm/meshes/joint_v3_0.stl" scale="1.0 1.0 1.0" />
+        <mesh filename="package://simulation/models/canadarm/meshes/joint_v3_0.stl" scale="1.0 1.0 1.0" />
       </geometry>
     </collision>
 
@@ -198,39 +198,39 @@ The link CoM locations (with respect to link frame) are set to zero as the inert
     <visual>
       <origin rpy="0 1.5708 0" xyz="-0.25082 0 -0.175"/>
       <geometry>
-        <mesh filename="$(find simulation)/models/canadarm/meshes/link_joint_v2_1.dae" scale="1.0 1.0 1.0" />
+        <mesh filename="package://simulation/models/canadarm/meshes/link_joint_v2_1.dae" scale="1.0 1.0 1.0" />
       </geometry>
     </visual>
     <collision>
       <origin rpy="0 1.5708 0" xyz="-0.25082 0 -0.175"/>
       <geometry>
-        <mesh filename="$(find simulation)/models/canadarm/meshes/link_joint_v2_1.stl" scale="1.0 1.0 1.0" />
+        <mesh filename="package://simulation/models/canadarm/meshes/link_joint_v2_1.stl" scale="1.0 1.0 1.0" />
       </geometry>
     </collision>
 
     <visual>
       <origin rpy="1.57 -3.14 1.57" xyz="-7.36082 0 -0.175"/>
       <geometry>
-        <mesh filename="$(find simulation)/models/canadarm/meshes/long_link_2_v3_0.dae" scale="1.0 1.0 1.0" />
+        <mesh filename="package://simulation/models/canadarm/meshes/long_link_2_v3_0.dae" scale="1.0 1.0 1.0" />
       </geometry>
     </visual>
     <collision>
       <origin rpy="1.57 -3.14 1.57" xyz="-7.36082 0 -0.175"/>
       <geometry>
-        <mesh filename="$(find simulation)/models/canadarm/meshes/long_link_2_v3_0.stl" scale="1.0 1.0 1.0" />
+        <mesh filename="package://simulation/models/canadarm/meshes/long_link_2_v3_0.stl" scale="1.0 1.0 1.0" />
       </geometry>
     </collision>
 
     <visual>
       <origin rpy="0 -1.57 0" xyz="-7.36082 0 -0.175"/>
       <geometry>
-        <mesh filename="$(find simulation)/models/canadarm/meshes/joint_v3_0.dae" scale="1.0 1.0 1.0" />
+        <mesh filename="package://simulation/models/canadarm/meshes/joint_v3_0.dae" scale="1.0 1.0 1.0" />
       </geometry>
     </visual>
     <collision>
       <origin rpy="0 -1.57 0" xyz="-7.36082 0 -0.175"/>
       <geometry>
-        <mesh filename="$(find simulation)/models/canadarm/meshes/joint_v3_0.stl" scale="1.0 1.0 1.0" />
+        <mesh filename="package://simulation/models/canadarm/meshes/joint_v3_0.stl" scale="1.0 1.0 1.0" />
       </geometry>
     </collision>
     
@@ -257,13 +257,13 @@ The link CoM locations (with respect to link frame) are set to zero as the inert
     <visual>
       <origin rpy="0 -3.14 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="$(find simulation)/models/canadarm/meshes/joint_v3_0.dae" scale="1.0 1.0 1.0" />
+        <mesh filename="package://simulation/models/canadarm/meshes/joint_v3_0.dae" scale="1.0 1.0 1.0" />
       </geometry>
     </visual>
     <collision>
       <origin rpy="0 -3.14 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="$(find simulation)/models/canadarm/meshes/joint_v3_0.stl" scale="1.0 1.0 1.0" />
+        <mesh filename="package://simulation/models/canadarm/meshes/joint_v3_0.stl" scale="1.0 1.0 1.0" />
       </geometry>
     </collision>
   </link>
@@ -289,13 +289,13 @@ The link CoM locations (with respect to link frame) are set to zero as the inert
     <visual>
       <origin rpy="0 -1.5708 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="$(find simulation)/models/canadarm/meshes/joint_v3_0.dae" scale="1.0 1.0 1.0" />
+        <mesh filename="package://simulation/models/canadarm/meshes/joint_v3_0.dae" scale="1.0 1.0 1.0" />
       </geometry>
     </visual>
     <collision>
       <origin rpy="0 -1.5708 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="$(find simulation)/models/canadarm/meshes/joint_v3_0.stl" scale="1.0 1.0 1.0" />        
+        <mesh filename="package://simulation/models/canadarm/meshes/joint_v3_0.stl" scale="1.0 1.0 1.0" />        
       </geometry>
     </collision>
 
@@ -322,13 +322,13 @@ The link CoM locations (with respect to link frame) are set to zero as the inert
     <visual>
       <origin rpy="0 -3.1415 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="$(find simulation)/models/canadarm/meshes/ee.dae" scale="1.0 1.0 1.0" />
+        <mesh filename="package://simulation/models/canadarm/meshes/ee.dae" scale="1.0 1.0 1.0" />
       </geometry>
     </visual>
     <collision>
       <origin rpy="0 -3.1415 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="$(find simulation)/models/canadarm/meshes/ee.stl" scale="1.0 1.0 1.0" />
+        <mesh filename="package://simulation/models/canadarm/meshes/ee.stl" scale="1.0 1.0 1.0" />
       </geometry>
     </collision>
 
