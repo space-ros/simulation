@@ -25,7 +25,7 @@
 			<origin xyz="0 0 0"
 					rpy="0 0 0"/>
 			<geometry>
-				<mesh filename="$(find simulation)/models/curiosity_path/meshes/chassis_full_fixed_glitch_v2.dae" scale="${scale_XYZ} ${scale_XYZ} ${scale_XYZ}"/>
+				<mesh filename="package://simulation/models/curiosity_path/meshes/chassis_full_fixed_glitch_v2.dae" scale="${scale_XYZ} ${scale_XYZ} ${scale_XYZ}"/>
 			</geometry>
 		</collision>
 
@@ -33,7 +33,7 @@
 			<origin xyz="0 0 0"
 					rpy="0 0 0"/>
 			<geometry>
-				<mesh filename="$(find simulation)/models/curiosity_path/meshes/chassis_full_fixed_glitch_v2.dae" scale="${scale_XYZ} ${scale_XYZ} ${scale_XYZ}"/>
+				<mesh filename="package://simulation/models/curiosity_path/meshes/chassis_full_fixed_glitch_v2.dae" scale="${scale_XYZ} ${scale_XYZ} ${scale_XYZ}"/>
 			</geometry>
 		</visual>
 
