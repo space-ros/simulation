@@ -44,7 +44,7 @@
               <uri>model://curiosity_path/meshes/mars_path_simple1.dae</uri>
               <scale>1 1 1</scale>
             </mesh>
-          </geometry>
+           </geometry>
           <!--
           <material>
             <script>
@@ -60,7 +60,51 @@
         </velocity_decay>
         <self_collide>0</self_collide>
         <kinematic>0</kinematic>
-        <gravity>1</gravity>        
-      </link>   
-  </model>
+        <gravity>1</gravity>
+      </link>
+      <include merge='true'>
+        <uri>model://HDU</uri>
+        <pose>-65.0 -75.0 -12.40 0 0 0</pose>
+      </include>
+      <include merge='true'>
+        <uri>model://MMSEV</uri>
+        <pose>-64.9 -75.8 -12.25 0 0 1.57</pose>
+      </include>
+      <model name = 'rock1'>
+        <include>
+          <uri>https://fuel.gazebosim.org/1.0/AndrejOrsula/models/lunar_rock9</uri>
+          <pose>-65.4 -72.9 -12.2 0 0 0.707</pose>
+        </include>
+      </model>
+      <model name = 'rock2'>
+        <include>
+          <uri>https://fuel.gazebosim.org/1.0/AndrejOrsula/models/lunar_rock9</uri>
+          <pose>-65.5 -71.9 -12.1 0 0 -1.57</pose>
+        </include>
+      </model>
+      <model name = 'rock3'>
+        <include>
+          <uri>https://fuel.gazebosim.org/1.0/AndrejOrsula/models/lunar_rock9</uri>
+          <pose>-66.5 -78.9 -12.69 0 0 0</pose>
+        </include>
+      </model>
+      <model name = 'rock4'>
+        <include>
+          <uri>https://fuel.gazebosim.org/1.0/AndrejOrsula/models/lunar_rock9</uri>
+          <pose>-65.2 -79.9 -12.8 0 0 0</pose>
+        </include>
+      </model>
+      <model name = 'rock5'>
+        <include>
+          <uri>https://fuel.gazebosim.org/1.0/AndrejOrsula/models/lunar_rock9</uri>
+          <pose>-65.9 -80.0 -12.8 0 0 0</pose>
+        </include>
+      </model>
+      <model name = 'rock6'>
+        <include>
+          <uri>https://fuel.gazebosim.org/1.0/AndrejOrsula/models/lunar_rock9</uri>
+          <pose>-67.2 -81.0 -12.85 0 0 1.57</pose>
+        </include>
+      </model>
+    </model>
 </sdf>

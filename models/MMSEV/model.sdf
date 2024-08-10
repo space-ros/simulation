@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sdf version='1.9'>
+  <model name='MMSEV'>
+    <pose>0 0 0 0 0 0</pose>
+    <self_collide>false</self_collide>
+    <static>true</static>
+    <link name="MMSEV/base_link">
+      <inertial>
+        <pose>0.00358 -0.03 .014 0 0 0</pose>
+        <mass>2.0</mass>
+        <inertia>
+          <ixx>0.0000460804</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.0000055421</iyy>
+          <iyz>0</iyz>
+          <izz>0.0000436519</izz>
+        </inertia>
+      </inertial>
+      <visual name="MMSEV/visual">
+        <pose>0 0 0 1.57 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>100 100 100</scale>
+            <uri>model://MMSEV/meshes/MMSEV.dae</uri>
+          </mesh>
+        </geometry>
+        <!-- <material> -->
+        <!--   <diffuse>1.0 1.0 1.0</diffuse> -->
+        <!--   <specular>1.0 1.0 1.0</specular> -->
+        <!--   <pbr> -->
+        <!--     <metal> -->
+        <!--       <albedo_map>model://MMSEV/materials/textures/HDU_01.jpg</albedo_map> -->
+        <!--     </metal> -->
+        <!--   </pbr> -->
+        <!-- </material> -->
+      </visual>
+      <collision name="MMSEV/collision">
+        <pose>0.00358 -0.03 .014 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>3.5 2.0 3.5</size>
+          </box>
+        </geometry>
+      </collision>
+    </link>
+    <!-- <plugin filename="ignition-gazebo-sensors-system" name="ignition::gazebo::systems::Sensors">
+      <render_engine>ogre2</render_engine>
+    </plugin> -->
+  </model>
+</sdf>
