@@ -18,10 +18,10 @@
         </inertia>
       </inertial>
       <visual name="HDU1/visual">
-        <pose>0 0 0 1.57 0 0</pose>
+        <pose>0 0 -0.1 1.57 0 0</pose>
         <geometry>
           <mesh>
-            <scale>0.001 0.001 0.001</scale>
+            <scale>0.01 0.01 0.01</scale>
             <uri>model://HDU/meshes/HDU1.obj</uri>
           </mesh>
         </geometry>
@@ -36,10 +36,10 @@
         <!-- </material> -->
       </visual>
       <visual name="HDU2/visual">
-        <pose>0 0 0 1.57 0 0</pose>
+        <pose>0 0 -0.1 1.57 0 0</pose>
         <geometry>
           <mesh>
-            <scale>0.001 0.001 0.001</scale>
+            <scale>0.01 0.01 0.01</scale>
             <uri>model://HDU/meshes/HDU2.obj</uri>
           </mesh>
         </geometry>
