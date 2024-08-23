@@ -21,8 +21,8 @@
         <pose>0 0 0 1.57 0 0</pose>
         <geometry>
           <mesh>
-            <scale>100 100 100</scale>
-            <uri>model://MMSEV/meshes/MMSEV.dae</uri>
+            <scale>0.1 0.1 0.1</scale>
+            <uri>model://MMSEV/meshes/MMSEV.obj</uri>
           </mesh>
         </geometry>
         <!-- <material> -->

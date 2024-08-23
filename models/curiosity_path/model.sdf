@@ -1,5 +1,7 @@
 <?xml version="1.0" ?>
 <sdf version='1.9'>
+  <plugin filename="ign-sim-particle-emitter-system" name="ign::sim::systems::ParticleEmitter">
+  </plugin>
   <model name="curiosity_path">
       <static>1</static>
       <link name="link">
@@ -106,5 +108,8 @@
           <pose>-67.2 -81.0 -12.85 0 0 1.57</pose>
         </include>
       </model>
+      <include>
+        <uri>https://fuel.gazebosim.org/1.0/openrobotics/models/fog generator</uri>
+      </include>
     </model>
 </sdf>

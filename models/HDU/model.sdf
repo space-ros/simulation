@@ -21,37 +21,37 @@
         <pose>0 0 0 1.57 0 0</pose>
         <geometry>
           <mesh>
-            <scale>1 1 1</scale>
-            <uri>model://HDU/meshes/HDU1.dae</uri>
+            <scale>0.001 0.001 0.001</scale>
+            <uri>model://HDU/meshes/HDU1.obj</uri>
           </mesh>
         </geometry>
-        <material>
-          <diffuse>1.0 1.0 1.0</diffuse>
-          <specular>1.0 1.0 1.0</specular>
-          <pbr>
-            <metal>
-              <albedo_map>model://HDU/materials/textures/HDU_01.jpg</albedo_map>
-            </metal>
-          </pbr>
-        </material>
+        <!-- <material> -->
+        <!--   <diffuse>1.0 1.0 1.0</diffuse> -->
+        <!--   <specular>1.0 1.0 1.0</specular> -->
+        <!--   <pbr> -->
+        <!--     <metal> -->
+        <!--       <albedo_map>model://HDU/materials/textures/HDU_01.</albedo_map> -->
+        <!--     </metal> -->
+        <!--   </pbr> -->
+        <!-- </material> -->
       </visual>
       <visual name="HDU2/visual">
         <pose>0 0 0 1.57 0 0</pose>
         <geometry>
           <mesh>
-            <scale>1 1 1</scale>
-            <uri>model://HDU/meshes/HDU2.dae</uri>
+            <scale>0.001 0.001 0.001</scale>
+            <uri>model://HDU/meshes/HDU2.obj</uri>
           </mesh>
         </geometry>
-        <material>
-          <diffuse>1.0 1.0 1.0</diffuse>
-          <specular>1.0 1.0 1.0</specular>
-          <pbr>
-            <metal>
-              <albedo_map>model://HDU/materials/textures/HDU_02.jpg</albedo_map>
-            </metal>
-          </pbr>
-        </material>
+        <!-- <material> -->
+        <!--   <diffuse>1.0 1.0 1.0</diffuse> -->
+        <!--   <specular>1.0 1.0 1.0</specular> -->
+        <!--   <pbr> -->
+        <!--     <metal> -->
+        <!--       <albedo_map>model://HDU/materials/textures/HDU_02.jpg</albedo_map> -->
+        <!--     </metal> -->
+        <!--   </pbr> -->
+        <!-- </material> -->
       </visual>
       <collision name="HDU1/collision">
         <pose>0.00358 -0.03 .014 0 0 0</pose>
