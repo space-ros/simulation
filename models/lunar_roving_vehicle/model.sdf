@@ -36,8 +36,8 @@
                 </collision>
             </link>
 
-            <!-- Left Front Wheel -->
-            <link name='left_front_wheel'> 
+            <!-- Left Rear Wheel -->
+            <link name='left_rear_wheel'> 
                 <pose relative_to="chassis">-1.4 0.914 0 -1.5707 0 0</pose> <!--angles are in radian-->
                 <inertial>
                     <mass>1</mass>
@@ -58,9 +58,9 @@
                         </cylinder>
                     </geometry>
                     <material>
-                        <ambient>1.0 0.0 0.0 1</ambient>
-                        <diffuse>1.0 0.0 0.0 1</diffuse>
-                        <specular>1.0 0.0 0.0 1</specular>
+                        <ambient>1.0 0.6 0.0 1</ambient>
+                        <diffuse>1.0 0.6 0.0 1</diffuse>
+                        <specular>1.0 0.6 0.0 1</specular>
                     </material>
                 </visual>
                 <collision name='collision'>
@@ -73,8 +73,8 @@
                 </collision>
             </link>
 
-            <!-- Right Front Wheel -->
-            <link name='right_front_wheel'>
+            <!-- Right Rear Wheel -->
+            <link name='right_rear_wheel'>
                 <pose relative_to="chassis">-1.4 -0.914 0 -1.5707 0 0</pose> <!--angles are in radian-->
                 <inertial>
                     <mass>1</mass>
@@ -95,9 +95,9 @@
                         </cylinder>
                     </geometry>
                     <material>
-                        <ambient>1.0 0.0 0.0 1</ambient>
-                        <diffuse>1.0 0.0 0.0 1</diffuse>
-                        <specular>1.0 0.0 0.0 1</specular>
+                        <ambient>1.0 0.6 0.0 1</ambient>
+                        <diffuse>1.0 0.6 0.0 1</diffuse>
+                        <specular>1.0 0.6 0.0 1</specular>
                     </material>
                 </visual>
                 <collision name='collision'>
@@ -110,8 +110,8 @@
                 </collision>
             </link>
 
-            <!-- Left Rear Wheel -->
-            <link name='left_rear_wheel'>
+            <!-- Left Front Wheel -->
+            <link name='left_front_wheel'>
                 <pose relative_to="chassis">1.4 0.914 0 -1.5707 0 0</pose> <!--angles are in radian-->
                 <inertial>
                     <mass>1</mass>
@@ -132,9 +132,9 @@
                         </cylinder>
                     </geometry>
                     <material>
-                        <ambient>1.0 0.0 0.0 1</ambient>
-                        <diffuse>1.0 0.0 0.0 1</diffuse>
-                        <specular>1.0 0.0 0.0 1</specular>
+                        <ambient>1.0 0.6 0.0 1</ambient>
+                        <diffuse>1.0 0.6 0.0 1</diffuse>
+                        <specular>1.0 0.6 0.0 1</specular>
                     </material>
                 </visual>
                 <collision name='collision'>
@@ -147,8 +147,8 @@
                 </collision>
             </link>
 
-            <!-- Right Rear Wheel -->
-            <link name='right_rear_wheel'>
+            <!-- Right Front Wheel -->
+            <link name='right_front_wheel'>
                 <pose relative_to="chassis">1.4 -0.914 0 -1.5707 0 0</pose> <!--angles are in radian-->
                 <inertial>
                     <mass>1</mass>
@@ -169,9 +169,9 @@
                         </cylinder>
                     </geometry>
                     <material>
-                        <ambient>1.0 0.0 0.0 1</ambient>
-                        <diffuse>1.0 0.0 0.0 1</diffuse>
-                        <specular>1.0 0.0 0.0 1</specular>
+                        <ambient>1.0 0.6 0.0 1</ambient>
+                        <diffuse>1.0 0.6 0.0 1</diffuse>
+                        <specular>1.0 0.6 0.0 1</specular>
                     </material>
                 </visual>
                 <collision name='collision'>
