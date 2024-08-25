@@ -18,18 +18,13 @@
                         <izz>0.476646</izz>
                     </inertia>
                 </inertial>
-                <visual name='visual'>
+                <visual name="visual">
                     <geometry>
-                        <box>
-                            <size>3.0 1.6 0.0508</size> 
-                        </box>
+                        <mesh>
+                        <uri>model://lunar_roving_vehicle/meshes/lunar_rover.dae</uri>
+                        <scale>1 1 1</scale>
+                        </mesh>
                     </geometry>
-                    <!--Color of the link-->
-                    <material>
-                        <ambient>0.0 0.0 1.0 1</ambient>
-                        <diffuse>0.0 0.0 1.0 1</diffuse>
-                        <specular>0.0 0.0 1.0 1</specular>
-                    </material>
                 </visual>
                 <collision name='collision'>
                     <geometry>
