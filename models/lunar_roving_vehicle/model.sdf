@@ -21,7 +21,7 @@
                 <visual name="visual">
                     <geometry>
                         <mesh>
-                        <uri>model://lunar_roving_vehicle/meshes/lunar_rover.dae</uri>
+                        <uri>model://lunar_roving_vehicle/meshes/lunar_roving_vehicle.dae</uri>
                         <scale>1 1 1</scale>
                         </mesh>
                     </geometry>
