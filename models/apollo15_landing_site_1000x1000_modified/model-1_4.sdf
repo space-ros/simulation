@@ -23,13 +23,13 @@
         <geometry>
           <heightmap>
             <texture>
-              <diffuse>model://apollo15_landing_site_1000x1000/materials/textures/moon_diffuse.png</diffuse>
-              <normal>model://apollo15_landing_site_1000x1000/materials/textures/moon_normal.png</normal>
+              <diffuse>model://apollo15_landing_site_1000x1000_modified/materials/textures/moon_diffuse.png</diffuse>
+              <normal>model://apollo15_landing_site_1000x1000_modified/materials/textures/moon_normal.png</normal>
               <size>20</size>
             </texture>
-            <uri>model://apollo15_landing_site_1000x1000/materials/textures/NAC_DTM_APOLLO15_E261N0036_257x257+7472+2152.png</uri>
+            <uri>model://apollo15_landing_site_1000x1000_modified/materials/textures/NAC_DTM_APOLLO15_E261N0036_257x257+7472+2152.png</uri>
             <size>514 514 49</size>
-            <pos>0 0 -90</pos>
+            <pos>0 0 -89</pos>
           </heightmap>
         </geometry>
       </collision>
@@ -38,13 +38,13 @@
         <geometry>
           <heightmap>
             <texture>
-              <diffuse>model://apollo15_landing_site_1000x1000/materials/textures/moon_diffuse.png</diffuse>
-              <normal>model://apollo15_landing_site_1000x1000/materials/textures/moon_normal.png</normal>
+              <diffuse>model://apollo15_landing_site_1000x1000_modified/materials/textures/moon_diffuse.png</diffuse>
+              <normal>model://apollo15_landing_site_1000x1000_modified/materials/textures/moon_normal.png</normal>
               <size>20</size>
             </texture>
-            <uri>model://apollo15_landing_site_1000x1000/materials/textures/NAC_DTM_APOLLO15_E261N0036_257x257+7472+2152.png</uri>
+            <uri>model://apollo15_landing_site_1000x1000_modified/materials/textures/NAC_DTM_APOLLO15_E261N0036_257x257+7472+2152.png</uri>
             <size>514 514 49</size>
-            <pos>0 0 -45</pos>
+            <pos>0 0 -44</pos>
           </heightmap>
         </geometry>
       </visual>

@@ -245,7 +245,9 @@
                 filename="gz-sim-diff-drive-system"
                 name="gz::sim::systems::DiffDrive">
                 <left_joint>left_rear_wheel_joint</left_joint>
+                <left_joint>left_front_wheel_joint</left_joint>
                 <right_joint>right_rear_wheel_joint</right_joint>
+                <right_joint>right_front_wheel_joint</right_joint>
                 <wheel_separation>1.828</wheel_separation>
                 <wheel_radius>0.405</wheel_radius>
                 <odom_publish_frequency>1</odom_publish_frequency>
