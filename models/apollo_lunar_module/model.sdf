@@ -17,7 +17,7 @@
         <collision name="collision">
           <geometry>
             <mesh>
-              <uri>model://curiosity_path/meshes/apollo_lunar_module.dae</uri>
+              <uri>model://apollo_lunar_module/meshes/apollo_lunar_module.dae</uri>
               <scale>1 1 1</scale>
             </mesh>
           </geometry>
@@ -41,7 +41,7 @@
         <visual name="visual">
           <geometry>
             <mesh>
-              <uri>model://curiosity_path/meshes/apollo_lunar_module.dae</uri>
+              <uri>model://apollo_lunar_module/meshes/apollo_lunar_module.dae</uri>
               <scale>1 1 1</scale>
             </mesh>
           </geometry>
