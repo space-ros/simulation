@@ -6,17 +6,9 @@
             
             <!-- Chassis -->
             <link name='chassis'>   
-                <pose relative_to='__model__'>0 0 0 0 0 0</pose> 
+                <pose relative_to='__model__'>0 0 0 0 0 0</pose>
                 <inertial> <!--inertial properties of the link mass, inertia matix-->
                     <mass>210.0</mass>
-                    <inertia>
-                        <ixx>0.095329</ixx>
-                        <ixy>0</ixy>
-                        <ixz>0</ixz>
-                        <iyy>0.381317</iyy>
-                        <iyz>0</iyz>
-                        <izz>0.476646</izz>
-                    </inertia>
                 </inertial>
                 <visual name="visual">
                     <geometry>
@@ -38,17 +30,9 @@
 
             <!-- Left Rear Wheel Rotator -->
             <link name='left_rear_steer'> 
-                <pose relative_to="chassis">-1.4 0.914 0.6 0 0 0</pose> <!--angles are in radian-->
+                <pose relative_to="chassis">-1.1 0.914 0.6 0 0 0</pose> <!--angles are in radian-->
                 <inertial>
                     <mass>1</mass>
-                    <inertia>
-                        <ixx>0.043333</ixx>
-                        <ixy>0</ixy>
-                        <ixz>0</ixz>
-                        <iyy>0.043333</iyy>
-                        <iyz>0</iyz>
-                        <izz>0.08</izz>
-                    </inertia>
                 </inertial>
                 <visual name="visual">
                     <geometry>
@@ -62,40 +46,17 @@
 
             <!-- Left Rear Suspension-->
             <link name='left_rear_suspension'> 
-                <pose relative_to="left_rear_steer">0 0 -0.6 0 0 0</pose> <!--angles are in radian-->
+                <pose relative_to="left_rear_steer">0 0 -0.16 0 0 0</pose> <!--angles are in radian-->
                 <inertial>
                     <mass>1</mass>
-                    <inertia>
-                        <ixx>0.043333</ixx>
-                        <ixy>0</ixy>
-                        <ixz>0</ixz>
-                        <iyy>0.043333</iyy>
-                        <iyz>0</iyz>
-                        <izz>0.08</izz>
-                    </inertia>
                 </inertial>
-                <visual name='visual'>
-                    <geometry>
-                        <box>
-                            <size>0.1 0.1 0.1</size>
-                        </box>
-                    </geometry>
-                </visual>
             </link>
 
             <!-- Left Rear Wheel -->
             <link name='left_rear_wheel'> 
-                <pose relative_to="left_rear_suspension">0 0 0 0 0 0</pose> <!--angles are in radian-->
+                <pose relative_to="left_rear_suspension">0 0.05 0 0 0 0</pose> <!--angles are in radian-->
                 <inertial>
                     <mass>1</mass>
-                    <inertia>
-                        <ixx>0.043333</ixx>
-                        <ixy>0</ixy>
-                        <ixz>0</ixz>
-                        <iyy>0.043333</iyy>
-                        <iyz>0</iyz>
-                        <izz>0.08</izz>
-                    </inertia>
                 </inertial>
                 <visual name='visual'>
                     <geometry>
@@ -117,17 +78,9 @@
 
              <!-- Right Rear Wheel Rotator -->
             <link name='right_rear_steer'> 
-                <pose relative_to="chassis">-1.4 -0.914 0.6 0 0 0</pose> <!--angles are in radian-->
+                <pose relative_to="chassis">-1.1 -0.914 0.6 0 0 0</pose> <!--angles are in radian-->
                 <inertial>
                     <mass>1</mass>
-                    <inertia>
-                    <ixx>0.043333</ixx>
-                    <ixy>0</ixy>
-                    <ixz>0</ixz>
-                    <iyy>0.043333</iyy>
-                    <iyz>0</iyz>
-                    <izz>0.08</izz>
-                    </inertia>
                 </inertial>
                 <visual name="visual">
                     <geometry>
@@ -141,41 +94,18 @@
 
             <!-- Right Rear Suspension-->
             <link name='right_rear_suspension'> 
-                <pose relative_to="right_rear_steer">0 0 -0.6 0 0 0</pose> <!--angles are in radian-->
+                <pose relative_to="right_rear_steer">0.006 0 -0.16 0 0 0</pose> <!--angles are in radian-->
                 <inertial>
                     <mass>1</mass>
-                    <inertia>
-                    <ixx>0.043333</ixx>
-                    <ixy>0</ixy>
-                    <ixz>0</ixz>
-                    <iyy>0.043333</iyy>
-                    <iyz>0</iyz>
-                    <izz>0.08</izz>
-                    </inertia>
                 </inertial>
-                <visual name="visual">
-                    <geometry>
-                    <box>
-                        <size>0.1 0.1 0.1</size>
-                    </box>
-                    </geometry>
-                </visual>
             </link>
 
 
             <!-- Right Rear Wheel -->
             <link name='right_rear_wheel'>
-                <pose relative_to="right_rear_suspension">0 0 0 0 0 0</pose> <!--angles are in radian-->
+                <pose relative_to="right_rear_suspension">0 -0.04 0 0 0 0</pose> <!--angles are in radian-->
                 <inertial>
                     <mass>1</mass>
-                    <inertia>
-                        <ixx>0.043333</ixx>
-                        <ixy>0</ixy>
-                        <ixz>0</ixz>
-                        <iyy>0.043333</iyy>
-                        <iyz>0</iyz>
-                        <izz>0.08</izz>
-                    </inertia>
                 </inertial>
                 <visual name='visual'>
                     <geometry>
@@ -197,17 +127,9 @@
 
             <!-- Left Front Wheel Rotator -->
             <link name='left_front_steer'> 
-                <pose relative_to="chassis">1.4 0.914 0.6 0 0 0</pose> <!--angles are in radian-->
+                <pose relative_to="chassis">1.1 0.914 0.6 0 0 0</pose> <!--angles are in radian-->
                 <inertial>
                     <mass>1</mass>
-                    <inertia>
-                    <ixx>0.043333</ixx>
-                    <ixy>0</ixy>
-                    <ixz>0</ixz>
-                    <iyy>0.043333</iyy>
-                    <iyz>0</iyz>
-                    <izz>0.08</izz>
-                    </inertia>
                 </inertial>
                 <visual name="visual">
                     <geometry>
@@ -221,46 +143,23 @@
 
             <!-- Left Front Suspension-->
             <link name='left_front_suspension'> 
-                <pose relative_to="left_front_steer">0 0 -0.6 0 0 0</pose> <!--angles are in radian-->
+                <pose relative_to="left_front_steer">0 0 -0.175 0 0 0</pose> <!--angles are in radian-->
                 <inertial>
                     <mass>1</mass>
-                    <inertia>
-                    <ixx>0.043333</ixx>
-                    <ixy>0</ixy>
-                    <ixz>0</ixz>
-                    <iyy>0.043333</iyy>
-                    <iyz>0</iyz>
-                    <izz>0.08</izz>
-                    </inertia>
                 </inertial>
-                <visual name="visual">
-                    <geometry>
-                    <box>
-                        <size>0.1 0.1 0.1</size>
-                    </box>
-                    </geometry>
-                </visual>
             </link>
 
             <!-- Left Front Wheel -->
             <link name='left_front_wheel'>
-                <pose relative_to="left_front_suspension">0 0 0 0 0 0</pose> <!--angles are in radian-->
+                <pose relative_to="left_front_suspension">0 0.05  0 0 0 0</pose> <!--angles are in radian-->
                 <inertial>
                     <mass>1</mass>
-                    <inertia>
-                        <ixx>0.043333</ixx>
-                        <ixy>0</ixy>
-                        <ixz>0</ixz>
-                        <iyy>0.043333</iyy>
-                        <iyz>0</iyz>
-                        <izz>0.08</izz>
-                    </inertia>
                 </inertial>
                 <visual name='visual'>
                    <geometry>
                         <mesh>
                         <uri>model://lunar_roving_vehicle/meshes/wheel_left.dae</uri>
-                        <scale>1.0 1.0 1.0</scale>
+                        <scale>-1.0 -1.0 -1.0</scale>
                         </mesh>
                     </geometry>
                 </visual>
@@ -276,17 +175,9 @@
 
             <!-- Right Front Wheel Rotator -->
             <link name='right_front_steer'> 
-                <pose relative_to="chassis">1.4 -0.914 0.6 0 0 0</pose> <!--angles are in radian-->
+                <pose relative_to="chassis">1.1 -0.914 0.6 0 0 0</pose> <!--angles are in radian-->
                 <inertial>
                     <mass>1</mass>
-                    <inertia>
-                    <ixx>0.043333</ixx>
-                    <ixy>0</ixy>
-                    <ixz>0</ixz>
-                    <iyy>0.043333</iyy>
-                    <iyz>0</iyz>
-                    <izz>0.08</izz>
-                    </inertia>
                 </inertial>
                 <visual name="visual">
                     <geometry>
@@ -300,40 +191,17 @@
 
             <!-- Right Front Suspension-->
             <link name='right_front_suspension'> 
-                <pose relative_to="right_front_steer">0 0 -0.6 0 0 0</pose> <!--angles are in radian-->
+                <pose relative_to="right_front_steer">0 0 -0.175 0 0 0</pose> <!--angles are in radian-->
                 <inertial>
                     <mass>1</mass>
-                    <inertia>
-                    <ixx>0.043333</ixx>
-                    <ixy>0</ixy>
-                    <ixz>0</ixz>
-                    <iyy>0.043333</iyy>
-                    <iyz>0</iyz>
-                    <izz>0.08</izz>
-                    </inertia>
                 </inertial>
-                <visual name="visual">
-                    <geometry>
-                    <box>
-                        <size>0.1 0.1 0.1</size>
-                    </box>
-                    </geometry>
-                </visual>
             </link>
 
             <!-- Right Front Wheel -->
             <link name='right_front_wheel'>
-                <pose relative_to="right_front_suspension">0 0 0 0 0 0</pose> <!--angles are in radian-->
+                <pose relative_to="right_front_suspension">0 -0.05 0 0 0 0</pose> <!--angles are in radian-->
                 <inertial>
                     <mass>1</mass>
-                    <inertia>
-                        <ixx>0.043333</ixx>
-                        <ixy>0</ixy>
-                        <ixz>0</ixz>
-                        <iyy>0.043333</iyy>
-                        <iyz>0</iyz>
-                        <izz>0.08</izz>
-                    </inertia>
                 </inertial>
                 <visual name='visual'>
                     <geometry>
@@ -445,8 +313,8 @@
                 <axis>
                     <xyz expressed_in='__model__'>0 0 1</xyz>
                     <limit>
-                        <lower>-0.3</lower>    <!--negative infinity-->
-                        <upper>0.3</upper>     <!--positive infinity-->
+                        <lower>-0.0001</lower>    <!--negative infinity-->
+                        <upper>0.0001</upper>     <!--positive infinity-->
                     </limit>
                 </axis>
             </joint>
@@ -489,8 +357,8 @@
                 <axis>
                     <xyz expressed_in='__model__'>0 0 1</xyz>
                     <limit>
-                        <lower>-0.3</lower>    <!--negative infinity-->
-                        <upper>0.3</upper>     <!--positive infinity-->
+                        <lower>-0.0001</lower>    <!--negative infinity-->
+                        <upper>0.0001</upper>     <!--positive infinity-->
                     </limit>
                 </axis>
             </joint>
@@ -534,35 +402,10 @@
                 <wheel_separation>1.828</wheel_separation>
                 <wheel_base>2.5</wheel_base>
                 <wheel_radius>0.405</wheel_radius>
-                <max_steer>0.5</max_steer>
-                <max_speed>1.0</max_speed>
+                <max_steer>50.0</max_steer>
+                <max_speed>100.0</max_speed>
                 <topic>cmd_vel</topic>
             </plugin>
-
-            <!-- <plugin filename="gz-sim-joint-position-controller-system" name="gz::sim::systems::JointPositionController"> 
-                <joint_name>left_front_steer_joint</joint_name>
-                <p_gain>1</p_gain>
-                <i_gain>0.1</i_gain>
-                <d_gain>0.01</d_gain>
-                <i_max>1</i_max>
-                <i_min>-1</i_min>
-                <cmd_max>0.3</cmd_max>
-                <cmd_min>-0.3</cmd_min>
-            </plugin> -->
-            <!-- Plugin for DiffDrive -->
-            <!-- <plugin
-                filename="gz-sim-diff-drive-system"
-                name="gz::sim::systems::DiffDrive">
-                <left_joint>left_rear_wheel_joint</left_joint>
-                <left_joint>left_front_wheel_joint</left_joint>
-                <right_joint>right_rear_wheel_joint</right_joint>
-                <right_joint>right_front_wheel_joint</right_joint>
-                <wheel_separation>1.828</wheel_separation>
-                <wheel_radius>0.405</wheel_radius>
-                <odom_publish_frequency>1</odom_publish_frequency>
-                <topic>cmd_vel</topic>
-            </plugin> -->
-
 
       
   </model>

@@ -7,18 +7,9 @@
         <surface>
           <friction>
           <ode>
-            <mu>0.2</mu>
+            <mu>50</mu>
           </ode>
           </friction>
-          <contact>
-          <ode>
-            <soft_cfm>1</soft_cfm>
-            <kp>100000</kp>
-            <kd>1</kd>
-            <max_vel>0.000001</max_vel>
-            <min_depth>0.02</min_depth>
-          </ode>
-          </contact>
         </surface>
         <geometry>
           <heightmap>
