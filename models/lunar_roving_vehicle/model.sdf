@@ -416,6 +416,7 @@
                 <min_velocity>-3.61</min_velocity>
                 <max_velocity>3.61</max_velocity> <!-- Actual max speed of LRV (13km/h)-->
                 <topic>cmd_vel</topic>
+                <odom_publish_frequency> 10 </odom_publish_frequency>
             </plugin>
 
       
