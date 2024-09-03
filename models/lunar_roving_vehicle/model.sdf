@@ -62,6 +62,13 @@
                     <always_on>1</always_on>
                     <topic>img_raw_front</topic>
                 </sensor>
+
+                <sensor name="imu_sensor" type="imu">
+                    <always_on>1</always_on>
+                    <update_rate>1</update_rate>
+                    <visualize>true</visualize>
+                    <topic>imu</topic>
+                </sensor>
             </link>
 
             <!-- Left Rear Wheel Rotator -->
