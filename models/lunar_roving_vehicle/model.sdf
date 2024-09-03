@@ -27,6 +27,41 @@
                     </geometry>
                     
                 </collision>
+                <sensor type="camera" name="camera_handheld">
+                    <pose relative_to='__model__'>0.18 -0.196 1.23 0 0 0</pose>
+                    <visualize>1</visualize>
+                    <update_rate>10.0</update_rate>
+                    <camera>
+                        <image>
+                            <width>800</width>
+                            <height>800</height>
+                        </image>
+                        <clip>
+                            <near>0.01</near>
+                            <far>100</far>
+                        </clip>
+                    </camera>
+                    <always_on>1</always_on>
+                    <topic>img_raw_handheld</topic>
+                </sensor>
+
+                <sensor type="camera" name="camera_front">
+                    <pose relative_to='__model__'>1.46 -0.278 1.005 0 0 0</pose>
+                    <visualize>1</visualize>
+                    <update_rate>10.0</update_rate>
+                    <camera>
+                        <image>
+                            <width>800</width>
+                            <height>800</height>
+                        </image>
+                        <clip>
+                            <near>0.01</near>
+                            <far>100</far>
+                        </clip>
+                    </camera>
+                    <always_on>1</always_on>
+                    <topic>img_raw_front</topic>
+                </sensor>
             </link>
 
             <!-- Left Rear Wheel Rotator -->
