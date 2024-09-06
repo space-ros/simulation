@@ -1,0 +1,326 @@
+<robot name="ingenuity" version="1.0">
+  <joint name="cams_link_joint" type="fixed">
+    <origin rpy="0.00000 0.00000 -0.00000" xyz="0.04323 -0.00028 0.12401"/>
+    <parent link="bus_link"/>
+    <child link="cams_link"/>
+  </joint>
+  <joint name="leg_01_link_joint" type="fixed">
+    <origin rpy="1.15509 -0.80084 -1.88343" xyz="-0.18488 -0.18950 0.12805"/>
+    <parent link="bus_link"/>
+    <child link="leg_01_link"/>
+  </joint>
+  <joint name="leg_02_link_joint" type="fixed">
+    <origin rpy="-1.15509 -0.80084 1.88343" xyz="-0.20707 0.21027 0.10300"/>
+    <parent link="bus_link"/>
+    <child link="leg_02_link"/>
+  </joint>
+  <joint name="leg_03_link_joint" type="fixed">
+    <origin rpy="1.48526 -0.04071 -0.71956" xyz="0.20537 -0.21072 0.10346"/>
+    <parent link="bus_link"/>
+    <child link="leg_03_link"/>
+  </joint>
+  <joint name="leg_04_link_joint" type="fixed">
+    <origin rpy="-1.47407 -0.03569 0.72049" xyz="0.20365 0.21092 0.10403"/>
+    <parent link="bus_link"/>
+    <child link="leg_04_link"/>
+  </joint>
+  <joint name="parts_01_link_joint" type="fixed">
+    <origin rpy="-0.00000 0.00000 -0.00000" xyz="-0.00000 0.00000 0.09900"/>
+    <parent link="parts_02_link"/>
+    <child link="parts_01_link"/>
+  </joint>
+  <joint name="parts_02_link_joint" type="fixed">
+    <origin rpy="-0.00000 -0.00000 0.00000" xyz="-0.00183 -0.00031 0.28398"/>
+    <parent link="bus_link"/>
+    <child link="parts_02_link"/>
+  </joint>
+  <joint name="rotor_bottom_revolute" type="revolute">
+    <limit lower="-3.14000" upper="3.14000" effort="10.00000" velocity="5.00000"/>
+    <origin rpy="-2.92498 1.57080 2.48554" xyz="-0.00013 -0.00009 0.04415"/>
+    <parent link="parts_02_link"/>
+    <child link="rotors_02_link"/>
+    <axis xyz="1.00000 0.00000 0.00000"/>
+  </joint>
+  <joint name="rotor_top_revolute" type="revolute">
+    <limit lower="-3.14000" upper="3.14000" effort="10.00000" velocity="5.00000"/>
+    <origin rpy="3.07925 -1.57080 -2.73018" xyz="0.00000 0.00000 0.04241"/>
+    <parent link="parts_01_link"/>
+    <child link="rotors_01_link"/>
+    <axis xyz="1.00000 0.00000 0.00000"/>
+  </joint>
+  <joint name="solar_panel_link_joint" type="fixed">
+    <origin rpy="-1.57079 0.00000 -1.57080" xyz="0.00005 0.00002 0.09392"/>
+    <parent link="parts_01_link"/>
+    <child link="solar_panel_link"/>
+  </joint>
+  <link name="bus_link">
+    <collision name="bus_collision">
+      <origin rpy="-0.00000 0.00000 -0.00000" xyz="-0.00173 -0.00028 0.19285"/>
+      <geometry>
+        <box size="0.16027 0.17496 0.12719"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <inertia ixx="0.00018" ixy="0.00000" ixz="-0.00000" iyy="0.00016" iyz="0.00000" izz="0.00022"/>
+      <origin rpy="0.00000 0.00000 0.00000" xyz="-0.00173 -0.00028 0.19285"/>
+      <mass value="1.20000"/>
+    </inertial>
+    <visual name="bus">
+      <origin rpy="0.00000 -1.57080 0.00000" xyz="-0.00179 -0.00028 0.19194"/>
+      <material name="foil_silver"/>
+      <geometry>
+        <mesh filename="../meshes/dae/Cube.012.dae" scale="0.12951 0.12951 0.12951"/>
+      </geometry>
+    </visual>
+  </link>
+  <link name="cams_link">
+    <inertial>
+      <inertia ixx="0.00001" ixy="0.00000" ixz="0.00000" iyy="0.00001" iyz="0.00000" izz="0.00001"/>
+      <origin rpy="0.00000 0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+      <mass value="0.00001"/>
+    </inertial>
+    <visual name="cams">
+      <origin rpy="0.00000 -0.00000 0.00000" xyz="0.00000 -0.00000 0.00000"/>
+      <material name="carbon fiber"/>
+      <geometry>
+        <mesh filename="../meshes/dae/Cube.002.dae" scale="1.00000 1.00000 1.00000"/>
+      </geometry>
+    </visual>
+  </link>
+  <link name="leg_01_link">
+    <collision name="leg_01_collision">
+      <origin rpy="1.61444 -0.01320 0.01150" xyz="-0.00289 -0.00296 -0.00073"/>
+      <geometry>
+        <cylinder radius="0.00818" length="0.37453"/>
+      </geometry>
+    </collision>
+    <collision name="leg_01_collision.000">
+      <origin rpy="1.10358 0.89677 1.92094" xyz="-0.01389 -0.17942 -0.01361"/>
+      <geometry>
+        <box size="0.05003 0.05078 0.00654"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <inertia ixx="0.00033" ixy="-0.00014" ixz="-0.00017" iyy="0.00034" iyz="-0.00016" izz="0.00029"/>
+      <origin rpy="0.00000 0.00000 0.00000" xyz="-0.00289 -0.00296 -0.00073"/>
+      <mass value="0.03750"/>
+    </inertial>
+    <visual name="leg_01">
+      <origin rpy="0.00000 0.00000 -0.00000" xyz="0.00000 -0.00000 0.00000"/>
+      <material name="gunmetal"/>
+      <geometry>
+        <mesh filename="../meshes/dae/MHP_JR_AV_ROTOR_STOWED_120717_A1-STOWED ROTOR ASSEMBLY, 120.056.dae" scale="1.00000 1.00000 1.00000"/>
+      </geometry>
+    </visual>
+  </link>
+  <link name="leg_02_link">
+    <collision name="leg_02_collision">
+      <origin rpy="1.52401 -0.03182 -0.01865" xyz="-0.00146 -0.04147 0.00050"/>
+      <geometry>
+        <cylinder radius="0.00882" length="0.39199"/>
+      </geometry>
+    </collision>
+    <collision name="leg_02_collision.000">
+      <origin rpy="-1.10358 0.89677 -1.92094" xyz="-0.00828 0.14685 -0.01261"/>
+      <geometry>
+        <box size="0.05465 0.05463 0.00831"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <inertia ixx="0.00034" ixy="0.00014" ixz="-0.00017" iyy="0.00035" iyz="0.00016" izz="0.00030"/>
+      <origin rpy="0.00000 0.00000 0.00000" xyz="-0.00134 -0.03590 0.00024"/>
+      <mass value="0.03750"/>
+    </inertial>
+    <visual name="leg_02">
+      <origin rpy="0.00000 -0.00000 0.00000" xyz="-0.00000 0.00000 0.00000"/>
+      <material name="gunmetal"/>
+      <geometry>
+        <mesh filename="../meshes/dae/MHP_JR_AV_ROTOR_STOWED_120717_A1-STOWED ROTOR ASSEMBLY, 120.027.dae" scale="1.00000 1.00000 1.00000"/>
+      </geometry>
+    </visual>
+  </link>
+  <link name="leg_03_link">
+    <collision name="leg_03_collision">
+      <origin rpy="1.59721 -0.71890 0.82546" xyz="-0.03222 0.02603 -0.00057"/>
+      <geometry>
+        <cylinder radius="0.01015" length="0.38151"/>
+      </geometry>
+    </collision>
+    <collision name="leg_03_collision.000">
+      <origin rpy="-1.45703 0.71984 0.03432" xyz="0.10154 -0.10767 -0.00466"/>
+      <geometry>
+        <box size="0.05669 0.05868 0.00690"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <inertia ixx="0.00034" ixy="0.00014" ixz="0.00017" iyy="0.00035" iyz="-0.00016" izz="0.00030"/>
+      <origin rpy="0.00000 0.00000 0.00000" xyz="-0.03222 0.02603 -0.00057"/>
+      <mass value="0.03750"/>
+    </inertial>
+    <visual name="leg_03">
+      <origin rpy="0.00000 -0.00000 0.00000" xyz="0.00000 -0.00000 -0.00000"/>
+      <material name="gunmetal"/>
+      <geometry>
+        <mesh filename="../meshes/dae/Cylinder.028.dae" scale="1.00000 1.00000 1.00000"/>
+      </geometry>
+    </visual>
+  </link>
+  <link name="leg_04_link">
+    <collision name="leg_04_collision">
+      <origin rpy="0.11000 0.07382 0.13331" xyz="-0.03099 -0.02464 0.00017"/>
+      <geometry>
+        <cylinder radius="0.00896" length="0.38626"/>
+      </geometry>
+    </collision>
+    <collision name="leg_04_collision.000">
+      <origin rpy="1.44209 0.71984 -0.04927" xyz="0.09524 0.10744 -0.00580"/>
+      <geometry>
+        <box size="0.06401 0.06185 0.00887"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <inertia ixx="0.00033" ixy="-0.00014" ixz="0.00016" iyy="0.00034" iyz="0.00016" izz="0.00029"/>
+      <origin rpy="0.00000 0.00000 0.00000" xyz="-0.02797 -0.02198 0.00007"/>
+      <mass value="0.03750"/>
+    </inertial>
+    <visual name="leg_04">
+      <origin rpy="0.00000 -0.00000 0.00000" xyz="0.00000 0.00000 0.00000"/>
+      <material name="gunmetal"/>
+      <geometry>
+        <mesh filename="../meshes/dae/Cylinder.019.dae" scale="1.00000 1.00000 1.00000"/>
+      </geometry>
+    </visual>
+  </link>
+  <link name="parts_01_link">
+    <collision name="parts_01_collision">
+      <origin rpy="-0.00000 -0.00000 -0.00000" xyz="0.00000 0.00000 0.01237"/>
+      <geometry>
+        <cylinder radius="0.01665" length="0.06115"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <inertia ixx="0.00004" ixy="0.00000" ixz="-0.00000" iyy="0.00004" iyz="-0.00000" izz="0.00001"/>
+      <origin rpy="0.00000 0.00000 0.00000" xyz="0.00000 0.00000 0.01237"/>
+      <mass value="0.10000"/>
+    </inertial>
+    <visual name="parts_01">
+      <origin rpy="-0.00000 -0.00000 -0.00000" xyz="0.00000 0.00000 -0.00000"/>
+      <material name="aluminum"/>
+      <geometry>
+        <mesh filename="../meshes/dae/Cylinder.005.dae" scale="1.00000 1.00000 1.00000"/>
+      </geometry>
+    </visual>
+  </link>
+  <link name="parts_02_link">
+    <collision name="parts_02_collision">
+      <origin rpy="0.00000 0.00000 0.00000" xyz="-0.00000 0.00000 0.01813"/>
+      <geometry>
+        <cylinder radius="0.01649" length="0.06253"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <inertia ixx="0.00004" ixy="0.00000" ixz="0.00000" iyy="0.00004" iyz="-0.00000" izz="0.00001"/>
+      <origin rpy="0.00000 0.00000 0.00000" xyz="-0.00000 0.00000 0.01813"/>
+      <mass value="0.10000"/>
+    </inertial>
+    <visual name="parts_02">
+      <origin rpy="0.00000 0.00000 0.00000" xyz="-0.00000 -0.00000 -0.00000"/>
+      <material name="aluminum"/>
+      <geometry>
+        <mesh filename="../meshes/dae/Cylinder.035.dae" scale="1.00000 1.00000 1.00000"/>
+      </geometry>
+    </visual>
+  </link>
+  <link name="rotors_01_link">
+    <collision name="rotors_01_collision">
+      <origin rpy="0.01134 0.00000 -0.00000" xyz="-0.00336 -0.33594 -0.00439"/>
+      <geometry>
+        <box size="0.03913 0.52765 0.10916"/>
+      </geometry>
+    </collision>
+    <collision name="rotors_01_collision.000">
+      <origin rpy="-0.00000 0.00000 -0.00000" xyz="-0.00336 0.33195 0.00000"/>
+      <geometry>
+        <box size="0.03913 0.52177 0.11864"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <inertia ixx="0.00307" ixy="0.00053" ixz="-0.00000" iyy="0.00200" iyz="-0.00045" izz="0.00360"/>
+      <origin rpy="0.00000 0.00000 0.00000" xyz="-0.00336 -0.00199 -0.00220"/>
+      <mass value="0.07500"/>
+    </inertial>
+    <visual name="rotors_01">
+      <origin rpy="-0.00000 0.00000 -0.00000" xyz="-0.00000 0.00000 -0.00000"/>
+      <material name="carbon fiber"/>
+      <geometry>
+        <mesh filename="../meshes/dae/Cylinder.017.dae" scale="1.00000 1.00000 1.00000"/>
+      </geometry>
+    </visual>
+  </link>
+  <link name="rotors_02_link">
+    <collision name="rotors_02_collision">
+      <origin rpy="0.05548 0.00000 -0.00000" xyz="0.00448 0.33949 0.00905"/>
+      <geometry>
+        <box size="0.02635 0.52150 0.11376"/>
+      </geometry>
+    </collision>
+    <collision name="rotors_02_collision.000">
+      <origin rpy="0.03778 0.00000 -0.00000" xyz="0.00448 -0.35177 -0.00544"/>
+      <geometry>
+        <box size="0.03861 0.50696 0.09597"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <inertia ixx="0.00350" ixy="-0.00059" ixz="0.00012" iyy="0.00200" iyz="-0.00135" izz="0.00369"/>
+      <origin rpy="0.00000 0.00000 0.00000" xyz="0.00448 -0.00614 0.00180"/>
+      <mass value="0.07500"/>
+    </inertial>
+    <visual name="rotors_02">
+      <origin rpy="0.00000 0.00000 -0.00000" xyz="0.00000 -0.00000 -0.00000"/>
+      <material name="blades"/>
+      <geometry>
+        <mesh filename="../meshes/dae/Cylinder.014.dae" scale="1.00000 1.00000 1.00000"/>
+      </geometry>
+    </visual>
+  </link>
+  <link name="solar_panel_link">
+    <collision name="solar_panel_collision">
+      <origin rpy="0.00000 -0.00000 -0.00000" xyz="-0.00000 -0.00455 0.00000"/>
+      <geometry>
+        <box size="0.42732 0.01639 0.16590"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <inertia ixx="0.00152" ixy="-0.00000" ixz="-0.00000" iyy="0.00023" iyz="0.00000" izz="0.00175"/>
+      <origin rpy="0.00000 0.00000 0.00000" xyz="-0.00000 -0.00455 0.00000"/>
+      <mass value="0.10000"/>
+    </inertial>
+    <visual name="solar_panel">
+      <origin rpy="0.00000 -0.00000 0.00000" xyz="0.00000 -0.00000 -0.00000"/>
+      <material name="chopper_sp"/>
+      <geometry>
+        <mesh filename="../meshes/dae/10460522-1_2_B1-SOLAR PANEL SUBSTRATE_5781_FILLET5.003.dae" scale="1.00000 1.00000 1.00000"/>
+      </geometry>
+    </visual>
+  </link>
+  <material name="aluminum">
+    <color rgba="0.96078 0.96078 0.96078 1.00000"/>
+  </material>
+  <material name="blades">
+    <texture filename="../../../textures/blade.jpg"/>
+    <color rgba="0.80000 0.80000 0.80000 1.00000"/>
+  </material>
+  <material name="carbon fiber">
+    <texture filename="../../../textures/CarbonFiber_albedo2.jpg"/>
+    <color rgba="0.80000 0.80000 0.80000 1.00000"/>
+  </material>
+  <material name="chopper_sp">
+    <color rgba="0.80000 0.80000 0.80000 1.00000"/>
+  </material>
+  <material name="foil_silver">
+    <color rgba="0.61961 0.45882 0.06275 1.00000"/>
+  </material>
+  <material name="gunmetal">
+    <color rgba="0.29804 0.28235 0.28235 1.00000"/>
+  </material>
+</robot>
