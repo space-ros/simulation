@@ -1,0 +1,375 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://wiki.ros.org/xacro">
+
+    <ros2_control name="IgnitionSystem" type="system">
+        <hardware>
+            <plugin>ign_ros2_control/IgnitionSystem</plugin>
+        </hardware>
+
+         <!-- Mast Joints Interfaces-->
+        <joint name="mast_head_pivot_joint">
+            <command_interface name="position" />
+            <state_interface name="position" />
+            <state_interface name="velocity" />
+        </joint>
+        <joint name="mast_camera_joint">
+            <command_interface name="position" />
+            <state_interface name="position" />
+            <state_interface name="velocity" />
+        </joint>
+
+        <!-- Steering Joints Interfaces-->
+        <joint name="front_left_wheel_axle_joint">
+            <command_interface name="position" />
+            <state_interface name="position" />
+            <state_interface name="velocity" />
+        </joint>
+        <joint name="rear_left_wheel_axle_joint">
+            <command_interface name="position" />
+            <state_interface name="position" />
+            <state_interface name="velocity" />
+        </joint>
+        <joint name="front_right_wheel_axle_joint">
+            <command_interface name="position" />
+            <state_interface name="position" />
+            <state_interface name="velocity" />
+        </joint>
+        <joint name="rear_right_wheel_axle_joint">
+            <command_interface name="position" />
+            <state_interface name="position" />
+            <state_interface name="velocity" />
+        </joint>
+
+        <!-- Wheel Joints Interfaces-->
+        <joint name="front_left_wheel_joint">
+            <command_interface name="velocity" />
+            <state_interface name="position" />                    
+        </joint>
+        <joint name="rear_left_wheel_joint">
+            <command_interface name="velocity" />
+            <state_interface name="position" />                    
+        </joint>
+        <joint name="front_right_wheel_joint">
+            <command_interface name="velocity" />
+            <state_interface name="position" />                    
+        </joint>
+        <joint name="rear_right_wheel_joint">
+            <command_interface name="velocity" />
+            <state_interface name="position" />                    
+        </joint>
+
+        <!-- Passive joints - No command interface -->      
+        <joint name="front_left_suspension_joint">
+            <state_interface name="position"/>
+        </joint>
+        <joint name="rear_left_suspension_joint">
+            <state_interface name="position"/>
+        </joint>
+        <joint name="front_right_suspension_joint">
+            <state_interface name="position"/>
+        </joint>
+        <joint name="rear_right_suspension_joint">
+            <state_interface name="position"/>
+        </joint>
+    </ros2_control>
+
+    <gazebo>
+        <plugin filename="libign_ros2_control-system" name="ign_ros2_control::IgnitionROS2ControlPlugin">
+            <robot_param>robot_description</robot_param>
+            <robot_param_node>robot_state_publisher</robot_param_node>
+            <parameters>$(find lunar_pole_exploration_rover)/config/lunar_pole_exploration_rover_control.yaml</parameters>
+        </plugin>
+
+        <plugin filename="ignition-gazebo-odometry-publisher-system" name="ignition::gazebo::systems::OdometryPublisher">
+            <odom_frame>/odom</odom_frame>
+            <robot_base_frame>/base_footprint</robot_base_frame>
+            <odom_publish_frequency>10</odom_publish_frequency>
+        </plugin>
+
+        <plugin filename="ignition-gazebo-sensors-system" name="ignition::gazebo::systems::Sensors">
+            <render_engine>ogre2</render_engine>
+            <background_color>0.0 0.0 0.0 1</background_color>
+            <disable_on_drained_battery>true</disable_on_drained_battery>
+        </plugin>
+
+        <plugin filename="libSolarPanelPlugin.so" name="simulation::SolarPanelPlugin">
+            <link_name>left_solar_panel</link_name>
+            <nominal_power>150.0</nominal_power>
+        </plugin>
+        <plugin filename="libSolarPanelPlugin.so" name="simulation::SolarPanelPlugin">
+            <link_name>right_solar_panel</link_name>
+            <nominal_power>150.0</nominal_power>
+        </plugin>
+        <plugin filename="libSolarPanelPlugin.so" name="simulation::SolarPanelPlugin">
+            <link_name>rear_solar_panel</link_name>
+            <nominal_power>150.0</nominal_power>
+        </plugin>
+
+    <plugin filename="libSensorPowerSystemPlugin.so" name="simulation::SensorPowerSystemPlugin">
+    </plugin>
+
+    <plugin filename="libRechargeableBatteryPlugin.so" name="simulation::RechargeableBatteryPlugin">
+         <battery_name>rechargeable_battery</battery_name>
+         <voltage>30.0</voltage>
+         <open_circuit_voltage>30.0</open_circuit_voltage>
+         <open_circuit_voltage_constant_coef>30.0</open_circuit_voltage_constant_coef>
+         <open_circuit_voltage_linear_coef>-3.0</open_circuit_voltage_linear_coef>
+         <initial_charge>9.0</initial_charge>
+         <capacity>10.0</capacity>
+         <resistance>0.1</resistance>
+         <smooth_current_tau>1.0</smooth_current_tau>
+
+         <!-- power source -->
+          <power_source>left_solar_panel/solar_panel_output</power_source>
+          <power_source>right_solar_panel/solar_panel_output</power_source>
+          <power_source>rear_solar_panel/solar_panel_output</power_source>
+
+         <!-- Power load without movement -->
+         <!-- this needs to revised with the actual power consumption of the robot -->
+          <power_load>11.0</power_load>
+          <power_draining_topic>/battery/discharge</power_draining_topic>
+      </plugin>
+    </gazebo>
+
+    
+
+
+    <!-- Sensor suit as detailed for NASA VIPER Rover -->
+    <!-- https://ntrs.nasa.gov/api/citations/20210015009/downloads/20210015009%20-%20Colaprete-VIPER%20PIP%20final.pdf -->
+    <gazebo reference="nav_camera_link_left">
+        <sensor type="camera" name="NavCam_left">
+            <visualize>1</visualize>
+            <update_rate>10.0</update_rate>
+                <power_load>11.0</power_load>
+                <battery_name>rechargeable_battery</battery_name>
+            <camera>
+                <pose>1.0 0 0 0 0 0</pose>
+                <horizontal_fov>1.22173</horizontal_fov>
+                <image>
+                    <width>2048</width>
+                    <height>2048</height>
+                    <format>L16</format>
+                </image>
+                <clip>
+                    <near>0.01</near>
+                    <far>100</far>
+                </clip>
+                <noise>
+                    <type>gaussian</type>
+                    <stddev>0.007</stddev>
+                </noise>
+            </camera>
+            <always_on>1</always_on>
+            <topic>navcam_left/image_raw</topic>
+        </sensor>
+    </gazebo>
+
+    <gazebo reference="nav_camera_link_right">
+        <sensor type="camera" name="NavCam_right">
+            <visualize>1</visualize>
+            <update_rate>10.0</update_rate>
+            <power_load>12.0</power_load>
+            <battery_name>rechargeable_battery</battery_name>
+            <camera>
+                <pose>1.0 0 0 0 0 0</pose>
+                <horizontal_fov>1.22173</horizontal_fov>
+                <image>
+                    <width>2048</width>
+                    <height>2048</height>
+                    <format>L16</format>
+                </image>
+                <clip>
+                    <near>0.01</near>
+                    <far>100</far>
+                </clip>
+                <noise>
+                    <type>gaussian</type>
+                    <stddev>0.007</stddev>
+                </noise>
+            </camera>
+            <always_on>1</always_on>
+            <topic>navcam_right/image_raw</topic>
+        </sensor>
+    </gazebo>
+
+    <gazebo reference="aft_camera_link_left">
+        <sensor type="camera" name="AftCam_left">
+            <visualize>1</visualize>
+            <update_rate>10.0</update_rate>
+            <power_load>13.0</power_load>
+            <battery_name>rechargeable_battery</battery_name>
+            <camera>
+                <pose>1.0 0 0 0 0 0</pose>
+                <horizontal_fov>1.91986</horizontal_fov>
+                <image>
+                    <width>2048</width>
+                    <height>2048</height>
+                    <format>L16</format>
+                </image>
+                <clip>
+                    <near>0.01</near>
+                    <far>100</far>
+                </clip>
+                <noise>
+                    <type>gaussian</type>
+                    <stddev>0.007</stddev>
+                </noise>
+            </camera>
+            <always_on>1</always_on>
+            <topic>aftcam_left/image_raw</topic>
+        </sensor>
+    </gazebo>
+
+    <gazebo reference="aft_camera_link_right">
+        <sensor type="camera" name="AftCam_right">
+            <visualize>1</visualize>
+            <update_rate>10.0</update_rate>
+            <power_load>15.0</power_load>
+            <battery_name>rechargeable_battery</battery_name>
+            <camera>
+                <pose>1.0 0 0 0 0 0</pose>
+                <horizontal_fov>1.91986</horizontal_fov>
+                <image>
+                    <width>2048</width>
+                    <height>2048</height>
+                    <format>L16</format>
+                </image>
+                <clip>
+                    <near>0.01</near>
+                    <far>100</far>
+                </clip>
+                <noise>
+                    <type>gaussian</type>
+                    <stddev>0.007</stddev>
+                </noise>
+            </camera>
+            <always_on>1</always_on>
+            <topic>aftcam_right/image_raw</topic>
+        </sensor>
+    </gazebo>
+
+    <gazebo reference="haz_camera_link_left_front">
+        <sensor type="camera" name="HazCam_left_front">
+            <visualize>1</visualize>
+            <update_rate>10.0</update_rate>
+            <power_load>15.0</power_load>
+            <battery_name>rechargeable_battery</battery_name>
+            <camera>
+                <pose>1.0 0 0 0 0 0</pose>
+                <horizontal_fov>1.91986</horizontal_fov>
+                <image>
+                    <width>2048</width>
+                    <height>2048</height>
+                    <format>L16</format>
+                </image>
+                <clip>
+                    <near>0.01</near>
+                    <far>100</far>
+                </clip>
+                <noise>
+                    <type>gaussian</type>
+                    <stddev>0.007</stddev>
+                </noise>
+            </camera>
+            <always_on>1</always_on>
+            <topic>hazcam_left_front/image_raw</topic>
+        </sensor>
+    </gazebo>
+
+    <gazebo reference="haz_camera_link_left_rear">
+        <sensor type="camera" name="HazCam_left_rear">
+            <visualize>1</visualize>
+            <update_rate>10.0</update_rate>
+            <power_load>15.0</power_load>
+            <battery_name>rechargeable_battery</battery_name>
+            <camera>
+                <pose>1.0 0 0 0 0 0</pose>
+                <horizontal_fov>1.91986</horizontal_fov>
+                <image>
+                    <width>2048</width>
+                    <height>2048</height>
+                    <format>L16</format>
+                </image>
+                <clip>
+                    <near>0.01</near>
+                    <far>100</far>
+                </clip>
+                <noise>
+                    <type>gaussian</type>
+                    <stddev>0.007</stddev>
+                </noise>
+            </camera>
+            <always_on>1</always_on>
+            <topic>hazcam_left_rear/image_raw</topic>
+        </sensor>
+    </gazebo>
+
+    <gazebo reference="haz_camera_link_right_front">
+        <sensor type="camera" name="HazCam_right_front">
+            <visualize>1</visualize>
+            <update_rate>10.0</update_rate>
+            <power_load>15.0</power_load>
+            <battery_name>rechargeable_battery</battery_name>
+            <camera>
+                <pose>1.0 0 0 0 0 0</pose>
+                <horizontal_fov>1.91986</horizontal_fov>
+                <image>
+                    <width>2048</width>
+                    <height>2048</height>
+                    <format>L16</format>
+                </image>
+                <clip>
+                    <near>0.01</near>
+                    <far>100</far>
+                </clip>
+                <noise>
+                    <type>gaussian</type>
+                    <stddev>0.007</stddev>
+                </noise>
+            </camera>
+            <always_on>1</always_on>
+            <topic>hazcam_right_front/image_raw</topic>
+        </sensor>
+    </gazebo>
+
+    <gazebo reference="haz_camera_link_right_rear">
+        <sensor type="camera" name="HazCam_right_rear">
+            <visualize>1</visualize>
+            <update_rate>10.0</update_rate>
+            <power_load>15.0</power_load>
+            <battery_name>rechargeable_battery</battery_name>
+            <camera>
+                <pose>1.0 0 0 0 0 0</pose>
+                <horizontal_fov>1.91986</horizontal_fov>
+                <image>
+                    <width>2048</width>
+                    <height>2048</height>
+                    <format>L16</format>
+                </image>
+                <clip>
+                    <near>0.01</near>
+                    <far>100</far>
+                </clip>
+                <noise>
+                    <type>gaussian</type>
+                    <stddev>0.007</stddev>
+                </noise>
+            </camera>
+            <always_on>1</always_on>
+            <topic>hazcam_right_rear/image_raw</topic>
+        </sensor>
+    </gazebo>
+
+    <gazebo reference="body">
+        <sensor name="imu_sensor" type="imu">
+            <always_on>1</always_on>
+            <update_rate>100</update_rate>
+            <visualize>true</visualize>
+            <power_load>16.0</power_load>
+            <battery_name>rechargeable_battery</battery_name>
+            <topic>imu</topic>
+        </sensor>
+    </gazebo>
+
+
+</robot>
