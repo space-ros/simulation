@@ -108,26 +108,27 @@
     <plugin filename="libSensorPowerSystemPlugin.so" name="simulation::SensorPowerSystemPlugin">
     </plugin>
 
+    <!-- Battery characteristics -->
+    <!-- https://ntrs.nasa.gov/api/citations/20210020132/downloads/TM-20210020132.pdf -->
     <plugin filename="libRechargeableBatteryPlugin.so" name="simulation::RechargeableBatteryPlugin">
          <battery_name>rechargeable_battery</battery_name>
          <voltage>30.0</voltage>
          <open_circuit_voltage>30.0</open_circuit_voltage>
          <open_circuit_voltage_constant_coef>30.0</open_circuit_voltage_constant_coef>
          <open_circuit_voltage_linear_coef>-3.0</open_circuit_voltage_linear_coef>
-         <initial_charge>9.0</initial_charge>
-         <capacity>10.0</capacity>
-         <resistance>0.1</resistance>
+         <initial_charge>960.0</initial_charge>
+         <capacity>960.0</capacity>
+         <resistance>0.2</resistance>
          <smooth_current_tau>1.0</smooth_current_tau>
 
          <!-- power source -->
-          <power_source>left_solar_panel/solar_panel_output</power_source>
-          <power_source>right_solar_panel/solar_panel_output</power_source>
-          <power_source>rear_solar_panel/solar_panel_output</power_source>
+        <power_source>left_solar_panel/solar_panel_output</power_source>
+        <power_source>right_solar_panel/solar_panel_output</power_source>
+        <power_source>rear_solar_panel/solar_panel_output</power_source>
 
-         <!-- Power load without movement -->
-         <!-- this needs to revised with the actual power consumption of the robot -->
-          <power_load>11.0</power_load>
-          <power_draining_topic>/battery/discharge</power_draining_topic>
+        <!-- Power load without movement -->
+        <power_load>100.0</power_load>
+        <power_draining_topic>/battery/discharge</power_draining_topic>
       </plugin>
     </gazebo>
 
@@ -140,7 +141,7 @@
         <sensor type="camera" name="NavCam_left">
             <visualize>1</visualize>
             <update_rate>10.0</update_rate>
-                <power_load>11.0</power_load>
+                <power_load>83.0</power_load>
                 <battery_name>rechargeable_battery</battery_name>
             <camera>
                 <pose>1.0 0 0 0 0 0</pose>
@@ -168,7 +169,7 @@
         <sensor type="camera" name="NavCam_right">
             <visualize>1</visualize>
             <update_rate>10.0</update_rate>
-            <power_load>12.0</power_load>
+            <power_load>83.0</power_load>
             <battery_name>rechargeable_battery</battery_name>
             <camera>
                 <pose>1.0 0 0 0 0 0</pose>
@@ -196,7 +197,7 @@
         <sensor type="camera" name="AftCam_left">
             <visualize>1</visualize>
             <update_rate>10.0</update_rate>
-            <power_load>13.0</power_load>
+            <power_load>83.0</power_load>
             <battery_name>rechargeable_battery</battery_name>
             <camera>
                 <pose>1.0 0 0 0 0 0</pose>
@@ -224,7 +225,7 @@
         <sensor type="camera" name="AftCam_right">
             <visualize>1</visualize>
             <update_rate>10.0</update_rate>
-            <power_load>15.0</power_load>
+            <power_load>83.0</power_load>
             <battery_name>rechargeable_battery</battery_name>
             <camera>
                 <pose>1.0 0 0 0 0 0</pose>
@@ -252,7 +253,7 @@
         <sensor type="camera" name="HazCam_left_front">
             <visualize>1</visualize>
             <update_rate>10.0</update_rate>
-            <power_load>15.0</power_load>
+            <power_load>83.0</power_load>
             <battery_name>rechargeable_battery</battery_name>
             <camera>
                 <pose>1.0 0 0 0 0 0</pose>
@@ -280,7 +281,7 @@
         <sensor type="camera" name="HazCam_left_rear">
             <visualize>1</visualize>
             <update_rate>10.0</update_rate>
-            <power_load>15.0</power_load>
+            <power_load>83.0</power_load>
             <battery_name>rechargeable_battery</battery_name>
             <camera>
                 <pose>1.0 0 0 0 0 0</pose>
@@ -308,7 +309,7 @@
         <sensor type="camera" name="HazCam_right_front">
             <visualize>1</visualize>
             <update_rate>10.0</update_rate>
-            <power_load>15.0</power_load>
+            <power_load>83.0</power_load>
             <battery_name>rechargeable_battery</battery_name>
             <camera>
                 <pose>1.0 0 0 0 0 0</pose>
@@ -336,7 +337,7 @@
         <sensor type="camera" name="HazCam_right_rear">
             <visualize>1</visualize>
             <update_rate>10.0</update_rate>
-            <power_load>15.0</power_load>
+            <power_load>83.0</power_load>
             <battery_name>rechargeable_battery</battery_name>
             <camera>
                 <pose>1.0 0 0 0 0 0</pose>
