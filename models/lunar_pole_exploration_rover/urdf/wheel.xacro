@@ -10,6 +10,14 @@
 				<geometry>
 					<cylinder radius="${wheelRadius}" length="${wheelWidth}"/>
 				</geometry>
+				<surface>
+					<friction>
+						<ode>
+							<mu>1.0</mu> 
+							<mu2>1.0</mu2>
+						</ode>
+					</friction>
+				</surface>
 			</collision>
 
 			<visual>
@@ -33,8 +41,8 @@
 
 
 	  <gazebo reference="${wheel_name}">
-	    <mu1 value="1.0"/>
-	    <mu2 value="1.0"/>
+	    <!-- <mu1 value="1.0"/> -->
+	    <!-- <mu2 value="1.0"/> -->
 	    <kp  value="10000000.0" />
 	    <kd>100.0</kd>
 	    <minDepth>0.001</minDepth>
