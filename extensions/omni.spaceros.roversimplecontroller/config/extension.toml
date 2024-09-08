@@ -1,0 +1,38 @@
+
+[package]
+# Semantic Versioning is used: https://semver.org/
+version = "0.1.0"
+
+# Lists people or organizations that are considered the "authors" of the package.
+authors = ["https://github.com/franklinselva"]
+
+# The title and description fields are primarly for displaying extension info in UI
+description = "Rover Simple Controller for Space ROS"
+title = "Rover Simple Controller"
+
+# Path (relative to the root) or content of readme markdown file for UI.
+changelog = "docs/CHANGELOG.md"
+preview_image = "data/node-preview.png"
+readme = "docs/README.md"
+
+# URL of the extension source repository.
+repository = "https://github.com/space-ros/simulation"
+
+# Categories for UI.
+category = "Space ROS"
+
+# Keywords for the extension
+keywords = ["ros2", "omnigraph", "space-ros"]
+
+# Watch the .ogn files for hot reloading (only works for Python files)
+[fswatcher.patterns]
+exclude = ["Ogn*Database.py"]
+include = ["*.ogn", "*.py"]
+
+[dependencies]
+"omni.graph" = {}
+"omni.kit.test" = {}
+
+# Main python module this extension provides, it will be publicly available as "import omni.spaceros.roversimplecontroller".
+[[python.module]]
+name = "omni.spaceros.roversimplecontroller"

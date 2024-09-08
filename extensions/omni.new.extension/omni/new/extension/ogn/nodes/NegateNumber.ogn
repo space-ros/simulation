@@ -1,0 +1,29 @@
+{
+    "NegateNumber": {
+        "version": 1,
+        "description": "Negates a number",
+        "language": "Python",
+        "metadata": {
+            "uiName": "Negate Number"
+        },
+        "inputs": {
+            "a": {
+                "type": "int",
+                "description": "Input",
+                "default": 0,
+                "metadata": {
+                    "uiName": "A"
+                }
+            }
+        },
+        "outputs": {
+            "b": {
+                "type": "int",
+                "description": "Ouput",
+                "metadata": {
+                    "uiName": "B"
+                }
+            }
+        }
+    }
+}
