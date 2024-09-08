@@ -280,7 +280,7 @@ void SensorPowerSystemPlugin::PreUpdate(const ignition::gazebo::UpdateInfo &_inf
                 std::lock_guard<std::mutex> lock(*sensor.mutex_ptr);
                 sensor.dataUpdated = false;
                 ignition::gazebo::v6::components::BatteryPowerLoadInfo batteryPowerLoad{
-                    sensor.batteryConsumerEntity, setPower};
+                    sensor.batteryEntity, setPower};
                 _ecm.SetComponentData<ignition::gazebo::components::BatteryPowerLoad>(sensor.batteryConsumerEntity, batteryPowerLoad);
             }
         }

@@ -27,6 +27,7 @@
 #include <gz/common/Profiler.hh>
 #include <gz/common/Util.hh>
 #include <ignition/msgs/battery_state.pb.h>
+#include <ignition/msgs/double.pb.h>
 #include "gz/sim/Model.hh"
 #include <ignition/transport/Node.hh>
 
@@ -95,6 +96,14 @@ public:
     /// \brief Battery state of charge message publisher
 public:
     ignition::transport::Node::Publisher statePub;
+
+    /// \brief Total power supply publisher
+public:
+    ignition::transport::Node::Publisher totalPowerSupplyPub;
+
+    /// \brief Total power consumption publisher
+public:
+    ignition::transport::Node::Publisher totalPowerConsumptionPub;
 
     /// \brief Battery consumer identifier.
     /// Current implementation limits one consumer (Model) per battery.
@@ -433,6 +442,37 @@ void RechargeableBatteryPlugin::Configure(const ignition::gazebo::Entity &_entit
     opts.SetMsgsPerSec(50);
     this->dataPtr->statePub = this->dataPtr->node.Advertise<ignition::msgs::BatteryState>(
         validStateTopic, opts);
+
+    // Setup total power supply topic
+    std::string totalPowerSupplyTopic{"/model/" + this->dataPtr->model.Name(_ecm) +
+                                      "/battery/" + this->dataPtr->battery->Name() + "/total_power_supply"};
+
+    auto validTotalPowerSupplyTopic = ignition::transport::TopicUtils::AsValidTopic(totalPowerSupplyTopic);
+    if (validTotalPowerSupplyTopic.empty())
+    {
+        ignerr << "Failed to create valid total power supply topic ["
+               << totalPowerSupplyTopic << "]" << std::endl;
+        return;
+    }
+
+    this->dataPtr->totalPowerSupplyPub = this->dataPtr->node.Advertise<ignition::msgs::Float>(
+        validTotalPowerSupplyTopic);
+
+    // Setup total power consumption topic
+    std::string totalPowerConsumptionTopic{"/model/" + this->dataPtr->model.Name(_ecm) +
+                                           "/battery/" + this->dataPtr->battery->Name() + "/total_power_consumption"};
+    
+    auto validTotalPowerConsumptionTopic = ignition::transport::TopicUtils::AsValidTopic(totalPowerConsumptionTopic);
+
+    if (validTotalPowerConsumptionTopic.empty())
+    {
+        ignerr << "Failed to create valid total power consumption topic ["
+               << totalPowerConsumptionTopic << "]" << std::endl;
+        return;
+    }
+
+    this->dataPtr->totalPowerConsumptionPub = this->dataPtr->node.Advertise<ignition::msgs::Float>(
+        validTotalPowerConsumptionTopic);
 }
 
 /////////////////////////////////////////////////
@@ -455,6 +495,11 @@ void RechargeableBatteryPlugin::PreUpdate(
             }
             return true;
         });
+
+    // Publish total power consumption
+    ignition::msgs::Float totalPowerConsumptionMsg;
+    totalPowerConsumptionMsg.set_data(totalPowerLoad);
+    this->dataPtr->totalPowerConsumptionPub.Publish(totalPowerConsumptionMsg);
 
     bool success = this->dataPtr->battery->SetPowerLoad(
         this->dataPtr->consumerId, totalPowerLoad);
@@ -628,6 +673,11 @@ double RechargeableBatteryPlugin::OnUpdateVoltage(const ignition::common::Batter
             this->dataPtr->totalPowerSupply += powerSource.nominalPower;
         }
     }
+
+    // Publish total power supply
+    ignition::msgs::Float totalPowerSupplyMsg;
+    totalPowerSupplyMsg.set_data(this->dataPtr->totalPowerSupply);
+    this->dataPtr->totalPowerSupplyPub.Publish(totalPowerSupplyMsg);
 
     // check if the total powersupply is not zero
     this->dataPtr->isCharging = this->dataPtr->totalPowerSupply > 1e-9 && this->dataPtr->StateOfCharge() < 0.9;
