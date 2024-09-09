@@ -13,6 +13,10 @@ There are two versions of the Robonaut 2: R2A and R2B. The R2A version was sent 
   - The simple environment is available in the `./assets/Robots/Robonaut2/Robonaut2UpperBody.usd`.
   - The Robonaut 2 in Simple Chess Environment is available in the `./assets/Scenes/Robonaut2Manipulation.usd`.
 
+### Required extensions
+
+  - ROS2 Bridge - To communicate with the Robonaut 2 using ROS2.
+
 ### Action Graphs
 
 The Robonaut 2 has the following action graphs:
@@ -20,7 +24,7 @@ The Robonaut 2 has the following action graphs:
 1. **IMU Publish Action Graph**. Available at Prim Path: `/Robonaut2/Graph/IMUPublishGraph`.
 2. **Joint State Publish Action Graph**. Available at Prim Path: `/Robonaut2/Graph/ROS_JointStates`.
 
-The action graphs mentioned above are some of the common action graphs used across the Space ROS assets. The action graphs are used to publish the data from the Robonaut 2 to the ROS2 bridge. The data includes the IMU data and joint states. You can find more information about the action graphs in the detailed [documentation](../action_graphs.md).
+The action graphs mentioned above are some of the common action graphs used across the Space ROS assets. The action graphs are used to publish the data from the Robonaut 2 to the ROS2 bridge. The data includes the IMU data and joint states. You can find more information about the action graphs in the detailed [documentation](../action_graph.md).
 
 ### ROS2 Interface
 

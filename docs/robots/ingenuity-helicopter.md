@@ -13,6 +13,10 @@ The robot is available in the IsaacSim as a simulation asset. You can import the
 - The simple environment is available in the `./assets/Robots/Ingenuity_Helicopter/IngenuityV3.usd`.
 - The Ingenuity Helicopter with Mars Surface environment is available in the `./assets/Scenes/SimpleIngenuityHelicopterScene.usd`.
 
+### Required extensions
+
+- ROS2 Bridge - To communicate with the Ingenuity Helicopter using ROS2.
+
 ### Action Graphs
 
 The Ingenuity Helicopter has the following action graph as presented below:
@@ -20,7 +24,7 @@ The Ingenuity Helicopter has the following action graph as presented below:
  - **ROS IMU Action Graph**. The graph is available at Prim Path: `/Ingenuity/Graphs/ImuSensorGraph`.
  - **Downward Camera Action Graph**. The graph is available at Prim Path: `/Ingenuity/Graphs/DownFacingCamera`.
 
-The above action graphs pull the sensor data from the Ingenuity Helicopter and publish them through the ROS2 bridge. You can also send commands to the Ingenuity Helicopter using the same action graphs. The same action graphs are used to control the Ingenuity Helicopter in the simulation. You can find more information about the action graphs in the detailed [documentation](../action_graphs.md).
+The above action graphs pull the sensor data from the Ingenuity Helicopter and publish them through the ROS2 bridge. You can also send commands to the Ingenuity Helicopter using the same action graphs. The same action graphs are used to control the Ingenuity Helicopter in the simulation. You can find more information about the action graphs in the detailed [documentation](../action_graph.md).
 
 ### ROS2 Interface
 

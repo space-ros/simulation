@@ -11,6 +11,11 @@ The Curiosity Mars Rover is a robotic vehicle that was launched by NASA in 2011.
   - The simple environment is available in the `./assets/Robots/Curiosity_Mars_Rover/CuriosityMarsRover.usd`.
   - The Curiosity Mars Rover on Mars Surface environment is available in the `./assets/Scenes/MarsEnvironment.usd`.
 
+### Required extensions
+
+  - ROS2 Bridge - To communicate with the Curiosity Mars Rover using ROS2.
+  - Rover Simple Controller - To control the Curiosity Mars Rover using the keyboard.
+
 ### Action Graphs
 
 The Curiosity Mars Rover has the following action graphs:
@@ -22,7 +27,7 @@ The Curiosity Mars Rover has the following action graphs:
 5. **Odometry Publish Action Graph**. Available at Prim Path: `/curiosity_mars_rover/Graph/ROS_Odometry`.
 6. **Camera Publish Action Graph**. Available at Prim Path: `/curiosity_mars_rover/Graph/ROS_Camera`.
 
-The action graphs mentioned above are some of the common action graphs used across the Space ROS assets. The action graphs are used to publish the data from the Curiosity Mars Rover to the ROS2 bridge. The data includes the IMU data, odometry data, camera data, and the control commands for the mobile base, tool arm, and mast arm. You can find more information about the action graphs in the detailed [documentation](../action_graphs.md).
+The action graphs mentioned above are some of the common action graphs used across the Space ROS assets. The action graphs are used to publish the data from the Curiosity Mars Rover to the ROS2 bridge. The data includes the IMU data, odometry data, camera data, and the control commands for the mobile base, tool arm, and mast arm. You can find more information about the action graphs in the detailed [documentation](../action_graph.md).
 
 ### ROS2 Interface
 

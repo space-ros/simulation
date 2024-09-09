@@ -13,13 +13,17 @@ The Canadarm2 is a large robotic arm that is attached to the ISS. It is used to 
  - The simple environment is available in the `./assets/Robots/Canadarm2/SSRMS_Canadarm2.usd`.
  - The Canadarm2 with ISS environment is available in the `./assets/Scenes/InternationalSpaceStationCanadarm2.usd`.
 
+### Required extensions
+
+ - ROS2 Bridge - To communicate with the Canadarm2 using ROS2.
+
 ### Action Graphs
 
 The canadarm2 has one action graph as presented below:
 
 - **Canadarm2 Joint Control Action Graph**. The graph is available at Prim Path: `/SSRMS_Canadarm2/JointControlGraph`.
 
-The above action graph pulls the joint states of the Canadarm2 and publishes them through the ROS2 bridge. You can also send joint states to the Canadarm2 using the same action graph. The same action graph is used to control the Canadarm2 in the simulation. You can find more information about the action graphs in the detailed [documentation](../action_graphs.md).
+The above action graph pulls the joint states of the Canadarm2 and publishes them through the ROS2 bridge. You can also send joint states to the Canadarm2 using the same action graph. The same action graph is used to control the Canadarm2 in the simulation. You can find more information about the action graphs in the detailed [documentation](../action_graph.md).
 
 ### ROS2 Interface
 
