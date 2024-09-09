@@ -33,6 +33,14 @@ The work is based on Nvidia's IsaacSim. The changes are tested on Ubuntu 22.04. 
 2. Clone the repository to your local machine in your desired location. Run the following command in the terminal:
 ```bash
 git clone https://github.com/space-ros/simulation.git
+
+# This project used git-lfs for large files. Make sure you have git-lfs installed.
+# If not, you can install it by running the following command:
+# sudo apt-get install git-lfs
+
+# Now, you can pull the repository with git-lfs
+cd simulation
+git lfs pull
 ```
 3. The repository contains two folders in the root directory:
     - `extensions`: Contains the extensions for IsaacSim
