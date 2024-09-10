@@ -19,6 +19,8 @@
 
 using namespace simulation;
 
+/// Computation of resultant forces and torques acting on rotor due to aerodynamic, inertial interactions, for further information
+/// the reader can refer to Helicopter Flight dynamics by Gareth D. Padfield.
 BladeForceState BladeForceModel::computeState(const PitchState &pitchState, const InflowState &inflowState, const BodyState &bodyState, const FlappingState &flapState, const RotorShaftState &shaftState, double rho)
 {
     // parameters

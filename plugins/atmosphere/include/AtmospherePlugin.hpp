@@ -33,14 +33,34 @@ using namespace sim;
 
 namespace simulation
 {
+    /**
+     * @class AtmospherePlugin
+     * @brief A plugin for simulating atmospheric effects within a simulation environment.
+     *
+     * This plugin integrates with the simulation environment, provides functionalities
+     * related to atmosphere modeling and publishes data via services.
+     */
     class AtmospherePlugin
         : public System,
             public ISystemConfigure
     {
+        /**
+         * @brief Default constructor.
+         */
         public: AtmospherePlugin() {}
 
+        /**
+         * @brief Default destructor.
+         */
         public: ~AtmospherePlugin() override = default;
 
+        /**
+         * @brief Configures the plugin with the given parameters.
+         * @param _entity The entity to configure.
+         * @param _sdf The SDF element providing configuration parameters.
+         * @param _ecm The entity-component manager.
+         * @param _eventMgr The event manager.
+         */
         public: void Configure(const Entity &_entity,
                             const std::shared_ptr<const sdf::Element> &_sdf,
                             EntityComponentManager &_ecm,
@@ -48,14 +68,20 @@ namespace simulation
 
         private:
 
-            gz::transport::Node node;
+            gz::transport::Node node; ///< Transport node for communication.
 
-            std::shared_ptr<AtmosphereModel> atmosphereModel;
+            std::shared_ptr<AtmosphereModel> atmosphereModel; ///< Shared pointer to the atmosphere model.
 
+            /**
+             * @brief Service callback to handle density requests.
+             * @param _req The request message containing an height value.
+             * @param _rep The response message containing the computed density.
+             * @return True if the service request was successfully handled, false otherwise.
+             */
             bool densityService(const gz::msgs::Double &_req, gz::msgs::Double &_rep);
 
     };
 
 }
 
-#endif
+#endif // ATMOSPHERE_PLUGIN_HH_

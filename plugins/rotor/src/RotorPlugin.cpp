@@ -94,6 +94,8 @@ void RotorPlugin::Configure(const Entity &_entity, const std::shared_ptr<const s
     linkName = SafeGetElement<std::string>(sdfClone, "link_name");
     jointName = SafeGetElement<std::string>(sdfClone, "joint_name"); 
     std::string col_topic = jointName + "/collective";
+
+    // Subscribe to input topics
     pub_coll = node.Advertise<gz::msgs::Double>(col_topic);
     if (!node.Subscribe(col_topic, &RotorPlugin::setCollectivePitch, this))
     {
@@ -124,6 +126,8 @@ void RotorPlugin::Configure(const Entity &_entity, const std::shared_ptr<const s
         ignerr << "Error subscribing to topic [" << ang_vel_topic << "]" << std::endl;
         return;
     }
+
+    // Obtain parameters from sdf configuration elements
     auto configElem = sdfClone->GetElement("config");
     auto bladeElem = configElem->GetElement("blade");
 
@@ -183,6 +187,7 @@ void RotorPlugin::Configure(const Entity &_entity, const std::shared_ptr<const s
     auto bladeConfig = BladeConfig(a0_, c_, R_, th_tw_, I_beta_);
     rotorConfig = std::make_unique<RotorConfig>(bladeConfig, K_beta_, N_b_, ccw_);
 
+    // Instantiate dynamic models, change the if-else statements to add new models 
     std::string flappingModelName = SafeGetElement<std::string>(sdfClone, "flapping_model");
     std::string forceModelName = SafeGetElement<std::string>(sdfClone, "force_model");
     std::string inflowModelName = SafeGetElement<std::string>(sdfClone, "inflow_model");
@@ -224,6 +229,7 @@ void RotorPlugin::PreUpdate(const gz::sim::UpdateInfo &_info, gz::sim::EntityCom
     }
     auto entity = link.Entity();
 
+    // Obtain motion and pose information from the link 
     auto linearVelComp_L = _ecm.Component<components::LinearVelocity>(entity);
     auto angularVelComp_L = _ecm.Component<components::AngularVelocity>(entity);
     auto linearAccComp_L = _ecm.Component<components::LinearAcceleration>(entity);

@@ -60,6 +60,7 @@ void AtmospherePlugin::Configure(const Entity &_entity, const std::shared_ptr<co
     double rho_0_ = SafeGetElement<double>(sdfClone, "surface_density");
     std::string modelName = SafeGetElement<std::string>(sdfClone, "model");
 
+    // Instantiate atmosphere model, change the if-else statements to add new models 
     if (modelName == "uniform_density")
     {
         atmosphereModel = std::make_shared<UniformDensityAtmosphereModel>(rho_0_);

@@ -20,7 +20,8 @@
 
 using namespace simulation;
 
-
+/// Quasi static computation of flapping state using a center spring model, for further information
+/// the reader can refer to Helicopter Flight dynamics by Gareth D. Padfield.
 FlappingState CenterSpringModel::computeState(const PitchState &pitchState, const InflowState &inflowState, const BodyState &bodyState, double Omega, double rho)
 {
     double th_TW = rotor->blade.th_tw;
@@ -41,6 +42,7 @@ FlappingState CenterSpringModel::computeState(const PitchState &pitchState, cons
 
 void CenterSpringModel::updateModelMatrices(double rho, double mu, double Omega)
 {
+    // Compute parameters
     BladeConfig blade = rotor->blade;
     double gamma = (rho*blade.c*blade.a0*std::pow(blade.R,4))/blade.I_beta;
     double lambda_beta_2 = 1 + rotor->K_beta/(blade.I_beta*std::pow(Omega,2));
@@ -51,6 +53,7 @@ void CenterSpringModel::updateModelMatrices(double rho, double mu, double Omega)
     double k = gamma/(8*lambda_beta_2);
     double mu_2 = std::pow(mu,2);
 
+    // Compute matrix that relates flapping state to pitch state
     A_beta_th[0][0] = 1 + mu_2; A_beta_th[0][1] = 4/5.0 + 2/3.0*mu_2;
     A_beta_th[0][2] = 4/3.0*mu; A_beta_th[0][3] = 0;
     A_beta_th[1][0] = eta_beta*4/3.0*mu*(S_beta*(1 + mu_2) + 16*lambda_beta_2/gamma*(1 + mu_2/2.0));
@@ -63,6 +66,7 @@ void CenterSpringModel::updateModelMatrices(double rho, double mu, double Omega)
     A_beta_th[2][3] = -eta_beta*8*lambda_beta_2/gamma*(1 - std::pow(mu,4)/2.0);
     A_beta_th = A_beta_th*(gamma/(8*lambda_beta_2));
 
+    // Compute matrix that relates flapping state to inflow state
     A_beta_lmd[0][0] = 4/3.0; A_beta_lmd[0][1] = -2/3.0*mu; A_beta_lmd[0][2] = 0;
     A_beta_lmd[1][0] = eta_beta*mu*(16/9.0*S_beta + 16*lambda_beta_2/gamma*(1 + mu_2/2.0));
     A_beta_lmd[1][1] = -eta_beta*(8*lambda_beta_2/gamma*(1 + mu_2/2.0) + S_beta*8/9.0*mu_2);
@@ -72,6 +76,7 @@ void CenterSpringModel::updateModelMatrices(double rho, double mu, double Omega)
     A_beta_lmd[2][2] = eta_beta*8*lambda_beta_2/gamma*(1 - mu_2/2.0);
     A_beta_lmd = A_beta_lmd*(gamma/(8*lambda_beta_2));
 
+    // Compute matrix that relates flapping state to body state
     A_beta_om[0][0] = 0; A_beta_om[0][1] = 0; A_beta_om[0][2] = 2/3.0*mu; A_beta_om[0][3] = 0;
     A_beta_om[1][0] = eta_beta*std::pow(8/gamma,2)*lambda_beta_2*(1 + mu_2/2.0);
     A_beta_om[1][1] = -eta_beta*std::pow(8/gamma,2)*lambda_beta_2*S_beta;
@@ -114,6 +119,8 @@ Matrix CenterSpringModel::bodyState2Vector(const BodyState &bodyState, double Om
     return Matrix(columnMatrix);
 }
 
+/// Simplified model of flapping dynamics, the rotor acts almost as a gyroscope, for further information
+/// the reader can refer to Principles of Helicopter Aerodynamics by J. Gordon Leishman.
 FlappingState GordonFlappingModel::computeState(const PitchState &pitchState, const InflowState &inflowState, const BodyState &bodyState, double Omega, double rho)
 {
     double th_TW = rotor->blade.th_tw;
