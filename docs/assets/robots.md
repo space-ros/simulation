@@ -1,0 +1,16 @@
+# Robot Assets
+
+The robot assets are the models of the robots that can be used in the IsaacSim simulation environment. The robot assets are available in the `./assets/Robots` directory.
+
+## List of Robots
+
+| Robot Name                                                | Description                                                                                                                                                     | Preview                                                                       |
+| --------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| [Canadarm2](../robots/canadarm2.md)                       | Canadarm2 is a robotic arm used on the International Space Station (ISS) for various tasks like capturing and docking spacecraft, moving equipment, etc.        | ![Canadarm2](../resources/images/canadarm2.png)                               |
+| Canadarm2 17DoFs                                          | Canadarm2 with 17 Degrees of Freedom (DoFs)                                                                                                                     | ![Canadarm2 17DoFs](../resources/images/canadarm2-17dof.png)                  |
+| Canadarm1                                                 | Canadarm1 is a robotic arm used for manipulation tasks in space. It is designed for tasks like capturing and docking spacecraft, moving equipment, etc.         | ![Space Robot Manipulator](../resources/images/space-station-robotic-arm.png) |
+| [Robotnaut2](../robots/robonaut2.md)                      | Robotnaut2 is a humanoid robot designed for space exploration. It is equipped with a manipulator arm and a camera for performing tasks in space.                | ![Robotnaut2](../resources/images/robonaut.png)                               |
+| [Robonaut2 Upper Body](../robots/robonaut2.md)            | Robonaut2 Upper Body is the upper part of the Robonaut2 humanoid robot. It is equipped with a manipulator arm and a camera for performing tasks in space.       | ![Robonaut2 Upper Body](../resources/images/robonaut-upperbody.png)           |
+| [Curiosity Rover](../robots/curiosity.md)                 | Curiosity Rover is a Mars rover designed for exploration tasks on the Mars surface. It is equipped with a manipulator arm and a camera for performing tasks.    | ![Curiosity Rover](../resources/images/curiosity-rover.png)                   |
+| Perseverance Rover                                        | Perseverance Rover is a Mars rover designed for exploration tasks on the Mars surface. It is equipped with a manipulator arm and a camera for performing tasks. | ![Perseverance Rover](../resources/images/perseverance-rover.png)             |
+| [Ingenuity Helicopter](../robots/ingenuity-helicopter.md) | Ingenuity Helicopter is a Mars helicopter designed for aerial exploration tasks on the Mars surface. It is equipped with a camera for performing tasks.         | ![Ingenuity Helicopter](../resources/images/ingenuity-helicopter.png)         |

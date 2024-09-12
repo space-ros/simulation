@@ -1,0 +1,82 @@
+{
+    "RoverSimpleController": {
+        "version": 1,
+        "description": "Receives Linear and Angular Velocity for rover and translates to wheel and steering outputs",
+        "language": "Python",
+        "metadata": {
+            "uiName": "Rover Simple Controller"
+        },
+        "inputs": {
+            "chassis_length": {
+                "type": "float",
+                "description": "Chassis Length in meters (L)",
+                "default": 0,
+                "metadata": {
+                    "uiName": "Chassis Length"
+                }
+            },
+            "chassis_width": {
+                "type": "float",
+                "description": "Chassis Width in meters (T)",
+                "default": 0,
+                "metadata": {
+                    "uiName": "Chassis Width"
+                }
+            },
+            "linear_velocity": {
+                "type": "float[3]",
+                "description": "Linear Velocity Vector in m/s (x, y, z)",
+                "default": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "metadata": {
+                    "uiName": "Linear Velocity Vector"
+                }
+            },
+            "angular_velocity": {
+                "type": "float[3]",
+                "description": "Angular Velocity Vector in rad/s (x, y, z)",
+                "default": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "metadata": {
+                    "uiName": "Angular Velocity Vector"
+                }
+            }
+        },
+        "outputs": {
+            "wheel_velocity": {
+                "type": "double[]",
+                "description": "Wheel Velocity for six wheels of rover",
+                "metadata": {
+                    "uiName": "Wheel Velocity"
+                },
+                "default": [
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0
+                ]
+            },
+            "steering_position": {
+                "type": "double[]",
+                "description": "Steering angle in radians",
+                "default": [
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "metadata": {
+                    "uiName": "Steering Position"
+                }
+            }
+        }
+    }
+}
