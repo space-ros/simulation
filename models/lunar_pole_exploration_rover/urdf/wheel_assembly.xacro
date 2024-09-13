@@ -1,0 +1,102 @@
+<?xml version="1.0" ?>
+<robot xmlns:xacro="http://wiki.ros.org/xacro">
+
+  <xacro:macro name="wheel_assembly" params="placement side tX tY">
+    <!-- placement is either or rear -->
+    <!-- side is either left side or right side -->
+    <!-- tX is either 1 for front or -1 for rear -->
+    <!-- tY is either 1 for ${side} side or -1 for right side -->
+
+    <link name='${placement}_${side}_suspension'>
+        <collision>
+          <origin xyz="0 0 0"
+              rpy="0 0 0"/>
+          <geometry>
+            <mesh filename="package://simulation/models/lunar_pole_exploration_rover/meshes/suspension_${side}.dae" scale="${scale_XYZ} ${scale_XYZ} ${scale_XYZ}"/>
+          </geometry>
+        </collision>
+        <visual>
+          <origin xyz="0 0 0"
+              rpy="0 0 0"/>
+          <geometry>
+            <mesh filename="package://simulation/models/lunar_pole_exploration_rover/meshes/suspension_${side}.dae" scale="${scale_XYZ} ${scale_XYZ} ${scale_XYZ}"/>
+          </geometry>
+        </visual>
+        <inertial>
+          <origin xyz="${tY*suspensionComX*scale_XYZ} ${tY*suspensionComY*scale_XYZ} ${tY*suspensionComZ*scale_XYZ}"
+              rpy="0 0 0"/>
+          <mass value="${suspensionMass}"/>
+          <xacro:box_inertia
+            m="${suspensionMass}"
+            x="${suspensionWidth*scale_XYZ}"
+            y="${suspensionLength*scale_XYZ}"
+            z="${suspensionHeight*scale_XYZ}"/>
+        </inertial>
+      </link>
+
+      <joint name="${placement}_${side}_suspension_joint" type="prismatic">
+        <parent link="chassis"/>
+        <child link="${placement}_${side}_suspension"/>
+        <!-- <origin xyz="${tX*0.435} ${tY*0.255} 0.094" rpy="0 0 0"/> -->
+        <origin xyz="${tX*0.435} ${tY*0.255} 0.09" rpy="0 0 0"/>
+        <limit lower="${suspension_lower_limit}" upper="${suspension_upper_limit}" effort="10000.0" velocity="100.0"/>
+        <axis xyz="0 0 1"/>
+        <dynamics damping="${suspension_damping}" friction="${suspension_friction}" spring_stiffness="${suspension_stiffness}"/>
+      </joint>
+
+      <link name='${placement}_${side}_wheel_axle'>
+        <collision>
+          <origin xyz="0 0 0"
+              rpy="0 0 0"/>
+          <geometry>
+            <mesh filename="package://simulation/models/lunar_pole_exploration_rover/meshes/wheel_axle_${side}.dae" scale="${scale_XYZ} ${scale_XYZ} ${scale_XYZ}"/>
+          </geometry>
+        </collision>
+        <visual>
+          <origin xyz="0 0 0"
+              rpy="0 0 0"/>
+          <geometry>
+            <mesh filename="package://simulation/models/lunar_pole_exploration_rover/meshes/wheel_axle_${side}.dae" scale="${scale_XYZ} ${scale_XYZ} ${scale_XYZ}"/>
+          </geometry>
+        </visual>
+
+        <inertial>
+          <origin xyz="${axleComX*scale_XYZ} ${axleComY*scale_XYZ} ${axleComZ*scale_XYZ}"
+              rpy="0 0 0"/>
+          <mass value="${axleMass}"/>
+          <xacro:box_inertia
+            m="${axleMass}"
+            x="${axleWidth*scale_XYZ}"
+            y="${axleLength*scale_XYZ}"
+            z="${axleHeight*scale_XYZ}"/>
+        </inertial>
+      </link>
+
+      <joint name="${placement}_${side}_wheel_axle_joint" type="revolute">
+        <parent link="${placement}_${side}_suspension"/>
+        <child link="${placement}_${side}_wheel_axle"/>
+        <origin xyz="0.0 ${tY*0.27} -0.1265" rpy="0 0 0"/>
+        <axis xyz="0 0 1"/>
+        <limit lower="${-suspension_steer_limit}" upper="${suspension_steer_limit}" effort="${suspension_steer_effort}" velocity="${suspension_steer_velocity}"/>
+      </joint>
+
+      <transmission name="${placement}_${side}_wheel_steer_trans">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="${placement}_${side}_wheel_axle_joint">
+          <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="${placement}_${side}_wheel_steerMotor">
+          <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+          <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+      </transmission>
+
+      <xacro:wheel
+        wheel_name="${placement}_${side}_wheel"
+        wheel_conector_name="${placement}_${side}_wheel_axle"
+        side="${side}"
+        tY="${tY}"/>
+
+  </xacro:macro>
+
+</robot>

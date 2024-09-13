@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<robot name="lunar_pole_exploration_rover" xmlns:xacro="http://wiki.ros.org/xacro">
+
+    <!-- Inertia matrices -->
+	<xacro:include filename="$(find simulation)/models/lunar_pole_exploration_rover/urdf/macros.xacro" />
+	<!-- Robot constants and properties -->
+	<xacro:include filename="$(find simulation)/models/lunar_pole_exploration_rover/urdf/lunar_pole_exploration_rover_properties.xacro" />
+	<!-- Gazebo aspects of the robot -->
+	<xacro:include filename="$(find simulation)/models/lunar_pole_exploration_rover/urdf/lunar_pole_exploration_rover.gazebo" />
+	<!-- Chasis -->
+	<xacro:include filename="$(find simulation)/models/lunar_pole_exploration_rover/urdf/chassis.xacro" />
+	<!-- Wheel Groups -->
+	<xacro:include filename="$(find simulation)/models/lunar_pole_exploration_rover/urdf/wheel.xacro" />
+	<xacro:include filename="$(find simulation)/models/lunar_pole_exploration_rover/urdf/wheel_assembly.xacro" />
+	<!-- Mast -->
+	<xacro:include filename="$(find simulation)/models/lunar_pole_exploration_rover/urdf/mast_head.xacro" />
+
+	<xacro:chassis_body/>
+	<xacro:wheel_assembly
+        placement="front"
+        side="left"
+        tX="1"
+        tY="1"/>
+	<xacro:wheel_assembly
+        placement="rear"
+        side="left"
+        tX="-1"
+        tY="1"/>
+	<xacro:wheel_assembly
+        placement="front"
+        side="right"
+        tX="1"
+        tY="-1"/>
+	<xacro:wheel_assembly
+        placement="rear"
+        side="right"
+        tX="-1"
+        tY="-1"/>
+	<xacro:mast_head/>
+
+</robot>

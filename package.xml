@@ -9,9 +9,17 @@
 
   <buildtool_depend>ament_cmake</buildtool_depend>
 
+  <depend>ign-cmake2</depend>
+  <depend>ign-plugin1</depend>
+  <depend>ign-common4</depend>
+  <depend>ign-gazebo6</depend>
+  <depend>ign-rendering6</depend>
+  <depend>ign-sensors6</depend>
+
   <exec_depend>xacro</exec_depend>
 
   <export>
     <build_type>ament_cmake</build_type>
+    <gazebo_ros gazebo_plugin_path="${prefix}/lib"/>
   </export>
 </package>

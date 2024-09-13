@@ -1,0 +1,80 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://wiki.ros.org/xacro">
+
+	<!-- Constants -->
+	<xacro:property name="PI" value="3.1415926535897931"/>
+	
+	<!-- Scaling -->
+	<xacro:property name="scale_XYZ" value="1.0"/>
+
+	<!-- Chassis properties -->
+	<xacro:property name="chassisMass" value="250.0"/>
+	<xacro:property name="chassisHeight" value="0.207"/>
+	<xacro:property name="chassisLength" value="1.380"/>
+	<xacro:property name="chassisWidth" value="1.200"/>
+
+	<!-- Body properties -->
+	<xacro:property name="bodyMass" value="100.0"/>
+	<xacro:property name="bodyHeight" value="0.900"/>
+	<xacro:property name="bodyLength" value="1.525"/>
+	<xacro:property name="bodyWidth" value="1.525"/>
+	<xacro:property name="solarPanelMass" value="1.0"/>
+	<xacro:property name="solarPanelHeight" value="0.001"/>
+	<xacro:property name="solarPanelLength" value="0.800"/>
+	<xacro:property name="solarPanelWidth" value="1.450"/>
+
+	<!-- Wheel Assembly -->
+	<xacro:property name="suspensionMass" value="1.5"/>
+	<xacro:property name="suspensionWidth" value="0.090"/>
+	<xacro:property name="suspensionLength" value="0.345"/>
+	<xacro:property name="suspensionHeight" value="0.145"/>
+	<xacro:property name="suspensionComX" value="0.0"/>
+	<xacro:property name="suspensionComY" value="0.09"/>
+	<xacro:property name="suspensionComZ" value="-0.009"/>
+
+	<xacro:property name="suspension_lower_limit" value="-0.0115"/>
+	<xacro:property name="suspension_upper_limit" value="0.0115"/>
+	<xacro:property name="suspension_damping" value="1000.0"/>
+	<xacro:property name="suspension_friction" value="1000.0"/>
+	<xacro:property name="suspension_stiffness" value="200000.0"/>
+
+	<xacro:property name="axleHeight" value="0.182"/>
+	<xacro:property name="axleWidth" value="0.1435"/>
+	<xacro:property name="axleLength" value="0.100"/>
+	<xacro:property name="axleMass" value="0.7"/>
+	<xacro:property name="axleComX" value="0.0"/>
+	<xacro:property name="axleComY" value="0.048"/>
+	<xacro:property name="axleComZ" value="0.026"/>
+
+	<xacro:property name="suspension_steer_limit" value="0.9"/>
+	<xacro:property name="suspension_steer_effort" value="100000.0"/>
+	<xacro:property name="suspension_steer_velocity" value="1000.0"/>
+
+
+	<!-- Wheels properties -->
+	<xacro:property name="wheelWidth" value="0.240"/>
+	<xacro:property name="wheelRadius" value="0.225"/>
+	<xacro:property name="wheelMass" value="1.0"/>
+
+	<!-- Mast -->
+	<xacro:property name="mastHeadMass" value="3.0"/>
+
+	<xacro:property name="mastHeadPivotMass" value="${mastHeadMass/2}"/>
+	<xacro:property name="mastHeadPivotWidth" value="0.120"/>
+	<xacro:property name="mastHeadPivotLength" value="0.280"/>
+	<xacro:property name="mastHeadPivotHeight" value="0.120"/>
+
+	<xacro:property name="mastCameraMass" value="${mastHeadMass/2}"/>
+	<xacro:property name="mastCameraWidth" value="0.168"/>
+	<xacro:property name="mastCameraLength" value="0.520"/>
+	<xacro:property name="mastCameraHeight" value="0.130"/>
+
+	<xacro:property name="mast_camera_pan_limit" value="3.490659"/>
+	<xacro:property name="mast_camera_pan_effort" value="50000.0"/>
+	<xacro:property name="mast_camera_pan_velocity" value="4.0"/>
+
+	<xacro:property name="mast_camera_tilt_limit" value="1.308997"/>
+	<xacro:property name="mast_camera_tilt_effort" value="50000.0"/>
+	<xacro:property name="mast_camera_tilt_velocity" value="3.0"/>
+	
+</robot>
