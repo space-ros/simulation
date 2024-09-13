@@ -1,0 +1,13 @@
+material Gazebo/LunarSurface
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                texture lunar_plane.png
+            }
+        }
+    }
+}
