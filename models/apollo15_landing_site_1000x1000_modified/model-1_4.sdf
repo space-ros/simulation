@@ -1,0 +1,45 @@
+<?xml version="1.0" ?>
+<sdf version="1.4">
+  <model name="apollo15_landing_site_1000x1000_modified">
+    <static>true</static>
+    <link name="link">
+      <collision name="collision">
+        <surface>
+          <friction>
+          <ode>
+            <mu>50</mu>
+          </ode>
+          </friction>
+        </surface>
+        <geometry>
+          <heightmap>
+            <texture>
+              <diffuse>model://apollo15_landing_site_1000x1000_modified/materials/textures/moon_diffuse.png</diffuse>
+              <normal>model://apollo15_landing_site_1000x1000_modified/materials/textures/moon_normal.png</normal>
+              <size>20</size>
+            </texture>
+            <uri>model://apollo15_landing_site_1000x1000_modified/materials/textures/NAC_DTM_APOLLO15_E261N0036_257x257+7472+2152.png</uri>
+            <size>514 514 49</size>
+            <pos>0 0 -89</pos>
+          </heightmap>
+        </geometry>
+      </collision>
+
+      <visual name="visual">
+        <geometry>
+          <heightmap>
+            <texture>
+              <diffuse>model://apollo15_landing_site_1000x1000_modified/materials/textures/moon_diffuse.png</diffuse>
+              <normal>model://apollo15_landing_site_1000x1000_modified/materials/textures/moon_normal.png</normal>
+              <size>20</size>
+            </texture>
+            <uri>model://apollo15_landing_site_1000x1000_modified/materials/textures/NAC_DTM_APOLLO15_E261N0036_257x257+7472+2152.png</uri>
+            <size>514 514 49</size>
+            <pos>0 0 -44</pos>
+          </heightmap>
+        </geometry>
+      </visual>
+
+    </link>
+  </model>
+</sdf>
