@@ -143,7 +143,11 @@
           <robot_base_frame>/base_footprint</robot_base_frame>
           <odom_publish_frequency>10</odom_publish_frequency>
       </plugin>
-
+      
+      <plugin filename="ignition-gazebo-particle-emitter-system" name="ignition::gazebo::systems::ParticleEmitter">
+          <render_engine>ogre2</render_engine>
+      </plugin>
+      
       <plugin filename="ignition-gazebo-sensors-system" name="ignition::gazebo::systems::Sensors">
           <render_engine>ogre2</render_engine>
           <background_color>0.9 0.753 0.66 1</background_color>
