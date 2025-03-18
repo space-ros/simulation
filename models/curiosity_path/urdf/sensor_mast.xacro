@@ -69,18 +69,6 @@
         <dynamics damping="0.0" friction="0.0"/>
 	</joint>
 
-    <transmission name="mast_p_trans">
-      <type>transmission_interface/SimpleTransmission</type>
-      <joint name="mast_p_joint">
-        <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-      </joint>
-      <actuator name="mast_pMotor">
-        <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-        <mechanicalReduction>1</mechanicalReduction>
-      </actuator>
-    </transmission>
-
-
   	<link name='mast_p_to_mast_02'>
 		<inertial>
             <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -146,19 +134,6 @@
         <axis xyz="0 0 1"/>
         <dynamics damping="0.0" friction="0.0"/>
 	</joint>
-
-    <transmission name="mast_02_trans">
-      <type>transmission_interface/SimpleTransmission</type>
-      <joint name="mast_02_joint">
-        <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-      </joint>
-      <actuator name="mast_02Motor">
-        <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-        <mechanicalReduction>1</mechanicalReduction>
-      </actuator>
-    </transmission>
-
-
 
 	<link name='mast_02_to_mast_cameras'>
 		<inertial>
@@ -226,18 +201,6 @@
         <dynamics damping="0.0" friction="0.0"/>
 	</joint>
 
-    <transmission name="mast_02_trans">
-      <type>transmission_interface/SimpleTransmission</type>
-      <joint name="mast_cameras_joint">
-        <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-      </joint>
-      <actuator name="mast_02Motor">
-        <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-        <mechanicalReduction>1</mechanicalReduction>
-      </actuator>
-    </transmission>
-
-
   	<material name="green">
         <color rgba="0 0.8 0 1"/>
     </material>
@@ -295,5 +258,45 @@
     </joint>
 
   </xacro:macro>
+
+
+  <!-- ros2_control transmission does NOT use this currently. This macro is not actively used -->
+  <xacro:macro name="mast_transmission" params="hw_interface:=hardware_interface/EffortJointInterface">
+  
+    <transmission name="mast_p_trans">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="mast_p_joint">
+        <hardwareInterface>${hw_interface}</hardwareInterface>
+      </joint>
+      <actuator name="mast_pMotor">
+        <hardwareInterface>${hw_interface}</hardwareInterface>
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+    </transmission>
+
+    <transmission name="mast_02_trans">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="mast_02_joint">
+        <hardwareInterface>${hw_interface}</hardwareInterface>
+      </joint>
+      <actuator name="mast_02Motor">
+        <hardwareInterface>${hw_interface}</hardwareInterface>
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+    </transmission>
+
+
+    <transmission name="mast_02_trans">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="mast_cameras_joint">
+        <hardwareInterface>${hw_interface}</hardwareInterface>
+      </joint>
+      <actuator name="mast_02Motor">
+        <hardwareInterface>${hw_interface}</hardwareInterface>
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+    </transmission>
+    
+</xacro:macro>
 
 </robot>

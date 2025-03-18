@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://wiki.ros.org/xacro">
 
-  <ros2_control name="IgnitionSystem" type="system">
+  <ros2_control name="GazeboSystem" type="system">
       <hardware>
-          <plugin>ign_ros2_control/IgnitionSystem</plugin>
+          <plugin>gz_ros2_control/GazeboSimSystem</plugin>
       </hardware>
       <!-- Arm Joints Interfaces-->
       <joint name="arm_01_joint">
@@ -132,22 +132,22 @@
   </ros2_control>
 
   <gazebo>
-      <plugin filename="libign_ros2_control-system" name="ign_ros2_control::IgnitionROS2ControlPlugin">
+      <plugin filename="gz_ros2_control-system" name="gz_ros2_control::GazeboSimROS2ControlPlugin">
           <robot_param>robot_description</robot_param>
           <robot_param_node>robot_state_publisher</robot_param_node>
           <parameters>$(find mars_rover)/config/mars_rover_control.yaml</parameters>
       </plugin>
 
-      <plugin filename="ignition-gazebo-odometry-publisher-system" name="ignition::gazebo::systems::OdometryPublisher">
+      <plugin filename="gz-sim-odometry-publisher-system" name="gz::sim::systems::OdometryPublisher">
           <odom_frame>/odom</odom_frame>
           <robot_base_frame>/base_footprint</robot_base_frame>
           <odom_publish_frequency>10</odom_publish_frequency>
       </plugin>
 
-      <plugin filename="ignition-gazebo-sensors-system" name="ignition::gazebo::systems::Sensors">
+      <!--<plugin filename="gz-sim-sensors-system" name="gz::sim::systems::Sensors">
           <render_engine>ogre2</render_engine>
           <background_color>0.9 0.753 0.66 1</background_color>
-      </plugin>
+      </plugin>-->
   </gazebo>
 
   <gazebo reference="lidar_link">

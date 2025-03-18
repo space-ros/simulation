@@ -32,11 +32,10 @@
 
 	<link name='arm_01'>
 		<collision>
-			<origin xyz="0 0 0"
-					rpy="0 0 0"/>
-			<geometry>
-				<mesh filename="package://simulation/models/curiosity_path/meshes/arm_01_fixed.dae" scale="${scale_XYZ} ${scale_XYZ} ${scale_XYZ}"/>
-			</geometry>
+		    <origin xyz="0 0 0" rpy="0 0 0"/>
+		    <geometry>
+		        <mesh filename="package://simulation/models/curiosity_path/meshes/arm_01_fixed.dae" scale="${scale_XYZ} ${scale_XYZ} ${scale_XYZ}"/>
+		    </geometry>
 		</collision>
 
 		<visual>
@@ -68,17 +67,6 @@
         <axis xyz="0 0 1"/>
         <dynamics damping="0.0" friction="0.0"/>
 	</joint>
-
-    <transmission name="arm_01_trans">
-      <type>transmission_interface/SimpleTransmission</type>
-      <joint name="arm_01_joint">
-        <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-      </joint>
-      <actuator name="arm_01Motor">
-        <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-        <mechanicalReduction>1</mechanicalReduction>
-      </actuator>
-    </transmission>
 
 
   	<link name='arm_01_to_arm_02'>
@@ -137,7 +125,6 @@
 		</inertial>
 	</link>
 
-
   	<joint name="arm_02_joint" type="revolute">
 		<parent link="arm_01_to_arm_02"/>
 		<child link="arm_02"/>
@@ -146,18 +133,6 @@
         <axis xyz="1 0 0"/>
         <dynamics damping="0.0" friction="0.0"/>
 	</joint>
-
-    <transmission name="arm_02_trans">
-      <type>transmission_interface/SimpleTransmission</type>
-      <joint name="arm_02_joint">
-        <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-      </joint>
-      <actuator name="arm_02Motor">
-        <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-        <mechanicalReduction>1</mechanicalReduction>
-      </actuator>
-    </transmission>
-
 
   	<link name='arm_02_to_arm_03'>
 		<inertial>
@@ -225,19 +200,6 @@
         <dynamics damping="0.0" friction="0.0"/>
 	</joint>
 
-    <transmission name="arm_03_trans">
-      <type>transmission_interface/SimpleTransmission</type>
-      <joint name="arm_03_joint">
-        <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-      </joint>
-      <actuator name="arm_03Motor">
-        <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-        <mechanicalReduction>1</mechanicalReduction>
-      </actuator>
-    </transmission>
-
-
-
   	<link name='arm_03_to_arm_04'>
 		<inertial>
             <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -267,24 +229,21 @@
 
   	<link name='arm_04'>
 		<collision>
-			<origin xyz="0 0 0"
-					rpy="0 0 0"/>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
 			<geometry>
 				<mesh filename="package://simulation/models/curiosity_path/meshes/arm_04_fixed.dae" scale="${scale_XYZ} ${scale_XYZ} ${scale_XYZ}"/>
 			</geometry>
 		</collision>
 
 		<visual>
-			<origin xyz="0 0 0"
-					rpy="0 0 0"/>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
 			<geometry>
 				<mesh filename="package://simulation/models/curiosity_path/meshes/arm_04_fixed.dae" scale="${scale_XYZ} ${scale_XYZ} ${scale_XYZ}"/>
 			</geometry>
 		</visual>
 
 		<inertial>
-			<origin xyz="0 0 0"
-					rpy="0 0 0"/>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
 			<mass value="${arm_04_Mass}"/>
 			<xacro:box_inertia
 				m="${arm_04_Mass}"
@@ -304,20 +263,8 @@
         <dynamics damping="0.0" friction="0.0"/>
 	</joint>
 
-    <transmission name="arm_04_trans">
-      <type>transmission_interface/SimpleTransmission</type>
-      <joint name="arm_04_joint">
-        <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-      </joint>
-      <actuator name="arm_04Motor">
-        <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-        <mechanicalReduction>1</mechanicalReduction>
-      </actuator>
-    </transmission>
-
-
   	<link name='arm_04_to_arm_tools'>
-		<inertial>
+	<inertial>
             <origin xyz="0 0 0" rpy="0 0 0"/>
             <mass value="0.02" />
             <inertia ixx="2.61666666667e-05" ixy="0.0" ixz="0.0" iyy="2.61666666667e-05" iyz="0.0" izz="3.6e-05"/>
@@ -346,24 +293,21 @@
 
   	<link name='arm_tools'>
 		<collision>
-			<origin xyz="0 0 0"
-					rpy="0 0 0"/>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
 			<geometry>
 				<mesh filename="package://simulation/models/curiosity_path/meshes/arm_tools_fixed.dae" scale="${scale_XYZ} ${scale_XYZ} ${scale_XYZ}"/>
 			</geometry>
 		</collision>
 
 		<visual>
-			<origin xyz="0 0 0"
-					rpy="0 0 0"/>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
 			<geometry>
 				<mesh filename="package://simulation/models/curiosity_path/meshes/arm_tools_fixed.dae" scale="${scale_XYZ} ${scale_XYZ} ${scale_XYZ}"/>
 			</geometry>
 		</visual>
 
 		<inertial>
-			<origin xyz="0 0 0"
-					rpy="0 0 0"/>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
 			<mass value="${arm_tools_Mass}"/>
 			<xacro:box_inertia
 				m="${arm_tools_Mass}"
@@ -372,7 +316,6 @@
 				z="${arm_tools_Z*scale_XYZ}"/>
 		</inertial>
 	</link>
-
 
   	<joint name="arm_tools_joint" type="continuous">
 		<parent link="arm_04_to_arm_tools"/>
@@ -383,17 +326,68 @@
         <dynamics damping="0.0" friction="0.0"/>
 	</joint>
 
-    <transmission name="arm_tools_trans">
+  </xacro:macro>
+  
+  <!-- ros2_control transmission does NOT use this currently. This macro is not actively used -->
+  <xacro:macro name="arm_transmission" params="hw_interface:=hardware_interface/EffortJointInterface">
+
+    <transmission name="arm_01_trans">
       <type>transmission_interface/SimpleTransmission</type>
-      <joint name="arm_tools_joint">
-        <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <joint name="arm_01_joint">
+        <hardwareInterface>${hw_interface}</hardwareInterface>
       </joint>
-      <actuator name="arm_toolsMotor">
-        <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <actuator name="arm_01Motor">
+        <hardwareInterface>${hw_interface}</hardwareInterface>
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+    </transmission>
+    
+    <transmission name="arm_02_trans">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="arm_02_joint">
+        <hardwareInterface>${hw_interface}</hardwareInterface>
+      </joint>
+      <actuator name="arm_02Motor">
+        <hardwareInterface>${hw_interface}</hardwareInterface>
         <mechanicalReduction>1</mechanicalReduction>
       </actuator>
     </transmission>
 
+
+    <transmission name="arm_03_trans">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="arm_03_joint">
+        <hardwareInterface>${hw_interface}</hardwareInterface>
+      </joint>
+      <actuator name="arm_03Motor">
+        <hardwareInterface>${hw_interface}</hardwareInterface>
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+    </transmission>
+
+
+    <transmission name="arm_04_trans">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="arm_04_joint">
+        <hardwareInterface>${hw_interface}</hardwareInterface>
+      </joint>
+      <actuator name="arm_04Motor">
+        <hardwareInterface>${hw_interface}</hardwareInterface>
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+    </transmission>
+
+
+    <transmission name="arm_tools_trans">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="arm_tools_joint">
+        <hardwareInterface>${hw_interface}</hardwareInterface>
+      </joint>
+      <actuator name="arm_toolsMotor">
+        <hardwareInterface>${hw_interface}</hardwareInterface>
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+    </transmission>
   </xacro:macro>
 
 </robot>
