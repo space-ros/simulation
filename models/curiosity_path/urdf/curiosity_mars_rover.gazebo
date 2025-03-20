@@ -144,15 +144,15 @@
           <odom_publish_frequency>10</odom_publish_frequency>
       </plugin>
 
-      <!--<plugin filename="gz-sim-sensors-system" name="gz::sim::systems::Sensors">
+      <plugin filename="gz-sim-sensors-system" name="gz::sim::systems::Sensors">
           <render_engine>ogre2</render_engine>
           <background_color>0.9 0.753 0.66 1</background_color>
-      </plugin>-->
+      </plugin>
   </gazebo>
 
   <gazebo reference="lidar_link">
       <sensor name='lidar' type='gpu_lidar'>"
-          <ignition_frame_id>lidar_link</ignition_frame_id>
+          <gz_frame_id>lidar_link</gz_frame_id>
           <pose relative_to='lidar_link'>0 0 0 0 0 0</pose>
           <topic>scan</topic>
           <update_rate>10</update_rate>
