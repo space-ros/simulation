@@ -32,10 +32,10 @@
 
 	<link name='arm_01'>
 		<collision>
-		    <origin xyz="0 0 0" rpy="0 0 0"/>
-		    <geometry>
-		        <mesh filename="package://simulation/models/curiosity_path/meshes/arm_01_fixed.dae" scale="${scale_XYZ} ${scale_XYZ} ${scale_XYZ}"/>
-		    </geometry>
+		        <origin xyz="0 0 0" rpy="0 0 0"/>
+		        <geometry>
+		            <mesh filename="package://simulation/models/curiosity_path/meshes/arm_01_fixed.dae" scale="${scale_XYZ} ${scale_XYZ} ${scale_XYZ}"/>
+		        </geometry>
 		</collision>
 
 		<visual>
@@ -264,23 +264,23 @@
 	</joint>
 
   	<link name='arm_04_to_arm_tools'>
-	<inertial>
-            <origin xyz="0 0 0" rpy="0 0 0"/>
-            <mass value="0.02" />
-            <inertia ixx="2.61666666667e-05" ixy="0.0" ixz="0.0" iyy="2.61666666667e-05" iyz="0.0" izz="3.6e-05"/>
-        </inertial>
-        <collision>
-            <origin rpy="0 0 0" xyz="0 0 0"/>
-            <geometry>
-                <cylinder radius="0.02" length="0.02"/>
-            </geometry>
-        </collision>
-		<visual>
-            <origin rpy="0 0 0" xyz="0 0 0"/>
-            <geometry>
-                <cylinder radius="0.02" length="0.02"/>
-            </geometry>
-        </visual>
+	    <inertial>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <mass value="0.02" />
+                <inertia ixx="2.61666666667e-05" ixy="0.0" ixz="0.0" iyy="2.61666666667e-05" iyz="0.0" izz="3.6e-05"/>
+            </inertial>
+            <collision>
+                <origin rpy="0 0 0" xyz="0 0 0"/>
+                <geometry>
+                    <cylinder radius="0.02" length="0.02"/>
+                </geometry>
+            </collision>
+	    <visual>
+                <origin rpy="0 0 0" xyz="0 0 0"/>
+                <geometry>
+                    <cylinder radius="0.02" length="0.02"/>
+                </geometry>
+            </visual>
 	</link>
 
 
