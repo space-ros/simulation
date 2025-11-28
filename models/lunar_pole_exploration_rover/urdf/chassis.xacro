@@ -1,0 +1,355 @@
+<?xml version="1.0" ?>
+<robot xmlns:xacro="http://wiki.ros.org/xacro">
+
+  <xacro:macro name="chassis_body" params="">
+
+    <!-- Used for fixing robot to Gazebo 'chassis' -->
+	<link name="base_footprint" />
+	<link name="base_link" />
+
+	<joint name="base_footprint_to_link" type="fixed">
+		<parent link="base_footprint"/>
+		<child link="base_link"/>
+	</joint>
+
+	<joint name="base_to_chassis" type="fixed">
+		<parent link="base_link"/>
+		<child link="chassis"/>
+		<origin rpy="0 0 0" xyz="0 0 0"/>
+	</joint>
+
+
+	<link name='chassis'>
+		<collision>
+			<origin xyz="0 0 0"
+					rpy="0 0 0"/>
+			<geometry>
+				<mesh filename="package://simulation/models/lunar_pole_exploration_rover/meshes/chassis.dae" scale="${scale_XYZ} ${scale_XYZ} ${scale_XYZ}"/>
+			</geometry>
+		</collision>
+		<visual>
+			<origin xyz="0 0 0"
+					rpy="0 0 0"/>
+			<geometry>
+				<mesh filename="package://simulation/models/lunar_pole_exploration_rover/meshes/chassis.dae" scale="${scale_XYZ} ${scale_XYZ} ${scale_XYZ}"/>
+			</geometry>
+		</visual>
+		<inertial>
+			<origin xyz="0 0 ${chassisHeight/2}"
+					rpy="0 0 0"/>
+			<mass value="${chassisMass}"/>
+			<xacro:box_inertia
+				m="${chassisMass}"
+				x="${chassisWidth*scale_XYZ}"
+				y="${chassisLength*scale_XYZ}"
+				z="${chassisHeight*scale_XYZ}"/>
+		</inertial>
+	</link>
+
+		<link name='body'>
+		<collision>
+			<origin xyz="0 0 0"
+					rpy="0 0 0"/>
+			<geometry>
+				<mesh filename="package://simulation/models/lunar_pole_exploration_rover/meshes/body.dae" scale="${scale_XYZ} ${scale_XYZ} ${scale_XYZ}"/>
+			</geometry>
+		</collision>
+		<visual>
+			<origin xyz="0 0 0"
+					rpy="0 0 0"/>
+			<geometry>
+				<mesh filename="package://simulation/models/lunar_pole_exploration_rover/meshes/body.dae" scale="${scale_XYZ} ${scale_XYZ} ${scale_XYZ}"/>
+			</geometry>
+		</visual>
+		<inertial>
+			<origin xyz="0 0 0"
+					rpy="0 0 0"/>
+			<mass value="${bodyMass}"/>
+			<xacro:box_inertia
+				m="${bodyMass}"
+				x="${bodyWidth*scale_XYZ}"
+				y="${bodyLength*scale_XYZ}"
+				z="${bodyHeight*scale_XYZ}"/>
+		</inertial>
+	</link>
+
+	<joint name="chassis_body_joint" type="fixed">
+    <parent link="chassis"/>
+    <child link="body"/>
+    <origin xyz="0.07 0.0 0.207" rpy="0 0 0"/>
+  </joint>
+
+
+	<link name='left_solar_panel'>
+		<collision>
+			<origin xyz="0 0 0"
+					rpy="0 0 0"/>
+			<geometry>
+				<mesh filename="package://simulation/models/lunar_pole_exploration_rover/meshes/solar_panel.dae" scale="${scale_XYZ} ${scale_XYZ} ${scale_XYZ}"/>
+			</geometry>
+		</collision>
+		<visual>
+			<origin xyz="0 0 0"
+					rpy="0 0 0"/>
+			<geometry>
+				<mesh filename="package://simulation/models/lunar_pole_exploration_rover/meshes/solar_panel.dae" scale="${scale_XYZ} ${scale_XYZ} ${scale_XYZ}"/>
+			</geometry>
+		</visual>
+		<inertial>
+			<origin xyz="0 0 0"
+					rpy="0 0 0"/>
+			<mass value="${solarPanelMass}"/>
+			<xacro:box_inertia
+				m="${solarPanelMass}"
+				x="${solarPanelWidth*scale_XYZ}"
+				y="${solarPanelLength*scale_XYZ}"
+				z="${solarPanelHeight*scale_XYZ}"/>
+		</inertial>
+	</link>
+
+	<link name='right_solar_panel'>
+		<collision>
+			<origin xyz="0 0 0"
+					rpy="0 0 0"/>
+			<geometry>
+				<mesh filename="package://simulation/models/lunar_pole_exploration_rover/meshes/solar_panel.dae" scale="${scale_XYZ} ${scale_XYZ} ${scale_XYZ}"/>
+			</geometry>
+		</collision>
+		<visual>
+			<origin xyz="0 0 0"
+					rpy="0 0 0"/>
+			<geometry>
+				<mesh filename="package://simulation/models/lunar_pole_exploration_rover/meshes/solar_panel.dae" scale="${scale_XYZ} ${scale_XYZ} ${scale_XYZ}"/>
+			</geometry>
+		</visual>
+		<inertial>
+			<origin xyz="0 0 0"
+					rpy="0 0 0"/>
+			<mass value="${solarPanelMass}"/>
+			<xacro:box_inertia
+				m="${solarPanelMass}"
+				x="${solarPanelWidth*scale_XYZ}"
+				y="${solarPanelLength*scale_XYZ}"
+				z="${solarPanelHeight*scale_XYZ}"/>
+		</inertial>
+	</link>
+
+	<link name='rear_solar_panel'>
+		<collision>
+			<origin xyz="0 0 0"
+					rpy="0 0 0"/>
+			<geometry>
+				<mesh filename="package://simulation/models/lunar_pole_exploration_rover/meshes/solar_panel.dae" scale="${scale_XYZ} ${scale_XYZ} ${scale_XYZ}"/>
+			</geometry>
+		</collision>
+		<visual>
+			<origin xyz="0 0 0"
+					rpy="0 0 0"/>
+			<geometry>
+				<mesh filename="package://simulation/models/lunar_pole_exploration_rover/meshes/solar_panel.dae" scale="${scale_XYZ} ${scale_XYZ} ${scale_XYZ}"/>
+			</geometry>
+		</visual>
+		<inertial>
+			<origin xyz="0 0 0"
+					rpy="0 0 0"/>
+			<mass value="${solarPanelMass}"/>
+			<xacro:box_inertia
+				m="${solarPanelMass}"
+				x="${solarPanelWidth*scale_XYZ}"
+				y="${solarPanelLength*scale_XYZ}"
+				z="${solarPanelHeight*scale_XYZ}"/>
+		</inertial>
+	</link>
+
+	<!-- joint is not of fixed type to avoid "lumping" from some URDF parsers
+	The joint visual need to be independant for the solar panel plugin to work -->
+	<joint name="left_solar_panel_joint" type="revolute">
+		<parent link="body"/>
+		<child link="left_solar_panel"/>
+		<origin xyz="0.0252 0.7253 0.3829" rpy="1.4673 0 ${-PI}"/>
+		<axis xyz="0 0 1"/>
+		<limit lower="0.0" upper="0.0" effort="1e10" velocity="0.0"/>
+	</joint>
+	
+	<!-- joint is not of fixed type to avoid "lumping" from some URDF parsers
+	The joint visual need to be independant for the solar panel plugin to work -->
+	<joint name="right_solar_panel_joint" type="revolute">
+		<parent link="body"/>
+		<child link="right_solar_panel"/>
+		<origin xyz="0.0252 -0.7253 0.3829" rpy="1.4673 0 0"/>
+		<axis xyz="0 0 1"/>
+		<limit lower="0.0" upper="0.0" effort="1e10" velocity="0.0"/>
+	</joint>
+	
+	<!-- joint is not of fixed type to avoid "lumping" from some URDF parsers
+	The joint visual need to be independant for the solar panel plugin to work -->
+	<joint name="rear_solar_panel_joint" type="revolute">
+		<parent link="body"/>
+		<child link="rear_solar_panel"/>
+		<origin xyz="-0.7253 0.0 0.3829" rpy="1.4673 0 ${-PI/2}"/>
+		<axis xyz="0 0 1"/>
+		<limit lower="0.0" upper="0.0" effort="1e10" velocity="0.0"/>
+	</joint>
+
+	<material name="camera_green">
+		<color rgba="0 0.8 0 1"/>
+	</material>
+
+	<link name="aft_camera_link_left">
+		<!-- Inertial for gazebo to take it into account, Put 1gr weight -->
+		<inertial>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
+			<mass value="0.001" />
+			<inertia ixx="9.1875e-09" ixy="0.0" ixz="0.0" iyy="9.1875e-09" iyz="0.0" izz="1.378125e-08"/>
+		</inertial>
+		<visual>
+			<origin rpy="0.0 0 0" xyz="0 0 0"/>
+			<geometry>
+				<box size="0.0005 0.0005 0.0005"/>
+			</geometry>
+			<material name="camera_green"/>
+		</visual>
+	</link>
+
+	<gazebo reference="aft_camera_link_left">
+		<material>Gazebo/Green</material>
+	</gazebo>
+
+	<joint name="aft_camera_link_left_joint" type="fixed">
+		<parent link="body"/>
+		<child link="aft_camera_link_left"/>
+		<origin xyz="-0.705 -0.150 0.682" rpy="0 0 ${PI}"/>
+	</joint>
+
+	<link name="aft_camera_link_right">
+		<!-- Inertial for gazebo to take it into account, Put 1gr weight -->
+		<inertial>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
+			<mass value="0.001" />
+			<inertia ixx="9.1875e-09" ixy="0.0" ixz="0.0" iyy="9.1875e-09" iyz="0.0" izz="1.378125e-08"/>
+		</inertial>
+		<visual>
+			<origin rpy="0.0 0 0" xyz="0 0 0"/>
+			<geometry>
+				<box size="0.0005 0.0005 0.0005"/>
+			</geometry>
+			<material name="camera_green"/>
+		</visual>
+	</link>
+
+	<gazebo reference="aft_camera_link_right">
+		<material>Gazebo/Green</material>
+	</gazebo>
+
+	<joint name="aft_camera_link_right_joint" type="fixed">
+		<parent link="body"/>
+		<child link="aft_camera_link_right"/>
+		<origin xyz="-0.705 0.150 0.682" rpy="0 0 ${PI}"/>
+	</joint>
+
+	<link name="haz_camera_link_left_front">
+		<!-- Inertial for gazebo to take it into account, Put 1gr weight -->
+		<inertial>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
+			<mass value="0.001" />
+			<inertia ixx="9.1875e-09" ixy="0.0" ixz="0.0" iyy="9.1875e-09" iyz="0.0" izz="1.378125e-08"/>
+		</inertial>
+		<visual>
+			<origin rpy="0.0 0 0" xyz="0 0 0"/>
+			<geometry>
+				<box size="0.0005 0.0005 0.0005"/>
+			</geometry>
+			<material name="camera_green"/>
+		</visual>
+	</link>
+
+	<gazebo reference="haz_camera_link_left_front">
+		<material>Gazebo/Green</material>
+	</gazebo>
+
+	<joint name="haz_camera_link_left_front_joint" type="fixed">
+		<parent link="body"/>
+		<child link="haz_camera_link_left_front"/>
+		<origin xyz="0.270 0.310 0.110" rpy="0 ${PI/4} ${PI/4}"/>
+	</joint>
+
+	<link name="haz_camera_link_left_rear">
+		<!-- Inertial for gazebo to take it into account, Put 1gr weight -->
+		<inertial>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
+			<mass value="0.001" />
+			<inertia ixx="9.1875e-09" ixy="0.0" ixz="0.0" iyy="9.1875e-09" iyz="0.0" izz="1.378125e-08"/>
+		</inertial>
+		<visual>
+			<origin rpy="0.0 0 0" xyz="0 0 0"/>
+			<geometry>
+				<box size="0.0005 0.0005 0.0005"/>
+			</geometry>
+			<material name="camera_green"/>
+		</visual>
+	</link>
+
+	<gazebo reference="haz_camera_link_left_rear">
+		<material>Gazebo/Green</material>
+	</gazebo>
+
+	<joint name="haz_camera_link_left_rear_joint" type="fixed">
+		<parent link="body"/>
+		<child link="haz_camera_link_left_rear"/>
+		<origin xyz="-0.270 0.310 0.110" rpy="0 ${PI/4} ${PI/4 + PI/2}"/>
+	</joint>
+
+		<link name="haz_camera_link_right_front">
+		<!-- Inertial for gazebo to take it into account, Put 1gr weight -->
+		<inertial>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
+			<mass value="0.001" />
+			<inertia ixx="9.1875e-09" ixy="0.0" ixz="0.0" iyy="9.1875e-09" iyz="0.0" izz="1.378125e-08"/>
+		</inertial>
+		<visual>
+			<origin rpy="0.0 0 0" xyz="0 0 0"/>
+			<geometry>
+				<box size="0.0005 0.0005 0.0005"/>
+			</geometry>
+			<material name="camera_green"/>
+		</visual>
+	</link>
+
+	<gazebo reference="haz_camera_link_right_front">
+		<material>Gazebo/Green</material>
+	</gazebo>
+
+	<joint name="haz_camera_link_right_front_joint" type="fixed">
+		<parent link="body"/>
+		<child link="haz_camera_link_right_front"/>
+		<origin xyz="0.270 -0.310 0.110" rpy="0 ${PI/4} ${-PI/4}"/>
+	</joint>
+
+		<link name="haz_camera_link_right_rear">
+		<!-- Inertial for gazebo to take it into account, Put 1gr weight -->
+		<inertial>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
+			<mass value="0.001" />
+			<inertia ixx="9.1875e-09" ixy="0.0" ixz="0.0" iyy="9.1875e-09" iyz="0.0" izz="1.378125e-08"/>
+		</inertial>
+		<visual>
+			<origin rpy="0.0 0 0" xyz="0 0 0"/>
+			<geometry>
+				<box size="0.0005 0.0005 0.0005"/>
+			</geometry>
+			<material name="camera_green"/>
+		</visual>
+	</link>
+
+	<gazebo reference="haz_camera_link_right_rear">
+		<material>Gazebo/Green</material>
+	</gazebo>
+
+	<joint name="haz_camera_link_right_rear_joint" type="fixed">
+		<parent link="body"/>
+		<child link="haz_camera_link_right_rear"/>
+		<origin xyz="-0.270 -0.310 0.110" rpy="0 ${PI/4} ${-PI/4 - PI/2}"/>
+	</joint>
+
+  </xacro:macro>
+</robot>

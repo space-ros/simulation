@@ -1,0 +1,153 @@
+<?xml version="1.0" ?>
+<robot xmlns:xacro="http://wiki.ros.org/xacro">
+    <xacro:macro name="mast_head" params="">
+        <link name='mast_head_pivot'>
+            <collision>
+                <origin xyz="0 0 0"
+                    rpy="0 0 0"/>
+                <geometry>
+                    <mesh filename="package://simulation/models/lunar_pole_exploration_rover/meshes/mast_head_pivot.dae" scale="${scale_XYZ} ${scale_XYZ} ${scale_XYZ}"/>
+                </geometry>
+            </collision>
+            <visual>
+                <origin xyz="0 0 0"
+                    rpy="0 0 0"/>
+                <geometry>
+                    <mesh filename="package://simulation/models/lunar_pole_exploration_rover/meshes/mast_head_pivot.dae" scale="${scale_XYZ} ${scale_XYZ} ${scale_XYZ}"/>
+                </geometry>
+            </visual>
+            <inertial>
+                <origin xyz="0 0 0"
+                    rpy="0 0 0"/>
+                <mass value="${mastHeadPivotMass}"/>
+                <xacro:box_inertia
+                    m="${mastHeadPivotMass}"
+                    x="${mastHeadPivotWidth*scale_XYZ}"
+                    y="${mastHeadPivotLength*scale_XYZ}"
+                 z="${mastHeadPivotHeight*scale_XYZ}"/>
+            </inertial>
+        </link>
+
+        <joint name="mast_head_pivot_joint" type="revolute">
+            <parent link="body"/>
+            <child link="mast_head_pivot"/>
+            <origin xyz="0.630 0.0 1.2535" rpy="0 0 0"/>
+            <axis xyz="0 0 1"/>
+            <limit lower="${-mast_camera_pan_limit}" upper="${mast_camera_pan_limit}" effort="${mast_camera_pan_effort}" velocity="${mast_camera_pan_velocity}"/>
+        </joint>
+
+        <transmission name="mast_camera_pan_trans">
+            <type>transmission_interface/SimpleTransmission</type>
+            <joint name="mast_head_pivot_joint">
+                <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            </joint>
+            <actuator name="mast_cameraPanMotor">
+                <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+                <mechanicalReduction>1</mechanicalReduction>
+            </actuator>
+        </transmission>
+
+        <link name='mast_camera'>
+            <collision>
+                <origin xyz="0 0 0"
+                    rpy="0 0 0"/>
+                <geometry>
+                    <mesh filename="package://simulation/models/lunar_pole_exploration_rover/meshes/mast_camera.dae" scale="${scale_XYZ} ${scale_XYZ} ${scale_XYZ}"/>
+                </geometry>
+            </collision>
+            <visual>
+                <origin xyz="0 0 0"
+                    rpy="0 0 0"/>
+                <geometry>
+                    <mesh filename="package://simulation/models/lunar_pole_exploration_rover/meshes/mast_camera.dae" scale="${scale_XYZ} ${scale_XYZ} ${scale_XYZ}"/>
+                </geometry>
+            </visual>
+            <inertial>
+                <origin xyz="0 0 0"
+                    rpy="0 0 0"/>
+                <mass value="${mastCameraMass}"/>
+                <xacro:box_inertia
+                    m="${mastCameraMass}"
+                    x="${mastCameraWidth*scale_XYZ}"
+                    y="${mastCameraLength*scale_XYZ}"
+                    z="${mastCameraHeight*scale_XYZ}"/>
+            </inertial>
+        </link>
+
+        <joint name="mast_camera_joint" type="revolute">
+            <parent link="mast_head_pivot"/>
+            <child link="mast_camera"/>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <axis xyz="0 1 0"/>
+            <limit lower="${-mast_camera_tilt_limit}" upper="${mast_camera_tilt_limit}" effort="${mast_camera_tilt_effort}" velocity="${mast_camera_tilt_velocity}"/>
+        </joint>
+
+        <transmission name="mast_camera_tilt_trans">
+            <type>transmission_interface/SimpleTransmission</type>
+            <joint name="mast_camera_joint">
+                <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            </joint>
+            <actuator name="mast_camera_tiltMotor">
+                <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+                <mechanicalReduction>1</mechanicalReduction>
+            </actuator>
+        </transmission>
+
+        <material name="green">
+            <color rgba="0 0.8 0 1"/>
+        </material>
+
+        <link name="nav_camera_link_left">
+            <!-- Inertial for gazebo to take it into account, Put 1gr weight -->
+            <inertial>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <mass value="0.001" />
+                <inertia ixx="9.1875e-09" ixy="0.0" ixz="0.0" iyy="9.1875e-09" iyz="0.0" izz="1.378125e-08"/>
+            </inertial>
+            <visual>
+                <origin rpy="0.0 0 0" xyz="0 0 0"/>
+                <geometry>
+                    <box size="0.0005 0.0005 0.0005"/>
+                </geometry>
+                <material name="green"/>
+            </visual>
+        </link>
+
+        <gazebo reference="nav_camera_link_left">
+            <material>Gazebo/Green</material>
+        </gazebo>
+
+        <joint name="nav_camera_link_left_joint" type="fixed">
+            <parent link="mast_camera"/>
+            <child link="nav_camera_link_left"/>
+            <origin xyz="0.150 0.190 0.0" rpy="0 0 0"/>
+        </joint>
+
+        <link name="nav_camera_link_right">
+            <!-- Inertial for gazebo to take it into account, Put 1gr weight -->
+            <inertial>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <mass value="0.001" />
+                <inertia ixx="9.1875e-09" ixy="0.0" ixz="0.0" iyy="9.1875e-09" iyz="0.0" izz="1.378125e-08"/>
+            </inertial>
+            <visual>
+                <origin rpy="0.0 0 0" xyz="0 0 0"/>
+                <geometry>
+                    <box size="0.0005 0.0005 0.0005"/>
+                </geometry>
+                <material name="green"/>
+            </visual>
+        </link>
+
+        <gazebo reference="nav_camera_link_right">
+            <material>Gazebo/Green</material>
+        </gazebo>
+
+        <joint name="nav_camera_link_right_joint" type="fixed">
+            <parent link="mast_camera"/>
+            <child link="nav_camera_link_right"/>
+            <origin xyz="0.150 -0.190 0.0" rpy="0 0 0"/>
+        </joint>
+
+    </xacro:macro>
+</robot>
