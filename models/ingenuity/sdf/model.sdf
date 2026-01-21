@@ -1,0 +1,504 @@
+<sdf version='1.9'>
+  <model name='ingenuity'>
+
+    <plugin name="simulation::RotorPlugin" filename="libRotorPlugin.so">
+      <!-- Plugin parameters (if any) -->
+      <link_name>bus_link</link_name>
+      <joint_name>rotor_bottom_revolute</joint_name>
+      <link_to_hub_frame> 0 0 0.135611 3.14159265358979 0 0</link_to_hub_frame> <!-- relative pose between link and hub frame -->
+      <force_model>base</force_model>
+      <flapping_model>gordon</flapping_model> <!-- center_spring, offset_spring -->
+      <inflow_model>harmonic_1</inflow_model> <!-- uniform, harmonic_1, dynamic -->
+      <config>
+        <blade>
+          <chord>0.1029</chord>
+          <radius>0.514334</radius>
+          <lift_slope>5.73</lift_slope>
+          <drag_quadric>0.14875</drag_quadric>
+          <drag_constant>0.0738</drag_constant>
+          <twist_slope>0.01</twist_slope>
+          <blade_inertia>0.005</blade_inertia>
+        </blade>
+        <direction>cw</direction>
+        <hinge_stiffness>4.5680</hinge_stiffness>
+        <num_blades>2</num_blades>
+        <rotor_inertia>10</rotor_inertia>
+      </config>
+    </plugin>
+    <plugin name="simulation::RotorPlugin" filename="libRotorPlugin.so">
+      <!-- Plugin parameters (if any) -->
+      <link_name>bus_link</link_name>
+      <joint_name>rotor_top_revolute</joint_name>
+      <link_to_hub_frame> 0 0 0.234393 3.14159265358979 0 0</link_to_hub_frame> <!-- relative pose between link and hub frame -->
+      <force_model>base</force_model>
+      <flapping_model>gordon</flapping_model> <!-- center_spring, offset_spring -->
+      <inflow_model>harmonic_1</inflow_model> <!-- uniform, harmonic_1, dynamic -->
+      <config>
+        <blade>
+          <chord>0.1029</chord>
+          <radius>0.514334</radius>
+          <lift_slope>5.73</lift_slope>
+          <drag_quadric>0.14875</drag_quadric>
+          <drag_constant>0.0738</drag_constant>
+          <twist_slope>0.01</twist_slope>
+          <blade_inertia>0.005</blade_inertia>
+        </blade>
+        <direction>ccw</direction>
+        <hinge_stiffness>4.5680</hinge_stiffness>
+        <num_blades>2</num_blades>
+        <rotor_inertia>10</rotor_inertia>
+      </config>
+    </plugin>
+    <link name='bus_link'>
+      <sensor name="imu_sensor" type="imu">
+        <always_on>1</always_on>
+        <update_rate>1</update_rate>
+        <visualize>true</visualize>
+        <topic>ingenuity/sensors/imu</topic>
+      </sensor>
+      <sensor name="rgb_camera" type="camera">
+        <update_rate>30.0</update_rate>
+        <pose>0.08360 -0.00000 0.13905 -0.00000 0.00000 -0.00000</pose>
+        <topic>ingenuity/sensors/rgb_camera/image_raw</topic>
+        <camera>
+          <horizontal_fov>1.047</horizontal_fov>
+          <image>
+            <width>640</width>
+            <height>480</height>
+            <format>R8G8B8</format>
+          </image>
+          <clip>
+            <near>0.1</near>
+            <far>100</far>
+          </clip>
+        </camera>
+      </sensor>
+      <sensor name="mono_camera" type="camera">
+        <update_rate>30.0</update_rate>
+        <pose>0.04272 -0.00000 0.11860 0.00000 1.57079 -0.00000</pose>
+        <topic>ingenuity/sensors/mono_camera/image_raw</topic>
+        <camera>
+          <horizontal_fov>1.047</horizontal_fov>
+          <image>
+            <width>640</width>
+            <height>480</height>
+            <format>L8</format>
+          </image>
+          <clip>
+            <near>0.1</near>
+            <far>100</far>
+          </clip>
+        </camera>
+      </sensor>
+      <sensor name="laser_altimeter" type="gpu_lidar">
+        <pose>0.00000 -0.00000 0.11849 0.00000 1.57079 -0.00000</pose>
+        <topic>ingenuity/sensors/laser_altimeter/range</topic>
+        <update_rate>10</update_rate>
+        <ray>
+          <scan>
+            <horizontal>
+              <samples>1</samples>
+              <resolution>1</resolution>
+              <min_angle>0</min_angle>
+              <max_angle>0</max_angle>
+            </horizontal>
+          </scan>
+          <range>
+            <min>0.1</min>
+            <max>100.0</max>
+            <resolution>0.01</resolution>
+          </range>
+        </ray>
+        <always_on>1</always_on>
+        <visualize>true</visualize>
+      </sensor>
+      <inertial>
+        <pose>-0.001717895331713077 -0.0001335969035377958 0.2231068439155114 0 0 0</pose>
+        <mass>1.65001</mass>
+        <inertia>
+          <ixx>0.021412725930734899</ixx>
+          <ixy>-2.12596120994955e-05</ixy>
+          <ixz>0.0006814887419926578</ixz>
+          <iyy>0.02152532863069374</iyy>
+          <iyz>3.9459653120838007e-05</iyz>
+          <izz>0.01177586923244566</izz>
+        </inertia>
+      </inertial>
+      <collision name='bus_link_fixed_joint_lump__bus_collision_collision'>
+        <pose>-0.00173 -0.00028 0.19285 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.16027 0.17496 0.12719</size>
+          </box>
+        </geometry>
+      </collision>
+      <collision name='bus_link_fixed_joint_lump__leg_01_collision_collision_1'>
+        <pose>-0.1854262536336258 -0.1894747913901264 0.1238849584043207 2.777458959292959 -0.8166615955175173 -1.894284990868846</pose>
+        <geometry>
+          <cylinder>
+            <length>0.37452999999999997</length>
+            <radius>0.0081799999999999998</radius>
+          </cylinder>
+        </geometry>
+      </collision>
+      <collision name='bus_link_fixed_joint_lump__leg_01_collision.000_collision_2'>
+        <pose>-0.2764608135352618 -0.2777288381753926 -5.953810980618979e-06 -5.924260497106902e-06 2.969117631295452e-06 -6.363650397263836e-07</pose>
+        <geometry>
+          <box>
+            <size>0.05003 0.05078 0.00654</size>
+          </box>
+        </geometry>
+      </collision>
+      <collision name='bus_link_fixed_joint_lump__leg_02_collision_collision_3'>
+        <pose>-0.1828355155677839 0.188258148126831 0.1285011890196975 0.3453209952500232 -0.8304963725721402 1.915425708812376</pose>
+        <geometry>
+          <cylinder>
+            <length>0.39199000000000001</length>
+            <radius>0.0088199999999999997</radius>
+          </cylinder>
+        </geometry>
+      </collision>
+      <collision name='bus_link_fixed_joint_lump__leg_02_collision.000_collision_4'>
+        <pose>-0.2815384471786287 0.2853479502849668 -6.042326709324031e-06 5.924260497106902e-06 2.969117631295452e-06 6.363650397263836e-07</pose>
+        <geometry>
+          <box>
+            <size>0.05465 0.05463 0.00831</size>
+          </box>
+        </geometry>
+      </collision>
+      <collision name='bus_link_fixed_joint_lump__leg_03_collision_collision_5'>
+        <pose>0.1822050820073783 -0.1867089092332663 0.1280133764396424 -2.521257845900247 -0.6783553822030131 -1.617501499947452</pose>
+        <geometry>
+          <cylinder>
+            <length>0.38151000000000002</length>
+            <radius>0.010149999999999999</radius>
+          </cylinder>
+        </geometry>
+      </collision>
+      <collision name='bus_link_fixed_joint_lump__leg_03_collision.000_collision_6'>
+        <pose>0.2819680552084523 -0.2838991727007909 7.292345194170879e-06 1.410520619593296e-06 6.91617370004786e-06 5.958781849152967e-06</pose>
+        <geometry>
+          <box>
+            <size>0.05669 0.05868 0.0069</size>
+          </box>
+        </geometry>
+      </collision>
+      <collision name='bus_link_fixed_joint_lump__leg_04_collision_collision_7'>
+        <pose>0.1811766491108562 0.188248446225405 0.1274498153122322 -1.371084355382006 0.1038853344532227 0.6595169151965113</pose>
+        <geometry>
+          <cylinder>
+            <length>0.38625999999999999</length>
+            <radius>0.0089599999999999992</radius>
+          </cylinder>
+        </geometry>
+      </collision>
+      <collision name='bus_link_fixed_joint_lump__leg_04_collision.000_collision_8'>
+        <pose>0.2750211772429224 0.2797047478283849 -1.075766546121404e-06 1.089172346082227e-05 -4.277306343095126e-06 -8.148381452713485e-06</pose>
+        <geometry>
+          <box>
+            <size>0.06401 0.06185 0.00887</size>
+          </box>
+        </geometry>
+      </collision>
+      <collision name='bus_link_fixed_joint_lump__parts_02_collision_collision_9'>
+        <pose>-0.00183 -0.00031 0.30211 0 0 0</pose>
+        <geometry>
+          <cylinder>
+            <length>0.062530000000000002</length>
+            <radius>0.016490000000000001</radius>
+          </cylinder>
+        </geometry>
+      </collision>
+      <collision name='bus_link_fixed_joint_lump__parts_01_collision_collision_10'>
+        <pose>-0.00183 -0.00031 0.39535 0 0 0</pose>
+        <geometry>
+          <cylinder>
+            <length>0.061150000000000003</length>
+            <radius>0.016650000000000002</radius>
+          </cylinder>
+        </geometry>
+      </collision>
+      <collision name='bus_link_fixed_joint_lump__solar_panel_collision_collision_11'>
+        <pose>-0.001780028786916781 -0.0002899999998942582 0.481449999999909 -1.57079 -5.551115123125783e-17 -1.5708</pose>
+        <geometry>
+          <box>
+            <size>0.42732 0.01639 0.1659</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name='bus_link_fixed_joint_lump__bus_visual'>
+        <pose>-0.00179 -0.00028 0.19194 0 -1.570796326794897 0</pose>
+        <geometry>
+          <mesh>
+            <scale>0.12951 0.12951 0.12951</scale>
+            <uri>../meshes/dae/Cube.012.dae</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.774513 0.573525 0.0784375 1</diffuse>
+          <ambient>0.774513 0.573525 0.0784375 1</ambient>
+        </material>
+      </visual>
+      <visual name='bus_link_fixed_joint_lump__cams_visual_1'>
+        <pose>0.04323 -0.00028 0.12401 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>../meshes/dae/Cube.002.dae</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>1 1 1 1</diffuse>
+          <ambient>1 1 1 1</ambient>
+        </material>
+      </visual>
+      <visual name='bus_link_fixed_joint_lump__leg_01_visual_2'>
+        <pose>-0.18488 -0.1895 0.12805 1.15509 -0.8008400000000002 -1.88343</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>../meshes/dae/MHP_JR_AV_ROTOR_STOWED_120717_A1-STOWED ROTOR ASSEMBLY, 120.056.dae</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.37255 0.352938 0.352938 1</diffuse>
+          <ambient>0.37255 0.352938 0.352938 1</ambient>
+        </material>
+      </visual>
+      <visual name='bus_link_fixed_joint_lump__leg_02_visual_3'>
+        <pose>-0.20707 0.21027 0.103 -1.15509 -0.8008400000000002 1.88343</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>../meshes/dae/MHP_JR_AV_ROTOR_STOWED_120717_A1-STOWED ROTOR ASSEMBLY, 120.027.dae</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.37255 0.352938 0.352938 1</diffuse>
+          <ambient>0.37255 0.352938 0.352938 1</ambient>
+        </material>
+      </visual>
+      <visual name='bus_link_fixed_joint_lump__leg_03_visual_4'>
+        <pose>0.20537 -0.21072 0.10346 1.48526 -0.04070999999999995 -0.7195599999999999</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>../meshes/dae/Cylinder.028.dae</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.37255 0.352938 0.352938 1</diffuse>
+          <ambient>0.37255 0.352938 0.352938 1</ambient>
+        </material>
+      </visual>
+      <visual name='bus_link_fixed_joint_lump__leg_04_visual_5'>
+        <pose>0.20365 0.21092 0.10403 -1.47407 -0.0356899999999999 0.7204900000000001</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>../meshes/dae/Cylinder.019.dae</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.37255 0.352938 0.352938 1</diffuse>
+          <ambient>0.37255 0.352938 0.352938 1</ambient>
+        </material>
+      </visual>
+      <visual name='bus_link_fixed_joint_lump__parts_02_visual_6'>
+        <pose>-0.00183 -0.00031 0.28398 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>../meshes/dae/Cylinder.035.dae</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>1 1 1 1</diffuse>
+          <ambient>1 1 1 1</ambient>
+        </material>
+      </visual>
+      <visual name='bus_link_fixed_joint_lump__parts_01_visual_7'>
+        <pose>-0.00183 -0.00031 0.38298 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>../meshes/dae/Cylinder.005.dae</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>1 1 1 1</diffuse>
+          <ambient>1 1 1 1</ambient>
+        </material>
+      </visual>
+      <visual name='bus_link_fixed_joint_lump__solar_panel_visual_8'>
+        <pose>-0.00178 -0.00029 0.4769 -1.57079 -5.551115123125783e-17 -1.5708</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>../meshes/dae/10460522-1_2_B1-SOLAR PANEL SUBSTRATE_5781_FILLET5.003.dae</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>1 1 1 1</diffuse>
+          <ambient>1 1 1 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='rotor_top_revolute' type='revolute'>
+      <pose relative_to='bus_link'>-0.00183 -0.00031 0.42539 -0.06234265359747009 -1.570792653666219 0.4114126536002093</pose>
+      <parent>bus_link</parent>
+      <child>rotors_01_link</child>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <limit>
+          <lower>-1.7976931348623157e+308</lower>
+          <upper>1.7976931348623157e+308</upper>
+          <effort>10000.0</effort>
+          <velocity>500.0</velocity>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='rotors_01_link'>
+      <pose relative_to='rotor_top_revolute'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>-0.00336 -0.00199 -0.0022 0 0 0</pose>
+        <mass>0.074999999999999997</mass>
+        <inertia>
+          <ixx>0.0030699999999999998</ixx>
+          <ixy>0.00052999999999999998</ixy>
+          <ixz>0</ixz>
+          <iyy>0.002</iyy>
+          <iyz>-0.00044999999999999999</iyz>
+          <izz>0.0035999999999999999</izz>
+        </inertia>
+      </inertial>
+      <collision name='rotors_01_link_fixed_joint_lump__rotors_01_collision_collision'>
+        <pose>-0.00336 -0.33594 -0.00439 0.01134 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.03913 0.52765 0.10916</size>
+          </box>
+        </geometry>
+      </collision>
+      <collision name='rotors_01_link_fixed_joint_lump__rotors_01_collision.000_collision_1'>
+        <pose>-0.00336 0.33195 0 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.03913 0.52177 0.11864</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name='rotors_01_link_fixed_joint_lump__rotors_01_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>../meshes/dae/Cylinder.017.dae</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>1 1 1 1</diffuse>
+          <ambient>1 1 1 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='rotor_bottom_revolute' type='revolute'>
+      <pose relative_to='bus_link'>-0.00196 -0.0004 0.32813 0.2166126535787306 1.570792653666219 -0.656052653598997</pose>
+      <parent>bus_link</parent>
+      <child>rotors_02_link</child>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <limit>
+          <lower>-1.7976931348623157e+308</lower>
+          <upper>1.7976931348623157e+308</upper>
+          <effort>10000.0</effort>
+          <velocity>500.0</velocity>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='rotors_02_link'>
+      <pose relative_to='rotor_bottom_revolute'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>0.00448 -0.00614 0.0018 0 0 0</pose>
+        <mass>0.074999999999999997</mass>
+        <inertia>
+          <ixx>0.0035000000000000001</ixx>
+          <ixy>-0.00059000000000000003</ixy>
+          <ixz>0.00012</ixz>
+          <iyy>0.002</iyy>
+          <iyz>-0.0013500000000000001</iyz>
+          <izz>0.0036900000000000001</izz>
+        </inertia>
+      </inertial>
+      <collision name='rotors_02_link_fixed_joint_lump__rotors_02_collision_collision'>
+        <pose>0.00448 0.33949 0.009050000000000001 0.05548 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.02635 0.5215 0.11376</size>
+          </box>
+        </geometry>
+      </collision>
+      <collision name='rotors_02_link_fixed_joint_lump__rotors_02_collision.000_collision_1'>
+        <pose>0.00448 -0.35177 -0.00544 0.03778000000000001 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.03861 0.50696 0.09597</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name='rotors_02_link_fixed_joint_lump__rotors_02_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>../meshes/dae/Cylinder.014.dae</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>1 1 1 1</diffuse>
+          <ambient>1 1 1 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <frame name='cams_link_joint' attached_to='bus_link'>
+      <pose>0.04323 -0.00028 0.12401 0 0 0</pose>
+    </frame>
+    <frame name='cams_link' attached_to='cams_link_joint'/>
+    <frame name='leg_01_link_joint' attached_to='bus_link'>
+      <pose>-0.18488 -0.1895 0.12805 1.15509 -0.80084 -1.88343</pose>
+    </frame>
+    <frame name='leg_01_link' attached_to='leg_01_link_joint'/>
+    <frame name='leg_02_link_joint' attached_to='bus_link'>
+      <pose>-0.20707 0.21027 0.103 -1.15509 -0.80084 1.88343</pose>
+    </frame>
+    <frame name='leg_02_link' attached_to='leg_02_link_joint'/>
+    <frame name='leg_03_link_joint' attached_to='bus_link'>
+      <pose>0.20537 -0.21072 0.10346 1.48526 -0.04071 -0.71956</pose>
+    </frame>
+    <frame name='leg_03_link' attached_to='leg_03_link_joint'/>
+    <frame name='leg_04_link_joint' attached_to='bus_link'>
+      <pose>0.20365 0.21092 0.10403 -1.47407 -0.03569 0.72049</pose>
+    </frame>
+    <frame name='leg_04_link' attached_to='leg_04_link_joint'/>
+    <frame name='solar_panel_link_joint' attached_to='parts_01_link'>
+      <pose>5e-05 2e-05 0.09392 -1.57079 -0 -1.5708</pose>
+    </frame>
+    <frame name='solar_panel_link' attached_to='solar_panel_link_joint'/>
+    <frame name='parts_01_link_joint' attached_to='parts_02_link'>
+      <pose>-0 0 0.099 0 -0 0</pose>
+    </frame>
+    <frame name='parts_01_link' attached_to='parts_01_link_joint'/>
+    <frame name='parts_02_link_joint' attached_to='bus_link'>
+      <pose>-0.00183 -0.00031 0.28398 0 -0 0</pose>
+    </frame>
+    <frame name='parts_02_link' attached_to='parts_02_link_joint'/>
+  </model>
+</sdf>
