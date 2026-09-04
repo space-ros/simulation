@@ -91,8 +91,8 @@
         </plugin>
 
         <plugin filename="${system_prefix}-odometry-publisher-system" name="${system_namespace}::systems::OdometryPublisher">
-            <odom_frame>/odom</odom_frame>
-            <robot_base_frame>/base_footprint</robot_base_frame>
+            <odom_frame>odom</odom_frame>
+            <robot_base_frame>base_footprint</robot_base_frame>
             <odom_publish_frequency>10</odom_publish_frequency>
         </plugin>
 
