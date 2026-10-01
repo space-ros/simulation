@@ -1,6 +1,7 @@
 /*
  * Copyright (C) 2024 Robin Baran
  * Copyright (C) 2024 Stevedan Ogochukwu Omodolor Omodia
+ * Copyright (C) 2026 Alexey Simonov
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +19,11 @@
 #include "SolarPanelPlugin.hh"
 #include "gz_compat.hh"
 
-#include <gz/msgs/double.pb.h>
+#include <algorithm>
+#include <mutex>
+#include <string>
+#include <vector>
+
 #include <gz/msgs/float.pb.h>
 
 #include <gz/plugin/Register.hh>
@@ -29,13 +34,15 @@
 #include <gz/sim/components/Visual.hh>
 
 #include <gz/sim/EntityComponentManager.hh>
-#include "gz/sim/Model.hh"
+#include <gz/sim/Model.hh>
 #include <gz/sim/Util.hh>
 #include <gz/sim/System.hh>
+#include <gz/sim/rendering/Events.hh>
 
 #include <gz/rendering/RayQuery.hh>
 #include <gz/rendering/RenderEngine.hh>
 #include <gz/rendering/RenderingIface.hh>
+#include <gz/rendering/Scene.hh>
 #include <gz/transport/Node.hh>
 #include <gz/common/Event.hh>
 
@@ -50,27 +57,28 @@ public:
   std::vector<std::string> GetVisualChildren(
       const gz::sim::EntityComponentManager &_ecm);
 
-  /// \brief Find the scene
+  /// \brief Find the rendering scene. Must be called on the render thread.
 public:
   bool FindScene();
 
-  /// \brief Event that is used to trigger callbacks when the scene
-  /// is changed
-  /// \param[in] _scene The new scene
+  /// \brief Ray cast from the sun to the panel and record whether the panel
+  /// is the first thing the ray hits. Runs on the render thread.
 public:
-  static gz::common::EventT<void(const gz::rendering::ScenePtr &)>
-      sceneEvent;
+  void OnPostRender();
 
   /// \brief Pointer to rendering scene
-  /// \param[in] _scene Rendering scene
 public:
   gz::rendering::ScenePtr scene{nullptr};
 
-  /// \brief Connection to the Manager's scene change event.
+  /// \brief Ray query, created once the scene is available
 public:
-  gz::common::ConnectionPtr sceneChangeConnection;
+  gz::rendering::RayQueryPtr rayQuery{nullptr};
 
-  /// \brief Just a mutex for thread safety
+  /// \brief Connection to the post-render event
+public:
+  gz::common::ConnectionPtr postRenderConn;
+
+  /// \brief Protects the data shared between the simulation and render threads
 public:
   std::mutex mutex;
 
@@ -102,13 +110,30 @@ public:
 public:
   gz::sim::Entity linkEntity{gz::sim::kNullEntity};
 
-  /// \brief Ignition communication node
+  /// \brief Gazebo communication node
 public:
   gz::transport::Node node;
 
-  /// \brief Publisher for the radioisotope thermal generator output
+  /// \brief Publisher for the solar panel output
 public:
   gz::transport::Node::Publisher nominalPowerPub;
+
+  /// \brief Ray origin (the sun), written by the simulation thread
+public:
+  gz::math::Vector3d rayOrigin;
+
+  /// \brief Ray direction (sun to panel), written by the simulation thread
+public:
+  gz::math::Vector3d rayDirection;
+
+  /// \brief Whether rayOrigin and rayDirection have been set
+public:
+  bool rayValid{false};
+
+  /// \brief Whether the panel is in the sun's line of sight, written by the
+  /// render thread
+public:
+  bool isInLOS{false};
 };
 
 //////////////////////////////////////////////////
@@ -131,7 +156,7 @@ void SolarPanelPlugin::Configure(const gz::sim::Entity &_entity,
   if (!model.Valid(_ecm))
   {
     gzerr << "Solar panel plugin should be attached to a model entity. "
-           << "Failed to initialize." << std::endl;
+          << "Failed to initialize." << std::endl;
     return;
   }
 
@@ -155,7 +180,7 @@ void SolarPanelPlugin::Configure(const gz::sim::Entity &_entity,
   else
   {
     gzerr << "Solar panel plugin should have a <link_name> element. "
-           << "Failed to initialize." << std::endl;
+          << "Failed to initialize." << std::endl;
     return;
   }
 
@@ -166,11 +191,15 @@ void SolarPanelPlugin::Configure(const gz::sim::Entity &_entity,
   else
   {
     gzerr << "Solar panel plugin should have a <nominal_power> element. "
-           << "Failed to initialize." << std::endl;
+          << "Failed to initialize." << std::endl;
     return;
   }
 
-  this->dataPtr->sceneChangeConnection = this->dataPtr->sceneEvent.Connect(std::bind(&SolarPanelPlugin::SetScene, this, std::placeholders::_1));
+  // The line-of-sight check needs the rendering scene, which may only be used
+  // from the render thread. PostUpdate runs on parallel worker threads, so the
+  // ray cast is done from the post-render event instead.
+  this->dataPtr->postRenderConn = _eventMgr.Connect<gz::sim::events::PostRender>(
+      std::bind(&SolarPanelPluginPrivate::OnPostRender, this->dataPtr.get()));
 }
 
 //////////////////////////////////////////////////
@@ -181,29 +210,9 @@ void SolarPanelPlugin::PostUpdate(const gz::sim::UpdateInfo &_info,
   {
     return;
   }
-  if (!this->dataPtr->scene)
-  {
-    if (!this->dataPtr->FindScene())
-    {
-      gzwarn << "Rendering scene not available yet" << std::endl;
-      return;
-    }
-  }
-
-  std::shared_ptr<gz::rendering::RayQuery> rayQuery = this->dataPtr->scene->CreateRayQuery();
-  if (!rayQuery)
-  {
-    gzerr << "Failed to create RayQuery" << std::endl;
-    return;
-  }
-
-  if (this->dataPtr->scopedVisualChildren.empty())
-  {
-    this->dataPtr->scopedVisualChildren = this->dataPtr->GetVisualChildren(_ecm);
-  }
 
   // Get sun entity
-  gz::sim::Entity sunEntity;
+  gz::sim::Entity sunEntity{gz::sim::kNullEntity};
   gz::math::Pose3d sunPose;
   _ecm.Each<gz::sim::components::Name, gz::sim::components::Pose>(
       [&](const gz::sim::Entity &_entity,
@@ -246,31 +255,28 @@ void SolarPanelPlugin::PostUpdate(const gz::sim::UpdateInfo &_info,
   {
     this->dataPtr->linkEntity =
         this->dataPtr->model.LinkByName(_ecm, this->dataPtr->linkName);
+    if (this->dataPtr->linkEntity == gz::sim::kNullEntity)
+    {
+      gzerr << "Link [" << this->dataPtr->linkName << "] not found" << std::endl;
+      return;
+    }
   }
 
   gz::math::Pose3d linkPose = gz::sim::worldPose(this->dataPtr->linkEntity, _ecm);
-  // Perform ray cast from link to sun
-  gz::math::Vector3d start = linkPose.Pos();
-  gz::math::Vector3d end = sunPose.Pos();
 
-  rayQuery->SetOrigin(end);
-  rayQuery->SetDirection(start - end);
-
-  // Check if ray intersects with any obstacles
-  auto result = rayQuery->ClosestPoint();
-  bool isValid = result;
-
-  std::string objectName = "unknown";
+  // Hand the ray from the sun to the panel over to the render thread and take
+  // back its latest line-of-sight result.
   bool isInLOS = false;
-  gz::rendering::NodePtr node = this->dataPtr->scene->NodeById(result.objectId);
-  if (node)
   {
-    objectName = node->Name();
-    if (isValid)
+    std::lock_guard<std::mutex> lock(this->dataPtr->mutex);
+    if (this->dataPtr->scopedVisualChildren.empty())
     {
-      isInLOS = (any_of(this->dataPtr->scopedVisualChildren.begin(), this->dataPtr->scopedVisualChildren.end(), [&](const std::string &elem)
-                        { return elem == objectName; }));
+      this->dataPtr->scopedVisualChildren = this->dataPtr->GetVisualChildren(_ecm);
     }
+    this->dataPtr->rayOrigin = sunPose.Pos();
+    this->dataPtr->rayDirection = linkPose.Pos() - sunPose.Pos();
+    this->dataPtr->rayValid = true;
+    isInLOS = this->dataPtr->isInLOS;
   }
 
   // Compute current power output
@@ -316,14 +322,60 @@ void SolarPanelPlugin::PostUpdate(const gz::sim::UpdateInfo &_info,
 }
 
 //////////////////////////////////////////////////
-void SolarPanelPlugin::SetScene(gz::rendering::ScenePtr _scene)
+void SolarPanelPluginPrivate::OnPostRender()
 {
-  std::lock_guard<std::mutex> lock(this->dataPtr->mutex);
-  // APIs make it possible for the scene pointer to change
-  if (this->dataPtr->scene != _scene)
+  if (!this->scene)
   {
-    this->dataPtr->scene = _scene;
+    if (!this->FindScene())
+    {
+      return;
+    }
   }
+
+  if (!this->rayQuery)
+  {
+    this->rayQuery = this->scene->CreateRayQuery();
+    if (!this->rayQuery)
+    {
+      gzerr << "Failed to create RayQuery" << std::endl;
+      return;
+    }
+  }
+
+  gz::math::Vector3d origin;
+  gz::math::Vector3d direction;
+  std::vector<std::string> visualChildren;
+  {
+    std::lock_guard<std::mutex> lock(this->mutex);
+    if (!this->rayValid)
+    {
+      return;
+    }
+    origin = this->rayOrigin;
+    direction = this->rayDirection;
+    visualChildren = this->scopedVisualChildren;
+  }
+
+  // Perform ray cast from the sun to the panel: the panel is lit if it is
+  // the first thing the ray hits.
+  this->rayQuery->SetOrigin(origin);
+  this->rayQuery->SetDirection(direction);
+  auto result = this->rayQuery->ClosestPoint();
+
+  bool inLOS = false;
+  if (result)
+  {
+    gz::rendering::NodePtr node = this->scene->NodeById(result.objectId);
+    if (node)
+    {
+      const std::string objectName = node->Name();
+      inLOS = std::any_of(visualChildren.begin(), visualChildren.end(),
+                          [&](const std::string &_elem) { return _elem == objectName; });
+    }
+  }
+
+  std::lock_guard<std::mutex> lock(this->mutex);
+  this->isInLOS = inLOS;
 }
 
 //////////////////////////////////////////////////
@@ -332,7 +384,7 @@ bool SolarPanelPluginPrivate::FindScene()
   auto loadedEngNames = gz::rendering::loadedEngines();
   if (loadedEngNames.empty())
   {
-    gzwarn << "No rendering engine is loaded yet" << std::endl;
+    gzdbg << "No rendering engine is loaded yet" << std::endl;
     return false;
   }
 
@@ -341,13 +393,13 @@ bool SolarPanelPluginPrivate::FindScene()
   if (loadedEngNames.size() > 1)
   {
     gzwarn << "More than one engine is available. "
-            << "Using engine [" << engineName << "]" << std::endl;
+           << "Using engine [" << engineName << "]" << std::endl;
   }
   auto engine = gz::rendering::engine(engineName);
   if (!engine)
   {
     gzerr << "Internal error: failed to load engine [" << engineName
-           << "]. Solar panel plugin won't work." << std::endl;
+          << "]. Solar panel plugin won't work." << std::endl;
     return false;
   }
 
@@ -368,7 +420,7 @@ bool SolarPanelPluginPrivate::FindScene()
   if (engine->SceneCount() > 1)
   {
     gzdbg << "More than one scene is available. "
-           << "Using scene [" << scene->Name() << "]" << std::endl;
+          << "Using scene [" << scenePtr->Name() << "]" << std::endl;
   }
 
   if (!scenePtr->IsInitialized() || nullptr == scenePtr->RootVisual())
@@ -388,29 +440,25 @@ std::vector<std::string> SolarPanelPluginPrivate::GetVisualChildren(
   std::string scopedPrefix = this->modelName + "::" + this->linkName + "::";
 
   // Find all visual entities that are children of this link
-  std::vector<std::string> scopedVisualChildren;
+  std::vector<std::string> visualChildren;
   _ecm.Each<gz::sim::components::Visual, gz::sim::components::Name, gz::sim::components::ParentEntity>(
-      [&](const gz::sim::Entity &_entity,
+      [&](const gz::sim::Entity &,
           const gz::sim::components::Visual *,
           const gz::sim::components::Name *_name,
           const gz::sim::components::ParentEntity *_parent) -> bool
       {
-        if (_parent->Data() == linkEntity)
+        if (_parent->Data() == this->linkEntity)
         {
-          std::string scopedName = scopedPrefix + _name->Data();
-          scopedVisualChildren.push_back(scopedName);
+          visualChildren.push_back(scopedPrefix + _name->Data());
         }
         return true;
       });
 
-  return scopedVisualChildren;
+  return visualChildren;
 }
 
-gz::common::EventT<void(const gz::rendering::ScenePtr &)>
-    SolarPanelPluginPrivate::sceneEvent;
-
 GZ_ADD_PLUGIN(SolarPanelPlugin, gz::sim::System,
-                    SolarPanelPlugin::ISystemConfigure,
-                    SolarPanelPlugin::ISystemPostUpdate)
+              SolarPanelPlugin::ISystemConfigure,
+              SolarPanelPlugin::ISystemPostUpdate)
 
 GZ_ADD_PLUGIN_ALIAS(SolarPanelPlugin, "simulation::SolarPanelPlugin")
