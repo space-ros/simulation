@@ -19,8 +19,8 @@
 #define RECHARGEABLE_BATTERY_PLUGIN_HH_
 
 #include <memory>
-#include <ignition/gazebo/System.hh>
-#include <ignition/common/Battery.hh>
+#include <gz/sim/System.hh>
+#include <gz/common/Battery.hh>
 
 
 namespace simulation
@@ -47,11 +47,11 @@ namespace simulation
     /// - `<power_source>`: This is to subscribe to power sources topics. Repeat as many times as needed with the same name
 
     class RechargeableBatteryPlugin
-        : public ignition::gazebo::System,
-          public ignition::gazebo::ISystemConfigure,
-          public ignition::gazebo::ISystemPreUpdate,
-          public ignition::gazebo::ISystemUpdate,
-          public ignition::gazebo::ISystemPostUpdate
+        : public gz::sim::System,
+          public gz::sim::ISystemConfigure,
+          public gz::sim::ISystemPreUpdate,
+          public gz::sim::ISystemUpdate,
+          public gz::sim::ISystemPostUpdate
     {
         /// \brief Constructor
     public:
@@ -63,31 +63,31 @@ namespace simulation
 
         /// Documentation Inherited
     public:
-        void Configure(const ignition::gazebo::Entity &_entity,
+        void Configure(const gz::sim::Entity &_entity,
                        const std::shared_ptr<const sdf::Element> &_sdf,
-                       ignition::gazebo::EntityComponentManager &_ecm,
-                       ignition::gazebo::EventManager &_eventMgr) final;
+                       gz::sim::EntityComponentManager &_ecm,
+                       gz::sim::EventManager &_eventMgr) final;
 
         /// Documentation Inherited
     public:
-        void PreUpdate(const ignition::gazebo::UpdateInfo &_info,
-                       ignition::gazebo::EntityComponentManager &_ecm) override;
+        void PreUpdate(const gz::sim::UpdateInfo &_info,
+                       gz::sim::EntityComponentManager &_ecm) override;
 
         // Documentation Inherited
     public:
-        void Update(const ignition::gazebo::UpdateInfo &_info,
-                    ignition::gazebo::EntityComponentManager &_ecm) override;
+        void Update(const gz::sim::UpdateInfo &_info,
+                    gz::sim::EntityComponentManager &_ecm) override;
 
         /// Documentation Inherited
     public:
-        void PostUpdate(const ignition::gazebo::UpdateInfo &_info,
-                        const ignition::gazebo::EntityComponentManager &_ecm) override;
+        void PostUpdate(const gz::sim::UpdateInfo &_info,
+                        const gz::sim::EntityComponentManager &_ecm) override;
 
         /// \brief Callback for Battery Update events.
         /// \param[in] _battery Pointer to the battery that is to be updated.
         /// \return The new voltage.
     private:
-        double OnUpdateVoltage(const ignition::common::Battery *_battery);
+        double OnUpdateVoltage(const gz::common::Battery *_battery);
 
         /// \brief Private data pointer
     private:

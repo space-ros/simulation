@@ -16,27 +16,28 @@
  */
 
 #include "SolarPanelPlugin.hh"
+#include "gz_compat.hh"
 
-#include <ignition/msgs/double.pb.h>
+#include <gz/msgs/double.pb.h>
+#include <gz/msgs/float.pb.h>
 
-#include <ignition/plugin/Register.hh>
-#include <ignition/gazebo/components/Name.hh>
-#include <ignition/gazebo/components/ParentEntity.hh>
-#include <ignition/gazebo/components/Pose.hh>
-#include <ignition/gazebo/components/Light.hh>
-#include <ignition/gazebo/components/Visual.hh>
+#include <gz/plugin/Register.hh>
+#include <gz/sim/components/Name.hh>
+#include <gz/sim/components/ParentEntity.hh>
+#include <gz/sim/components/Pose.hh>
+#include <gz/sim/components/Light.hh>
+#include <gz/sim/components/Visual.hh>
 
-#include <ignition/gazebo/EntityComponentManager.hh>
-#include "ignition/gazebo/Model.hh"
-#include <ignition/gazebo/Util.hh>
-#include <ignition/gazebo/System.hh>
+#include <gz/sim/EntityComponentManager.hh>
+#include "gz/sim/Model.hh"
+#include <gz/sim/Util.hh>
+#include <gz/sim/System.hh>
 
-#include <ignition/rendering/RayQuery.hh>
-#include <ignition/rendering/RenderEngine.hh>
-#include <ignition/rendering/RenderingIface.hh>
-#include <ignition/transport/Node.hh>
-#include <ignition/physics/Entity.hh>
-#include <ignition/common/Event.hh>
+#include <gz/rendering/RayQuery.hh>
+#include <gz/rendering/RenderEngine.hh>
+#include <gz/rendering/RenderingIface.hh>
+#include <gz/transport/Node.hh>
+#include <gz/common/Event.hh>
 
 using namespace simulation;
 
@@ -47,29 +48,27 @@ class simulation::SolarPanelPluginPrivate
   /// \param[in] _ecm Entity component manager
 public:
   std::vector<std::string> GetVisualChildren(
-      const ignition::gazebo::EntityComponentManager &_ecm);
+      const gz::sim::EntityComponentManager &_ecm);
 
   /// \brief Find the scene
 public:
   bool FindScene();
 
-  IGN_COMMON_WARN_IGNORE__DLL_INTERFACE_MISSING
   /// \brief Event that is used to trigger callbacks when the scene
   /// is changed
   /// \param[in] _scene The new scene
 public:
-  static ignition::common::EventT<void(const ignition::rendering::ScenePtr &)>
+  static gz::common::EventT<void(const gz::rendering::ScenePtr &)>
       sceneEvent;
-  IGN_COMMON_WARN_RESUME__DLL_INTERFACE_MISSING
 
   /// \brief Pointer to rendering scene
   /// \param[in] _scene Rendering scene
 public:
-  ignition::rendering::ScenePtr scene{nullptr};
+  gz::rendering::ScenePtr scene{nullptr};
 
   /// \brief Connection to the Manager's scene change event.
 public:
-  ignition::common::ConnectionPtr sceneChangeConnection;
+  gz::common::ConnectionPtr sceneChangeConnection;
 
   /// \brief Just a mutex for thread safety
 public:
@@ -97,19 +96,19 @@ public:
 
   /// \brief Model interface
 public:
-  ignition::gazebo::Model model{ignition::gazebo::kNullEntity};
+  gz::sim::Model model{gz::sim::kNullEntity};
 
   /// \brief Link entity
 public:
-  ignition::gazebo::Entity linkEntity{ignition::gazebo::kNullEntity};
+  gz::sim::Entity linkEntity{gz::sim::kNullEntity};
 
   /// \brief Ignition communication node
 public:
-  ignition::transport::Node node;
+  gz::transport::Node node;
 
   /// \brief Publisher for the radioisotope thermal generator output
 public:
-  ignition::transport::Node::Publisher nominalPowerPub;
+  gz::transport::Node::Publisher nominalPowerPub;
 };
 
 //////////////////////////////////////////////////
@@ -122,16 +121,16 @@ SolarPanelPlugin::SolarPanelPlugin()
 SolarPanelPlugin::~SolarPanelPlugin() = default;
 
 //////////////////////////////////////////////////
-void SolarPanelPlugin::Configure(const ignition::gazebo::Entity &_entity,
+void SolarPanelPlugin::Configure(const gz::sim::Entity &_entity,
                                  const std::shared_ptr<const sdf::Element> &_sdf,
-                                 ignition::gazebo::EntityComponentManager &_ecm,
-                                 ignition::gazebo::EventManager &_eventMgr)
+                                 gz::sim::EntityComponentManager &_ecm,
+                                 gz::sim::EventManager &_eventMgr)
 {
   // Store the pointer to the model the solar panel is under
-  auto model = ignition::gazebo::Model(_entity);
+  auto model = gz::sim::Model(_entity);
   if (!model.Valid(_ecm))
   {
-    ignerr << "Solar panel plugin should be attached to a model entity. "
+    gzerr << "Solar panel plugin should be attached to a model entity. "
            << "Failed to initialize." << std::endl;
     return;
   }
@@ -144,18 +143,18 @@ void SolarPanelPlugin::Configure(const ignition::gazebo::Entity &_entity,
   {
     this->dataPtr->linkName = _sdf->Get<std::string>("link_name");
     this->dataPtr->topicName = "/model/" + this->dataPtr->modelName + "/" + this->dataPtr->linkName + "/solar_panel_output";
-    auto validTopic = ignition::transport::TopicUtils::AsValidTopic(this->dataPtr->topicName);
+    auto validTopic = gz::transport::TopicUtils::AsValidTopic(this->dataPtr->topicName);
     if (validTopic.empty())
     {
-      ignerr << "Failed to create valid topic [" << this->dataPtr->topicName << "]" << std::endl;
+      gzerr << "Failed to create valid topic [" << this->dataPtr->topicName << "]" << std::endl;
       return;
     }
     // Advertise topic where data will be published
-    this->dataPtr->nominalPowerPub = this->dataPtr->node.Advertise<ignition::msgs::Float>(validTopic);
+    this->dataPtr->nominalPowerPub = this->dataPtr->node.Advertise<gz::msgs::Float>(validTopic);
   }
   else
   {
-    ignerr << "Solar panel plugin should have a <link_name> element. "
+    gzerr << "Solar panel plugin should have a <link_name> element. "
            << "Failed to initialize." << std::endl;
     return;
   }
@@ -166,7 +165,7 @@ void SolarPanelPlugin::Configure(const ignition::gazebo::Entity &_entity,
   }
   else
   {
-    ignerr << "Solar panel plugin should have a <nominal_power> element. "
+    gzerr << "Solar panel plugin should have a <nominal_power> element. "
            << "Failed to initialize." << std::endl;
     return;
   }
@@ -175,8 +174,8 @@ void SolarPanelPlugin::Configure(const ignition::gazebo::Entity &_entity,
 }
 
 //////////////////////////////////////////////////
-void SolarPanelPlugin::PostUpdate(const ignition::gazebo::UpdateInfo &_info,
-                                  const ignition::gazebo::EntityComponentManager &_ecm)
+void SolarPanelPlugin::PostUpdate(const gz::sim::UpdateInfo &_info,
+                                  const gz::sim::EntityComponentManager &_ecm)
 {
   if (_info.paused)
   {
@@ -186,15 +185,15 @@ void SolarPanelPlugin::PostUpdate(const ignition::gazebo::UpdateInfo &_info,
   {
     if (!this->dataPtr->FindScene())
     {
-      ignwarn << "Rendering scene not available yet" << std::endl;
+      gzwarn << "Rendering scene not available yet" << std::endl;
       return;
     }
   }
 
-  std::shared_ptr<ignition::rendering::RayQuery> rayQuery = this->dataPtr->scene->CreateRayQuery();
+  std::shared_ptr<gz::rendering::RayQuery> rayQuery = this->dataPtr->scene->CreateRayQuery();
   if (!rayQuery)
   {
-    ignerr << "Failed to create RayQuery" << std::endl;
+    gzerr << "Failed to create RayQuery" << std::endl;
     return;
   }
 
@@ -204,12 +203,12 @@ void SolarPanelPlugin::PostUpdate(const ignition::gazebo::UpdateInfo &_info,
   }
 
   // Get sun entity
-  ignition::gazebo::Entity sunEntity;
-  ignition::math::Pose3d sunPose;
-  _ecm.Each<ignition::gazebo::components::Name, ignition::gazebo::components::Pose>(
-      [&](const ignition::gazebo::Entity &_entity,
-          const ignition::gazebo::components::Name *_name,
-          const ignition::gazebo::components::Pose *_pose) -> bool
+  gz::sim::Entity sunEntity;
+  gz::math::Pose3d sunPose;
+  _ecm.Each<gz::sim::components::Name, gz::sim::components::Pose>(
+      [&](const gz::sim::Entity &_entity,
+          const gz::sim::components::Name *_name,
+          const gz::sim::components::Pose *_pose) -> bool
       {
         if (_name->Data() == "sun")
         {
@@ -220,15 +219,15 @@ void SolarPanelPlugin::PostUpdate(const ignition::gazebo::UpdateInfo &_info,
         return true;
       });
 
-  if (sunEntity == ignition::gazebo::v6::kNullEntity)
+  if (sunEntity == gz::sim::kNullEntity)
   {
-    ignerr << "Sun entity not found" << std::endl;
+    gzerr << "Sun entity not found" << std::endl;
     return;
   }
 
   // Check if sun entity is of type "light" and has a "direction" element
-  const auto *lightComp = _ecm.Component<ignition::gazebo::components::Light>(sunEntity);
-  ignition::math::Vector3d direction;
+  const auto *lightComp = _ecm.Component<gz::sim::components::Light>(sunEntity);
+  gz::math::Vector3d direction;
   if (lightComp)
   {
     const auto &light = lightComp->Data();
@@ -236,23 +235,23 @@ void SolarPanelPlugin::PostUpdate(const ignition::gazebo::UpdateInfo &_info,
   }
   else
   {
-    ignerr << "Sun entity is not a light!" << std::endl;
+    gzerr << "Sun entity is not a light!" << std::endl;
     return;
   }
 
   // Rotate sun direction according to sun pose orientation
-  ignition::math::Vector3d sunDirection = sunPose.Rot().RotateVector(direction);
+  gz::math::Vector3d sunDirection = sunPose.Rot().RotateVector(direction);
 
-  if (this->dataPtr->linkEntity == ignition::gazebo::v6::kNullEntity)
+  if (this->dataPtr->linkEntity == gz::sim::kNullEntity)
   {
     this->dataPtr->linkEntity =
         this->dataPtr->model.LinkByName(_ecm, this->dataPtr->linkName);
   }
 
-  ignition::math::Pose3d linkPose = ignition::gazebo::worldPose(this->dataPtr->linkEntity, _ecm);
+  gz::math::Pose3d linkPose = gz::sim::worldPose(this->dataPtr->linkEntity, _ecm);
   // Perform ray cast from link to sun
-  ignition::math::Vector3d start = linkPose.Pos();
-  ignition::math::Vector3d end = sunPose.Pos();
+  gz::math::Vector3d start = linkPose.Pos();
+  gz::math::Vector3d end = sunPose.Pos();
 
   rayQuery->SetOrigin(end);
   rayQuery->SetDirection(start - end);
@@ -263,7 +262,7 @@ void SolarPanelPlugin::PostUpdate(const ignition::gazebo::UpdateInfo &_info,
 
   std::string objectName = "unknown";
   bool isInLOS = false;
-  ignition::rendering::NodePtr node = this->dataPtr->scene->NodeById(result.objectId);
+  gz::rendering::NodePtr node = this->dataPtr->scene->NodeById(result.objectId);
   if (node)
   {
     objectName = node->Name();
@@ -279,7 +278,7 @@ void SolarPanelPlugin::PostUpdate(const ignition::gazebo::UpdateInfo &_info,
 
   // Compute the angle between the link normal and sun direction
   // Calculate dot product
-  ignition::math::Vector3d linkNormal = linkPose.Rot().RotateVector(ignition::math::Vector3d::UnitZ);
+  gz::math::Vector3d linkNormal = linkPose.Rot().RotateVector(gz::math::Vector3d::UnitZ);
   float dotProduct = linkNormal.Dot(-sunDirection); // Negate sunDirection because it points from sun to scene
 
   // Solar panel will not receive any power if angle is more than 90deg (sun rays hitting horizontally or below)
@@ -290,8 +289,8 @@ void SolarPanelPlugin::PostUpdate(const ignition::gazebo::UpdateInfo &_info,
     float magnitude2 = sunDirection.Length();
     // Calculate cosine of the angle
     float cosAngle;
-    if (ignition::math::equal(magnitude1, 0.0F) ||
-        ignition::math::equal(magnitude2, 0.0F))
+    if (gz::math::equal(magnitude1, 0.0F) ||
+        gz::math::equal(magnitude2, 0.0F))
     {
       cosAngle = 1.0F;
     }
@@ -308,16 +307,16 @@ void SolarPanelPlugin::PostUpdate(const ignition::gazebo::UpdateInfo &_info,
   }
 
   // Publish result
-  ignition::msgs::Float msg;
+  gz::msgs::Float msg;
   msg.set_data(currentPower);
   this->dataPtr->nominalPowerPub.Publish(msg);
 
-  igndbg << "Solar Panel Plugin:: Current power output: " << currentPower << " watts" << std::endl;
-  igndbg << "Solar Panel Plugin:: In line of sight: " << (isInLOS ? "Yes" : "No") << std::endl;
+  gzdbg << "Solar Panel Plugin:: Current power output: " << currentPower << " watts" << std::endl;
+  gzdbg << "Solar Panel Plugin:: In line of sight: " << (isInLOS ? "Yes" : "No") << std::endl;
 }
 
 //////////////////////////////////////////////////
-void SolarPanelPlugin::SetScene(ignition::rendering::ScenePtr _scene)
+void SolarPanelPlugin::SetScene(gz::rendering::ScenePtr _scene)
 {
   std::lock_guard<std::mutex> lock(this->dataPtr->mutex);
   // APIs make it possible for the scene pointer to change
@@ -330,10 +329,10 @@ void SolarPanelPlugin::SetScene(ignition::rendering::ScenePtr _scene)
 //////////////////////////////////////////////////
 bool SolarPanelPluginPrivate::FindScene()
 {
-  auto loadedEngNames = ignition::rendering::loadedEngines();
+  auto loadedEngNames = gz::rendering::loadedEngines();
   if (loadedEngNames.empty())
   {
-    ignwarn << "No rendering engine is loaded yet" << std::endl;
+    gzwarn << "No rendering engine is loaded yet" << std::endl;
     return false;
   }
 
@@ -341,20 +340,20 @@ bool SolarPanelPluginPrivate::FindScene()
   auto engineName = loadedEngNames[0];
   if (loadedEngNames.size() > 1)
   {
-    ignwarn << "More than one engine is available. "
+    gzwarn << "More than one engine is available. "
             << "Using engine [" << engineName << "]" << std::endl;
   }
-  auto engine = ignition::rendering::engine(engineName);
+  auto engine = gz::rendering::engine(engineName);
   if (!engine)
   {
-    ignerr << "Internal error: failed to load engine [" << engineName
+    gzerr << "Internal error: failed to load engine [" << engineName
            << "]. Solar panel plugin won't work." << std::endl;
     return false;
   }
 
   if (engine->SceneCount() == 0)
   {
-    igndbg << "No scene has been created yet" << std::endl;
+    gzdbg << "No scene has been created yet" << std::endl;
     return false;
   }
 
@@ -362,13 +361,13 @@ bool SolarPanelPluginPrivate::FindScene()
   auto scenePtr = engine->SceneByIndex(0);
   if (nullptr == scenePtr)
   {
-    ignerr << "Internal error: scene is null." << std::endl;
+    gzerr << "Internal error: scene is null." << std::endl;
     return false;
   }
 
   if (engine->SceneCount() > 1)
   {
-    igndbg << "More than one scene is available. "
+    gzdbg << "More than one scene is available. "
            << "Using scene [" << scene->Name() << "]" << std::endl;
   }
 
@@ -383,18 +382,18 @@ bool SolarPanelPluginPrivate::FindScene()
 
 //////////////////////////////////////////////////
 std::vector<std::string> SolarPanelPluginPrivate::GetVisualChildren(
-    const ignition::gazebo::EntityComponentManager &_ecm)
+    const gz::sim::EntityComponentManager &_ecm)
 {
   // Build the prefix for the scoped name
   std::string scopedPrefix = this->modelName + "::" + this->linkName + "::";
 
   // Find all visual entities that are children of this link
   std::vector<std::string> scopedVisualChildren;
-  _ecm.Each<ignition::gazebo::components::Visual, ignition::gazebo::components::Name, ignition::gazebo::components::ParentEntity>(
-      [&](const ignition::gazebo::Entity &_entity,
-          const ignition::gazebo::components::Visual *,
-          const ignition::gazebo::components::Name *_name,
-          const ignition::gazebo::components::ParentEntity *_parent) -> bool
+  _ecm.Each<gz::sim::components::Visual, gz::sim::components::Name, gz::sim::components::ParentEntity>(
+      [&](const gz::sim::Entity &_entity,
+          const gz::sim::components::Visual *,
+          const gz::sim::components::Name *_name,
+          const gz::sim::components::ParentEntity *_parent) -> bool
       {
         if (_parent->Data() == linkEntity)
         {
@@ -407,11 +406,11 @@ std::vector<std::string> SolarPanelPluginPrivate::GetVisualChildren(
   return scopedVisualChildren;
 }
 
-ignition::common::EventT<void(const ignition::rendering::ScenePtr &)>
+gz::common::EventT<void(const gz::rendering::ScenePtr &)>
     SolarPanelPluginPrivate::sceneEvent;
 
-IGNITION_ADD_PLUGIN(SolarPanelPlugin, ignition::gazebo::System,
+GZ_ADD_PLUGIN(SolarPanelPlugin, gz::sim::System,
                     SolarPanelPlugin::ISystemConfigure,
                     SolarPanelPlugin::ISystemPostUpdate)
 
-IGNITION_ADD_PLUGIN_ALIAS(SolarPanelPlugin, "simulation::SolarPanelPlugin")
+GZ_ADD_PLUGIN_ALIAS(SolarPanelPlugin, "simulation::SolarPanelPlugin")

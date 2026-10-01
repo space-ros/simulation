@@ -19,7 +19,7 @@
 #define Radioisotope_Thermal_Generator_Plugin_HH_
 
 #include <memory>
-#include <ignition/gazebo/System.hh>
+#include <gz/sim/System.hh>
 
 namespace simulation
 {
@@ -34,9 +34,9 @@ namespace simulation
   ///
   /// - `link_name`: The name of the link where the radioisotope thermal generator is attached.
   /// - `nominal_power`: The nominal power output of the radioisotope thermal generator.
-  class RadioisotopeThermalGeneratorPlugin : public ignition::gazebo::System,
-                                             public ignition::gazebo::ISystemConfigure,
-                                             public ignition::gazebo::ISystemPostUpdate
+  class RadioisotopeThermalGeneratorPlugin : public gz::sim::System,
+                                             public gz::sim::ISystemConfigure,
+                                             public gz::sim::ISystemPostUpdate
   {
 
     /// \brief Constructor
@@ -49,15 +49,15 @@ namespace simulation
 
     /// Documentation inherited
   public:
-    void Configure(const ignition::gazebo::Entity &_entity,
+    void Configure(const gz::sim::Entity &_entity,
                    const std::shared_ptr<const sdf::Element> &_sdf,
-                   ignition::gazebo::EntityComponentManager &_ecm,
-                   ignition::gazebo::EventManager &_eventMgr) override;
+                   gz::sim::EntityComponentManager &_ecm,
+                   gz::sim::EventManager &_eventMgr) override;
 
     /// Documentation inherited
   public:
-    void PostUpdate(const ignition::gazebo::UpdateInfo &_info,
-                    const ignition::gazebo::EntityComponentManager &_ecm) final;
+    void PostUpdate(const gz::sim::UpdateInfo &_info,
+                    const gz::sim::EntityComponentManager &_ecm) final;
 
     /// \brief Private data pointer
   private:

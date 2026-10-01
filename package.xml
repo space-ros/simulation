@@ -10,12 +10,20 @@
   <buildtool_depend>ros_environment</buildtool_depend>
   <buildtool_depend>ament_cmake</buildtool_depend>
 
+  <!-- ROS 2 Humble: Ignition Fortress from the system packages -->
   <depend condition="$ROS_DISTRO == 'humble'">ign-cmake2</depend>
   <depend condition="$ROS_DISTRO == 'humble'">ign-plugin1</depend>
   <depend condition="$ROS_DISTRO == 'humble'">ign-common4</depend>
   <depend condition="$ROS_DISTRO == 'humble'">ign-gazebo6</depend>
   <depend condition="$ROS_DISTRO == 'humble'">ign-rendering6</depend>
   <depend condition="$ROS_DISTRO == 'humble'">ign-sensors6</depend>
+
+  <!-- ROS 2 Jazzy and later: Gazebo Harmonic through the ROS vendor packages -->
+  <depend condition="$ROS_DISTRO != 'humble'">gz_sim_vendor</depend>
+  <depend condition="$ROS_DISTRO != 'humble'">gz_plugin_vendor</depend>
+  <depend condition="$ROS_DISTRO != 'humble'">gz_common_vendor</depend>
+  <depend condition="$ROS_DISTRO != 'humble'">gz_rendering_vendor</depend>
+  <depend condition="$ROS_DISTRO != 'humble'">gz_sensors_vendor</depend>
 
   <exec_depend>xacro</exec_depend>
 
