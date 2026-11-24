@@ -1,0 +1,466 @@
+<?xml version="1.0" ?>
+<sdf version='1.9'>
+  <model name="lunar_roving_vehicle">
+            <static>false</static>
+            
+            
+            <!-- Chassis -->
+            <link name='chassis'>   
+                <pose relative_to='__model__'>0 0 0 0 0 0</pose>
+                <inertial> <!--inertial properties of the link mass, inertia matix-->
+                    <mass>210.0</mass>
+                </inertial>
+                <visual name="visual">
+                    <geometry>
+                        <mesh>
+                        <uri>model://lunar_roving_vehicle/meshes/lunar_roving_vehicle.dae</uri>
+                        <scale>1.0 1.0 1.0</scale>
+                        </mesh>
+                    </geometry>
+                </visual>
+                <collision name='collision'>
+                    <pose>0 0 0.43 0 0 0</pose>
+                    <geometry>
+                        <box>
+                            <size>2.06 1.46 0.05</size>
+                        </box>
+                    </geometry>
+                    
+                </collision>
+                <sensor type="camera" name="camera_handheld">
+                    <pose relative_to='__model__'>0.18 -0.196 1.23 0 0 0</pose>
+                    <visualize>1</visualize>
+                    <update_rate>10.0</update_rate>
+                    <camera>
+                        <image>
+                            <width>800</width>
+                            <height>800</height>
+                        </image>
+                        <clip>
+                            <near>0.01</near>
+                            <far>100</far>
+                        </clip>
+                    </camera>
+                    <always_on>1</always_on>
+                    <topic>img_raw_handheld</topic>
+                </sensor>
+
+                <sensor type="camera" name="camera_front">
+                    <pose relative_to='__model__'>1.46 -0.278 1.005 0 0 0</pose>
+                    <visualize>1</visualize>
+                    <update_rate>10.0</update_rate>
+                    <camera>
+                        <image>
+                            <width>800</width>
+                            <height>800</height>
+                        </image>
+                        <clip>
+                            <near>0.01</near>
+                            <far>100</far>
+                        </clip>
+                    </camera>
+                    <always_on>1</always_on>
+                    <topic>img_raw_front</topic>
+                </sensor>
+
+                <sensor name="imu_sensor" type="imu">
+                    <always_on>1</always_on>
+                    <update_rate>1</update_rate>
+                    <visualize>true</visualize>
+                    <topic>imu</topic>
+                </sensor>
+            </link>
+
+            <!-- Left Rear Wheel Rotator -->
+            <link name='left_rear_steer'> 
+                <pose relative_to="chassis">-1.05 0.73 0.53 0 0 0</pose> <!--angles are in radian-->
+                <inertial>
+                    <mass>1</mass>
+                </inertial>
+                <visual name="visual">
+                    <geometry>
+                        <mesh>
+                            <uri>model://lunar_roving_vehicle/meshes/wheel_cover_L_B.dae</uri>
+                            <scale>1.0 1.0 1.0</scale>
+                        </mesh>
+                    </geometry>
+                </visual>
+            </link>
+
+            <!-- Left Rear Suspension-->
+            <link name='left_rear_suspension'> 
+                <pose relative_to="left_rear_steer">0.006 0 -0.14 0 0 0</pose> <!--angles are in radian-->
+                <inertial>
+                    <mass>1</mass>
+                </inertial>
+            </link>
+
+            <!-- Left Rear Wheel -->
+            <link name='left_rear_wheel'> 
+                <pose relative_to="left_rear_suspension">0 0.03 0 0 0 0</pose> <!--angles are in radian-->
+                <inertial>
+                    <mass>1</mass>
+                </inertial>
+                <visual name='visual'>
+                    <geometry>
+                        <mesh>
+                        <uri>model://lunar_roving_vehicle/meshes/wheel_left.dae</uri>
+                        <scale>1.0 1.0 1.0</scale>
+                        </mesh>
+                    </geometry>
+                </visual>
+                <collision name='collision'>
+                    <pose>0 0 0 1.5708 0 0</pose>
+                    <geometry>
+                        <cylinder>
+                            <radius>0.358</radius>
+                            <length>0.218</length>
+                        </cylinder>
+                    </geometry>
+                </collision>
+            </link>
+
+             <!-- Right Rear Wheel Rotator -->
+            <link name='right_rear_steer'> 
+                <pose relative_to="chassis">-1.05 -0.73 0.53 0 0 0</pose> <!--angles are in radian-->
+                <inertial>
+                    <mass>1</mass>
+                </inertial>
+                <visual name="visual">
+                    <geometry>
+                        <mesh>
+                            <uri>model://lunar_roving_vehicle/meshes/wheel_cover_R_B.dae</uri>
+                            <scale>1.0 1.0 1.0</scale>
+                        </mesh>
+                    </geometry>
+                </visual>
+            </link>
+
+            <!-- Right Rear Suspension-->
+            <link name='right_rear_suspension'> 
+                <pose relative_to="right_rear_steer">0.006 0 -0.14 0 0 0</pose> <!--angles are in radian-->
+                <inertial>
+                    <mass>1</mass>
+                </inertial>
+            </link>
+
+
+            <!-- Right Rear Wheel -->
+            <link name='right_rear_wheel'>
+                <pose relative_to="right_rear_suspension">0 -0.03 0 0 0 0</pose> <!--angles are in radian-->
+                <inertial>
+                    <mass>1</mass>
+                </inertial>
+                <visual name='visual'>
+                    <geometry>
+                        <mesh>
+                        <uri>model://lunar_roving_vehicle/meshes/wheel_right.dae</uri>
+                        <scale>1.0 1.0 1.0</scale>
+                        </mesh>
+                    </geometry>
+                </visual>
+                <collision name='collision'>
+                    <pose>0 0 0 1.5708 0 0</pose>
+                    <geometry>
+                        <cylinder>
+                            <radius>0.358</radius>
+                            <length>0.218</length>
+                        </cylinder>
+                    </geometry>
+                </collision>
+            </link>
+
+            <!-- Left Front Wheel Rotator -->
+            <link name='left_front_steer'> 
+                <pose relative_to="chassis">0.95 0.73 0.53 0 0 0</pose> <!--angles are in radian-->
+                <inertial>
+                    <mass>1</mass>
+                </inertial>
+                <visual name="visual">
+                    <geometry>
+                        <mesh>
+                            <uri>model://lunar_roving_vehicle/meshes/wheel_cover_L_F.dae</uri>
+                            <scale>1.0 1.0 1.0</scale>
+                        </mesh>
+                    </geometry>
+                </visual>
+            </link>
+
+            <!-- Left Front Suspension-->
+            <link name='left_front_suspension'> 
+                <pose relative_to="left_front_steer">0.01 0 -0.16 0 0 0</pose> <!--angles are in radian-->
+                <inertial>
+                    <mass>1</mass>
+                </inertial>
+            </link>
+
+            <!-- Left Front Wheel -->
+            <link name='left_front_wheel'>
+                <pose relative_to="left_front_suspension">0 0.03  0 0 0 0</pose> <!--angles are in radian-->
+                <inertial>
+                    <mass>1</mass>
+                </inertial>
+                <visual name='visual'>
+                   <geometry>
+                        <mesh>
+                        <uri>model://lunar_roving_vehicle/meshes/wheel_left.dae</uri>
+                        <scale>1.0 1.0 1.0</scale>
+                        </mesh>
+                    </geometry>
+                </visual>
+                <collision name='collision'>
+                    <pose>0 0 0 1.5708 0 0</pose>
+                    <geometry>
+                        <cylinder>
+                            <radius>0.358</radius>
+                            <length>0.218</length>
+                        </cylinder>
+                    </geometry>
+                </collision>
+            </link>
+
+            <!-- Right Front Wheel Rotator -->
+            <link name='right_front_steer'> 
+                <pose relative_to="chassis">0.95 -0.73 0.53 0 0 0</pose> <!--angles are in radian-->
+                <inertial>
+                    <mass>1</mass>
+                </inertial>
+                <visual name="visual">
+                    <geometry>
+                        <mesh>
+                            <uri>model://lunar_roving_vehicle/meshes/wheel_cover_R_F.dae</uri>
+                            <scale>1.0 1.0 1.0</scale>
+                        </mesh>
+                    </geometry>
+                </visual>
+            </link>
+
+            <!-- Right Front Suspension-->
+            <link name='right_front_suspension'> 
+                <pose relative_to="right_front_steer">0.01 0 -0.16 0 0 0</pose> <!--angles are in radian-->
+                <inertial>
+                    <mass>1</mass>
+                </inertial>
+            </link>
+
+            <!-- Right Front Wheel -->
+            <link name='right_front_wheel'>
+                <pose relative_to="right_front_suspension">0 -0.03 0 0 0 0</pose> <!--angles are in radian-->
+                <inertial>
+                    <mass>1</mass>
+                </inertial>
+                <visual name='visual'>
+                    <geometry>
+                        <mesh>
+                        <uri>model://lunar_roving_vehicle/meshes/wheel_right.dae</uri>
+                        <scale>1.0 1.0 1.0</scale>
+                        </mesh>
+                    </geometry>
+                </visual>
+                <collision name='collision'>
+                    <pose>0 0 0 1.5708 0 0</pose>
+                    <geometry>
+                        <cylinder>
+                            <radius>0.358</radius>
+                            <length>0.218</length>
+                        </cylinder>
+                    </geometry>
+                </collision>
+            </link>
+                
+            <joint name='left_front_steer_joint' type='revolute'>
+                <pose relative_to='left_front_steer'/>
+                <parent>chassis</parent>
+                <child>left_front_steer</child>
+                <axis>
+                    <xyz expressed_in='__model__'>0 0 1</xyz> <!--can be descired to any frame or even arbitrary frames-->
+                    <limit>
+                        <lower>-0.925025</lower>    <!--negative infinity-->
+                        <upper>0.925025</upper>     <!--positive infinity-->
+                        <effort>1000</effort>
+                    </limit>
+                </axis>
+
+            </joint>
+
+            <!-- Left Front Suspension Joint-->
+            <joint name='left_front_suspension_joint' type='prismatic'>
+                <pose relative_to='left_front_suspension'/>
+                <parent>left_front_steer</parent>
+                <child>left_front_suspension</child>
+                <axis>
+                    <xyz expressed_in='__model__'>0 0 1</xyz>
+                    <limit>
+                        <lower>-0.1</lower>
+                        <upper>0.0</upper>
+                    </limit>
+                </axis>
+            </joint>
+
+            <!-- Left Front Wheel Joint -->
+            <joint name='left_front_wheel_joint' type='revolute'>
+                <pose relative_to='left_front_wheel'/>
+                <parent>left_front_suspension</parent>
+                <child>left_front_wheel</child>
+                <axis>
+                    <xyz expressed_in='__model__'>0 1 0</xyz> <!--can be descired to any frame or even arbitrary frames-->
+                    <limit>
+                        <lower>-1.79769e+308</lower>    <!--negative infinity-->
+                        <upper>1.79769e+308</upper>     <!--positive infinity-->
+                    </limit>
+                </axis>
+            </joint>
+
+            <!-- Right Front Steer Joint -->
+            <joint name='right_front_steer_joint' type='revolute'>
+                <pose relative_to='right_front_steer'/>
+                <parent>chassis</parent>
+                <child>right_front_steer</child>
+                <axis>
+                    <xyz expressed_in='__model__'>0 0 1</xyz>
+                    <limit>
+                        <lower>-0.925025</lower>    <!--negative infinity-->
+                        <upper>0.925025</upper>     <!--positive infinity-->
+                        <effort>1000</effort>
+                    </limit>
+                </axis>
+            </joint>
+
+            <!-- Right Front Suspension Joint-->
+            <joint name='right_front_suspension_joint' type='prismatic'>
+                <pose relative_to='right_front_suspension'/>
+                <parent>right_front_steer</parent>
+                <child>right_front_suspension</child>
+                <axis>
+                    <xyz expressed_in='__model__'>0 0 1</xyz>
+                    <limit>
+                        <lower>-0.1</lower>
+                        <upper>0.0</upper>
+                    </limit>
+                </axis>
+            </joint>
+
+            <!-- Right Front Wheel Joint -->
+            <joint name='right_front_wheel_joint' type='revolute'>
+                <pose relative_to='right_front_wheel'/>
+                <parent>right_front_suspension</parent>
+                <child>right_front_wheel</child>
+                <axis>
+                    <xyz expressed_in='__model__'>0 1 0</xyz>
+                    <limit>
+                        <lower>-1.79769e+308</lower>    <!--negative infinity-->
+                        <upper>1.79769e+308</upper>     <!--positive infinity-->
+                    </limit>
+                </axis>
+            </joint>
+
+            <!-- Left Rear Steer Joint -->
+            <joint name='left_rear_steer_joint' type='revolute'>
+                <pose relative_to='left_rear_steer'/>
+                <parent>chassis</parent>
+                <child>left_rear_steer</child>
+                <axis>
+                    <xyz expressed_in='__model__'>0 0 1</xyz>
+                    <limit>
+                        <lower>-0.0001</lower>    <!--negative infinity-->
+                        <upper>0.0001</upper>     <!--positive infinity-->
+                    </limit>
+                </axis>
+            </joint>
+
+            <!-- Left Rear Suspension Joint -->
+            <joint name='left_rear_suspension_joint' type='prismatic'>
+                <pose relative_to='left_rear_suspension'/>
+                <parent>left_rear_steer</parent>
+                <child>left_rear_suspension</child>
+                <axis>
+                    <xyz expressed_in='__model__'>0 0 1</xyz>
+                    <limit>
+                        <lower>-0.1</lower>
+                        <upper>0.0</upper>
+                    </limit>
+                </axis>
+            </joint>
+
+
+            <!-- Left Rear Wheel Joint -->
+            <joint name='left_rear_wheel_joint' type='revolute'>
+                <pose relative_to='left_rear_wheel'/>
+                <parent>left_rear_suspension</parent>
+                <child>left_rear_wheel</child>
+                <axis>
+                    <xyz expressed_in='__model__'>0 1 0</xyz>
+                    <limit>
+                        <lower>-1.79769e+308</lower>    <!--negative infinity-->
+                        <upper>1.79769e+308</upper>     <!--positive infinity-->
+                    </limit>
+                </axis>
+
+            </joint>
+
+            <!-- Right Rear Steer Joint -->
+            <joint name='right_rear_steer_joint' type='revolute'>
+                <pose relative_to='right_rear_steer'/>
+                <parent>chassis</parent>
+                <child>right_rear_steer</child>
+                <axis>
+                    <xyz expressed_in='__model__'>0 0 1</xyz>
+                    <limit>
+                        <lower>-0.0001</lower>    <!--negative infinity-->
+                        <upper>0.0001</upper>     <!--positive infinity-->
+                    </limit>
+                </axis>
+            </joint>
+
+            <!-- Right Rear Suspension Joint -->
+            <joint name='right_rear_suspension_joint' type='prismatic'>
+                <pose relative_to='right_rear_suspension'/>
+                <parent>right_rear_steer</parent>
+                <child>right_rear_suspension</child>
+                <axis>
+                    <xyz expressed_in='__model__'>0 0 1</xyz>
+                    <limit>
+                        <lower>-0.1</lower>
+                        <upper>0.0</upper>
+                    </limit>
+                </axis>
+            </joint>
+
+            <!-- Right Rear Wheel Joint -->
+            <joint name='right_rear_wheel_joint' type='revolute'>
+                <pose relative_to='right_rear_wheel'/>
+                <parent>right_rear_suspension</parent>
+                <child>right_rear_wheel</child>
+                <axis>
+                    <xyz expressed_in='__model__'>0 1 0</xyz>
+                    <limit>
+                        <lower>-1.79769e+308</lower>    <!--negative infinity-->
+                        <upper>1.79769e+308</upper>     <!--positive infinity-->
+                    </limit>
+                </axis>
+            </joint>
+
+            <!-- Plugin for Ackermann Steering-->
+            <plugin
+                filename="gz-sim-ackermann-steering-system"
+                name="gz::sim::systems::AckermannSteering">
+                <left_joint>left_rear_wheel_joint</left_joint>
+                <right_joint>right_rear_wheel_joint</right_joint>
+                <left_joint>left_front_wheel_joint</left_joint>
+                <right_joint>right_front_wheel_joint</right_joint> <!-- Actual LRV has front and back Ackermann but the plugin does not support. Maybe TODO-->
+                <left_steering_joint>left_front_steer_joint</left_steering_joint>
+                <right_steering_joint>right_front_steer_joint</right_steering_joint>
+                <kingpin_width>1.46</kingpin_width>
+                <wheel_base>2.1</wheel_base>
+                <wheel_separation>1.46</wheel_separation>
+                <wheel_radius>0.358</wheel_radius>
+                <steering_limit>0.74424871</steering_limit> <!-- asin(wheelbase/turningradius) (2.1, 3,1) -->
+                <min_velocity>-3.61</min_velocity>
+                <max_velocity>3.61</max_velocity> <!-- Actual max speed of LRV (13km/h)-->
+                <topic>cmd_vel</topic>
+                <odom_publish_frequency> 10 </odom_publish_frequency>
+            </plugin>
+
+      
+  </model>
+</sdf>
