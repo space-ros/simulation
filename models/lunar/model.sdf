@@ -1,0 +1,49 @@
+<?xml version="1.0" ?>
+<sdf version="1.4">
+  <model name="lunar">
+    <static>true</static>
+    
+    <link name="link">
+      <collision name="collision">
+        <surface>
+          <friction>
+            <ode>
+              <mu>0.2</mu>
+            </ode>
+          </friction>
+          <contact>
+            <ode>
+              <soft_cfm>0.01</soft_cfm>
+              <kp>1000</kp>
+              <kd>1</kd>
+              <!-- <max_vel>0.000001</max_vel> -->
+              <min_depth>0.02</min_depth>
+            </ode>
+          </contact>
+        </surface>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://lunar/meshes/lunar_surface.dae</uri>
+          </mesh>
+          
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://lunar/meshes/lunar_surface.dae</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://model://lunar/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/LunarSurface</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+  </model>
+</sdf>
+
